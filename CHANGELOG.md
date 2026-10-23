@@ -333,3 +333,9 @@
 
 ## V6.0-dev-v14
 - Versión anterior; corrección de la clave pública de sincronización.
+
+
+## V6.0-dev-v72 — pie de ficha económica
+- Se fija la columna de estado y técnico a la izquierda, manteniendo las pegatinas apiladas y sus tamaños actuales.
+- El botón «Examinar» ocupa la columna derecha, centrado verticalmente y sin intercalarse entre las pegatinas.
+- Solo se modifica la presentación; se conservan los datos y la acción existente del botón.
