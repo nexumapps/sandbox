@@ -1,3 +1,9 @@
+## V6.0-dev-v86 — panel único y clientes sin duplicados
+- Se fuerza el cierre global de cualquier panel abierto antes de abrir el correspondiente al campo activo.
+- Se eliminan paneles previos del campo antes de crear uno nuevo, evitando duplicación por inicializaciones repetidas.
+- Se consolidan registros de cliente por CID; cuando falta CID, por nombre y contacto, combinando datos disponibles.
+- Se mantiene la lista completa con desplazamiento y altura adaptativa.
+
 ## V6.0-dev-v85 — lista completa y panel único
 - Las sugerencias muestran todas las coincidencias; el panel permite desplazarse por la lista completa.
 - La altura visible se adapta a la pantalla móvil y ofrece un máximo mayor en escritorio.
