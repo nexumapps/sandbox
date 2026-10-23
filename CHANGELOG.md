@@ -352,3 +352,9 @@
 - La línea divisoria queda limitada al ancho de cada tarjeta.
 - Las pegatinas de estado y técnico quedan más compactas; el botón «Examinar» aumenta ligeramente de tamaño y se alinea hacia la derecha.
 - Sin cambios en datos, cálculos ni acciones.
+
+
+## V6.0-dev-v75 — tarjetas ECN alineadas con TK
+- Los movimientos ECN adoptan la tarjeta con borde, fondo, ID y fecha arriba, datos en columnas y pie separado, como las fichas TK.
+- Se conservan los importes, moneda, tasa, notas y acciones existentes de editar y borrar.
+- Ajuste visual adaptable para móvil y pantallas amplias; sin cambios en cálculos ni persistencia.
