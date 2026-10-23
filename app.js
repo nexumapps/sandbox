@@ -1,5 +1,5 @@
 // V6.0-dev-v71: columna izquierda equipo/cliente/ganancia/tasa; derecha inversión/incremento/impacto; pie con etiquetas compactas y botón ancho.
-const APP_VERSION="6.0-dev-v85";
+const APP_VERSION="6.0-dev-v86";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -220,8 +220,10 @@ function knownClients(){
  for(const t of data){
   const cliente=String(t.cliente||"").trim(),cid=String(t.cid||"").trim(),contacto=String(t.contacto||"").trim();
   if(!cliente&&!cid&&!contacto)continue;
-  const key=[clientKey(cliente),clientKey(cid),clientKey(contacto)].join("|");
-  if(!seen.has(key))seen.set(key,{cliente,cid,contacto});
+  const key=clientKey(cid)? "cid:"+clientKey(cid) : "name-contact:"+clientKey(cliente)+"|"+clientKey(contacto);
+  const old=seen.get(key);
+  if(!old)seen.set(key,{cliente,cid,contacto});
+  else {if(!old.cliente&&cliente)old.cliente=cliente;if(!old.cid&&cid)old.cid=cid;if(!old.contacto&&contacto)old.contacto=contacto;}
  }
  return [...seen.values()];
 }
@@ -235,8 +237,9 @@ function attachClientAssist(prefix=""){
   hideAll();
  };
  const showFor=source=>{
+  /* Cierra cualquier panel de sugerencias de la app, incluso si otra inicialización lo creó. */
+  document.querySelectorAll(".client-suggestion-panel.open").forEach(node=>node.classList.remove("open"));
   const panel=panels.get(source.field);if(!panel)return;
-  panels.forEach((other,key)=>{if(key!==source.field)other.root.classList.remove("open")});
   const query=clientKey(source.el.value);
   const clients=knownClients();
   const matches=clients.filter(c=>[c.cliente,c.cid,c.contacto].map(clientKey).some(v=>v&&(!query||v.includes(query))));
@@ -254,6 +257,8 @@ function attachClientAssist(prefix=""){
  };
  for(const {field,el} of inputs){
   const label=el.closest("label");if(!label)continue;
+  /* Idempotencia: elimina paneles previos antes de crear uno nuevo para este campo. */
+  label.querySelectorAll(":scope > .client-suggestion-panel").forEach(node=>node.remove());
   label.classList.add("client-suggestion-anchor");
   const root=document.createElement("div");root.className="client-suggestion-panel";root.setAttribute("role","listbox");
   const head=document.createElement("div");head.className="client-suggestion-head";
