@@ -345,3 +345,10 @@
 - Se mantiene estado y técnico apilados a la izquierda, evitando que la pegatina de estado salte de línea.
 - Se reduce la altura del botón «Examinar» y el espacio superior del pie para una fila más compacta.
 - Se conserva la posición del botón a la derecha y no se alteran datos ni acciones.
+
+
+## V6.0-dev-v74 — tarjetas económicas adaptables
+- Los movimientos se presentan en tarjetas independientes con ancho máximo, adaptándose a una, dos o tres columnas según el espacio disponible.
+- La línea divisoria queda limitada al ancho de cada tarjeta.
+- Las pegatinas de estado y técnico quedan más compactas; el botón «Examinar» aumenta ligeramente de tamaño y se alinea hacia la derecha.
+- Sin cambios en datos, cálculos ni acciones.
