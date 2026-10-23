@@ -330,3 +330,11 @@ button:disabled{cursor:wait}
 .econ-cards-grid>.movement-row{width:100%;max-width:430px;box-sizing:border-box;justify-self:center}
 @media(min-width:760px){.econ-cards-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}}
 @media(max-width:600px){.econ-cards-grid{grid-template-columns:minmax(0,1fr);gap:10px}.econ-cards-grid>.econ-row{max-width:none;padding:12px}.econ-cards-grid>.econ-row .econ-footer{grid-template-columns:max-content minmax(0,1fr);gap:8px;padding-top:7px}.econ-cards-grid>.econ-row .econ-action button{font-size:14px;padding:9px 12px}}
+
+/* V6.0-dev-v75: movimientos ECN con la misma tarjeta visual que los tickets TK. */
+.econ-cards-grid>.movement-row{border:1px solid var(--border-color,#354657);border-radius:14px;background:var(--card,#1d2933);padding:14px;display:flex;flex-direction:column;gap:9px;min-width:0;overflow-wrap:anywhere}
+.movement-columns{align-items:start}
+.movement-columns .movement-notes{overflow-wrap:anywhere;min-width:0}
+.movement-footer{border-top:1px solid var(--border-color,#354657);padding-top:9px;margin-top:2px;display:flex;justify-content:flex-end;min-width:0}
+.movement-footer .actions{display:flex;justify-content:flex-end;gap:8px;margin:0;flex-wrap:wrap}
+@media(max-width:600px){.econ-cards-grid>.movement-row{padding:12px;gap:8px}.movement-footer{padding-top:8px}.movement-footer .actions button{padding:8px 12px}}
