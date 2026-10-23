@@ -1,3 +1,10 @@
+## V6.0-dev-v82 — sugerencias de clientes y versión visible dinámica
+- Se añaden sugerencias en Nuevo ingreso usando clientes ya registrados en el taller activo.
+- Al introducir un nombre, CID o contacto que coincide exactamente con un cliente único, se completan los otros campos vacíos; no se sobrescriben datos ya escritos.
+- Se incorpora la misma ayuda de sugerencias en Editar caso.
+- La versión visible de la cabecera y el título se leen de `version.txt`, manteniendo una versión de respaldo para uso sin conexión.
+- Se actualiza el caché de la PWA y la referencia de estilos a V82.
+
 ## V6.0-dev-v71 — distribución correcta de la ficha económica
 - Columna izquierda: equipo, cliente, ganancia total y tasa CUP/USD.
 - Columna derecha: inversión, incremento e impacto total del taller.
