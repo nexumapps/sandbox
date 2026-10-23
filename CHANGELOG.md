@@ -1,3 +1,8 @@
+## V6.0-dev-v84 — corrección del panel de sugerencias
+- Se corrige el renderizado para preservar la cabecera y el botón Ocultar al actualizar los resultados.
+- Se separa el contenedor de resultados y se refuerzan la visibilidad, el apilamiento y el desplazamiento del panel en pantallas móviles.
+- Se actualizan versión visible, version.txt, referencia de estilos y caché PWA.
+
 ## V6.0-dev-v83 — panel flotante de sugerencias
 - Se sustituye el autocompletado nativo del teclado por un panel propio semitransparente junto a Cliente, CID y Contacto.
 - Los resultados muestran nombre, CID y contacto; al seleccionar uno, se rellenan los tres campos.
