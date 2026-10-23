@@ -377,3 +377,9 @@
 - Contabilidad: las tarjetas ECN ocupan el ancho disponible de cada celda y distribuyen sus datos dentro de una ficha completa, sin quedar estrechas ni centradas.
 - Modo Lista: estados con fondos oscuros y texto legible en tema oscuro, tanto en tema seleccionado como en tema del sistema.
 - Sin cambios en datos, contabilidad ni acciones.
+
+
+## V6.0-dev-v79 — detalles finales de tarjetas
+- Los sellos de garantía de Cola e Histórico se independizan del título y quedan anclados a la esquina superior derecha de cada tarjeta.
+- El pie de las tarjetas ECN (separador y botones) queda abajo, manteniendo la información en la parte superior.
+- Sin cambios en lógica ni datos.
