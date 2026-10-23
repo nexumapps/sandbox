@@ -437,3 +437,8 @@ button:disabled{cursor:wait}
 .client-suggestion-panel.open{display:block}
 .client-suggestion-results{display:flex;flex-direction:column;max-height:min(210px,28vh);overflow-y:auto;overscroll-behavior:contain}
 .client-suggestion-head{position:sticky;top:0;z-index:1;background:rgba(13,22,34,.98)}
+
+/* V6.0-dev-v85 — lista completa con altura adaptativa y un solo panel activo. */
+.client-suggestion-panel{max-height:min(42vh, 360px)}
+.client-suggestion-results{max-height:min(34vh, 300px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+@media(min-width:761px){.client-suggestion-panel{max-height:320px}.client-suggestion-results{max-height:260px}}
