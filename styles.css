@@ -262,3 +262,16 @@ button:disabled{cursor:wait}
 .button-spinner{display:inline-block;width:15px;height:15px;flex:0 0 15px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:nexum-button-spin .7s linear infinite;vertical-align:middle}
 @keyframes nexum-button-spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.button-spinner{animation-duration:1.8s}}
+
+/* V6.0-dev-v68: ficha económica compacta, con métricas financieras distribuidas independientemente de los datos descriptivos. */
+.econ-row{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"ticket ticket ticket" "date date date" "meta meta meta" "investment increment impact" "gain gain rate" "status action action";gap:8px 14px;align-items:start}
+.econ-ticket-id{font-size:.94rem;font-weight:700}
+.econ-date{font-size:12px;line-height:1.35}
+.econ-meta{display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.35}
+.econ-label{font-size:11px;line-height:1.25}
+.econ-investment,.econ-increment,.econ-impact,.econ-gain,.econ-rate{min-width:0;overflow-wrap:anywhere;font-size:13px}
+.econ-row .money-equivalent{font-size:11px}
+.econ-action{display:flex;justify-content:flex-end;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.econ-technician{font-size:12px;white-space:nowrap}
+.econ-action button{padding:8px 10px;font-size:13px}
+@media(max-width:760px){.econ-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 10px;padding:11px 0}.econ-ticket-id{font-size:.9rem}.econ-investment,.econ-increment,.econ-impact,.econ-gain,.econ-rate{font-size:12px}.econ-label{font-size:10px}.econ-action{grid-column:1/-1;justify-content:space-between}.econ-status{grid-column:1/-1}.econ-action button{font-size:12px}.econ-technician{font-size:11px}}
