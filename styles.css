@@ -373,3 +373,28 @@ button:disabled{cursor:wait}
 .listwrap .rowderived .badge{background:#ffd9bd;color:#833b08}
 .listwrap .rowwait .badge{background:#e2e8ef;color:#334e68}
 @media(max-width:720px){.case-grid{grid-template-columns:minmax(0,1fr)}}
+
+/* V6.0-dev-v78: tarjetas TK con ancho controlado; ECN ocupa toda su celda y modo Lista respeta el tema oscuro. */
+.case-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:14px}
+.case-grid>.case{max-width:460px;justify-self:stretch}
+@media(min-width:760px){.case-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr))}}
+@media(max-width:759px){.case-grid{grid-template-columns:minmax(0,1fr)}.case-grid>.case{max-width:none}}
+#economyBody .econ-cards-grid>.movement-row.econ-row{max-width:none!important;width:100%!important;margin:0!important;justify-self:stretch!important;align-self:stretch!important}
+#economyBody .econ-cards-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));align-items:stretch}
+@media(max-width:600px){#economyBody .econ-cards-grid{grid-template-columns:minmax(0,1fr)}}
+/* Los colores pastel se reservan al tema claro; en oscuro se usan fondos profundos como las tarjetas TK. */
+:root[data-theme="dark"] .listwrap{background:var(--card);border-color:var(--line)}
+:root[data-theme="dark"] .listtable th{background:#263543;color:#d5e0eb}
+:root[data-theme="dark"] .listwrap .listtable tbody tr.rowdone{background:#1d3a2b;color:#d4f0dc}
+:root[data-theme="dark"] .listwrap .listtable tbody tr.rowreturned,:root[data-theme="dark"] .listwrap .listtable tbody tr.rowcancelled{background:#402528;color:#ffd9d9}
+:root[data-theme="dark"] .listwrap .listtable tbody tr.rowconfirm{background:#1d3447;color:#d1eaff}
+:root[data-theme="dark"] .listwrap .listtable tbody tr.rowready{background:#40351d;color:#ffe5a0}
+:root[data-theme="dark"] .listwrap .listtable tbody tr.rowderived{background:#422f22;color:#ffddc2}
+:root[data-theme="dark"] .listwrap .listtable tbody tr.rowwait{background:#25313c;color:#d9e3ed}
+:root[data-theme="dark"] .listwrap .rowdone .badge{background:#28563a;color:#d8f5df}
+:root[data-theme="dark"] .listwrap .rowreturned .badge,:root[data-theme="dark"] .listwrap .rowcancelled .badge{background:#673238;color:#ffe0e0}
+:root[data-theme="dark"] .listwrap .rowconfirm .badge{background:#254a66;color:#d9efff}
+:root[data-theme="dark"] .listwrap .rowready .badge{background:#66501f;color:#fff0bf}
+:root[data-theme="dark"] .listwrap .rowderived .badge{background:#68432c;color:#ffe2ca}
+:root[data-theme="dark"] .listwrap .rowwait .badge{background:#354554;color:#e1eaf2}
+@media(prefers-color-scheme:dark){:root[data-theme="system"] .listwrap{background:var(--card);border-color:var(--line)}:root[data-theme="system"] .listtable th{background:#263543;color:#d5e0eb}:root[data-theme="system"] .listwrap .listtable tbody tr.rowdone{background:#1d3a2b;color:#d4f0dc}:root[data-theme="system"] .listwrap .listtable tbody tr.rowreturned,:root[data-theme="system"] .listwrap .listtable tbody tr.rowcancelled{background:#402528;color:#ffd9d9}:root[data-theme="system"] .listwrap .listtable tbody tr.rowconfirm{background:#1d3447;color:#d1eaff}:root[data-theme="system"] .listwrap .listtable tbody tr.rowready{background:#40351d;color:#ffe5a0}:root[data-theme="system"] .listwrap .listtable tbody tr.rowderived{background:#422f22;color:#ffddc2}:root[data-theme="system"] .listwrap .listtable tbody tr.rowwait{background:#25313c;color:#d9e3ed}:root[data-theme="system"] .listwrap .rowdone .badge{background:#28563a;color:#d8f5df}:root[data-theme="system"] .listwrap .rowreturned .badge,:root[data-theme="system"] .listwrap .rowcancelled .badge{background:#673238;color:#ffe0e0}:root[data-theme="system"] .listwrap .rowconfirm .badge{background:#254a66;color:#d9efff}:root[data-theme="system"] .listwrap .rowready .badge{background:#66501f;color:#fff0bf}:root[data-theme="system"] .listwrap .rowderived .badge{background:#68432c;color:#ffe2ca}:root[data-theme="system"] .listwrap .rowwait .badge{background:#354554;color:#e1eaf2}}
