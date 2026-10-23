@@ -1,4 +1,5 @@
-const APP_VERSION="6.0-dev-v68";
+// V6.0-dev-v70: ficha económica con dos columnas internas independientes y pie separado para estado, técnico y acción.
+const APP_VERSION="6.0-dev-v70";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -413,7 +414,35 @@ function economyBalancePhysical(){let legacy=legacyInitialBalancePhysical(),cup=
 function economyBalanceCUP(){const b=economyBalancePhysical();return b.cup+b.usd*currentRate()}
 function economyBalanceUSD(){const b=economyBalancePhysical();let r=currentRate();return r>0?b.usd+b.cup/r:0}
 function economySummary(){let tickets=economyTickets().filter(economyInPeriod);let income=tickets.reduce((s,x)=>{const e=ticketEconomy(x);return s+(e.income>0?e.incomeUSD:0)},0);let investment=tickets.reduce((s,x)=>s+ticketEconomy(x).invUSD,0);let gross=income-investment;let available=tickets.reduce((s,x)=>{const e=ticketEconomy(x);const m=e.margin===""?0:usd(e.margin,e.currency,e.rate);return s+e.grossUSD-m},0);let ticketMargin=tickets.reduce((s,x)=>{const e=ticketEconomy(x);return s+(e.margin===""?0:usd(e.margin,e.currency,e.rate))},0);let emIn=movements.filter(m=>inPeriod(m.fecha,economyPeriod)&&m.tipo==="Entrada").reduce((s,m)=>s+usd(m.cantidad,m.moneda,m.tasa),0);let emOut=movements.filter(m=>inPeriod(m.fecha,economyPeriod)&&m.tipo==="Salida").reduce((s,m)=>s+usd(m.cantidad,m.moneda,m.tasa),0);let losses=tickets.reduce((s,x)=>{const e=ticketEconomy(x);return s+(e.gross<0?Math.abs(e.grossUSD):0)},0);let incremento=ticketMargin-losses;let gananciaTaller=incremento;let ingresosTaller=tickets.reduce((s,x)=>{const e=ticketEconomy(x);const m=e.margin===''?0:usd(e.margin,e.currency,e.rate);return s+(e.gross>0?Math.max(0,e.grossUSD-Math.max(0,m)):0)},0);let gananciasRepartidas=ingresosTaller;let incrementosTotales=ticketMargin+gananciasRepartidas;let gananciaTotal=gananciaTaller+gananciasRepartidas;let physical=economyBalancePhysical();return{tickets,income,investment,gross,available,reinvestment:emIn,ticketMargin,ingresosTaller,gananciasRepartidas,incremento,gananciaTaller,incrementosTotales,gananciaTotal,emIn,emOut,losses,balance:economyBalanceUSD(),balanceCUP:economyBalanceCUP(),balanceCUPPhysical:physical.cup,balanceUSDPhysical:physical.usd,otherOut:emOut}}
-function economyCard(x){let e=ticketEconomy(x);let incremento=e.gross>0?Math.max(0,Number(e.margin||0)):0;let impactoTotal=e.gross<0?e.gross:(e.inv+incremento);let incrementoClass=incremento>0?"positive":"";let impactoClass=impactoTotal<0?"negative":impactoTotal>0?"positive":"";let incrementoSign=incremento>0?"+":"";let impactoSign=impactoTotal>0?"+":"";return `<div class="econ-row"><div class="econ-ticket-id">${esc(x.ticketId)}</div><div class="econ-date muted">${esc(displayDate(economyDate(x)))}</div><div class="econ-meta"><div class="muted">${esc(x.equipo||"Equipo sin especificar")}</div><div class="muted">${esc(x.cliente||"Cliente sin nombre")}</div></div><div class="econ-investment"><span class="econ-label">Inversión</span>${moneyPair(e.inv,e.currency,e.rate)}</div><div class="econ-gain"><span class="econ-label">${e.gross<0?"Pérdida":"Ganancia Total"}</span><b class="${e.gross<0?"negative":"positive"}">${Math.abs(e.gross).toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${Math.abs(e.grossUSD).toFixed(2)} USD</small>`:''}</div><div class="econ-increment"><span class="econ-label">Incremento del taller</span><b class="${incrementoClass}">${incrementoSign}${incremento.toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${incrementoSign}${usd(incremento,e.currency,e.rate).toFixed(2)} USD</small>`:''}</div><div class="econ-impact"><span class="econ-label">Impacto total en el taller</span><b class="${impactoClass}">${impactoSign}${impactoTotal.toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${impactoSign}${usd(impactoTotal,e.currency,e.rate).toFixed(2)} USD</small>`:''}</div><div class="econ-rate"><span class="econ-label">Tasa CUP/USD</span><b>${e.currency==='USD'?'—':esc(e.rate||'—')}</b></div><div class="econ-status"><span class="badge">${esc(x.estado)}</span></div><div class="econ-action"><span class="econ-technician muted">T: ${esc(x.tecnico||"Sin asignar")}</span><button class="secondary" onclick="openEconomyTicket('${escAttr(x.ticketId)}')">Examinar y editar</button></div></div>`}
+function economyCard(x){
+ let e=ticketEconomy(x);
+ let incremento=e.gross>0?Math.max(0,Number(e.margin||0)):0;
+ let impactoTotal=e.gross<0?e.gross:(e.inv+incremento);
+ let incrementoClass=incremento>0?"positive":"";
+ let impactoClass=impactoTotal<0?"negative":impactoTotal>0?"positive":"";
+ let incrementoSign=incremento>0?"+":"";
+ let impactoSign=impactoTotal>0?"+":"";
+ return `<div class="econ-row">
+  <div class="econ-ticket-id">${esc(x.ticketId)}</div>
+  <div class="econ-date muted">${esc(displayDate(economyDate(x)))}</div>
+  <div class="econ-columns">
+   <div class="econ-left">
+    <div class="econ-meta"><div class="muted">${esc(x.equipo||"Equipo sin especificar")}</div><div class="muted">${esc(x.cliente||"Cliente sin nombre")}</div></div>
+   </div>
+   <div class="econ-right">
+    <div class="econ-investment"><span class="econ-label">Inversión</span>${moneyPair(e.inv,e.currency,e.rate)}</div>
+    <div class="econ-gain"><span class="econ-label">${e.gross<0?"Pérdida":"Ganancia Total"}</span><b class="${e.gross<0?"negative":"positive"}">${Math.abs(e.gross).toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${Math.abs(e.grossUSD).toFixed(2)} USD</small>`:''}</div>
+    <div class="econ-increment"><span class="econ-label">Incremento del taller</span><b class="${incrementoClass}">${incrementoSign}${incremento.toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${incrementoSign}${usd(incremento,e.currency,e.rate).toFixed(2)} USD</small>`:''}</div>
+    <div class="econ-impact"><span class="econ-label">Impacto total en el taller</span><b class="${impactoClass}">${impactoSign}${impactoTotal.toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${impactoSign}${usd(impactoTotal,e.currency,e.rate).toFixed(2)} USD</small>`:''}</div>
+    <div class="econ-rate"><span class="econ-label">Tasa CUP/USD</span><b>${e.currency==='USD'?'—':esc(e.rate||'—')}</b></div>
+   </div>
+  </div>
+  <div class="econ-footer">
+   <div class="econ-status"><span class="badge">${esc(x.estado)}</span><span class="econ-technician badge">T: ${esc(x.tecnico||"Sin asignar")}</span></div>
+   <div class="econ-action"><button class="secondary" onclick="openEconomyTicket('${escAttr(x.ticketId)}')">Examinar</button></div>
+  </div>
+ </div>`
+}
 function economyMovementUnified(m){return {...m,_kind:'movement'}}
 function economyUnified(){return economyTickets().map(x=>({...x,_kind:'ticket'})).concat(movements.map(economyMovementUnified))}
 // V6.0-dev-v64: normalizar fechas antes de ordenar; soporta ISO (AAAA-MM-DD) y DD/MM/AAAA sin mezclar sus formatos lexicográficos.
