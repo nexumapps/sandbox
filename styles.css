@@ -320,3 +320,13 @@ button:disabled{cursor:wait}
  .econ-status .badge,.econ-technician.badge{font-size:11px}
  .econ-action button{font-size:12px;padding:7px 8px;width:100%}
 }
+
+/* V6.0-dev-v74: tarjetas económicas independientes, escalables y en cuadrícula adaptable. */
+.econ-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;align-items:stretch;min-width:0}
+.econ-cards-grid>.econ-row{width:100%;max-width:430px;min-width:0;box-sizing:border-box;justify-self:center;align-self:stretch;border:1px solid var(--border-color,#354657);border-radius:14px;padding:14px;background:var(--card,#1d2933)}
+.econ-cards-grid>.econ-row .econ-footer{width:100%;box-sizing:border-box;border-top:1px solid var(--border-color,#354657)}
+.econ-cards-grid>.econ-row .econ-status .badge,.econ-cards-grid>.econ-row .econ-technician.badge{padding:4px 8px;line-height:1.2;border-radius:999px;white-space:nowrap;font-size:11px}
+.econ-cards-grid>.econ-row .econ-action button{min-height:38px;padding:9px 14px;font-size:14px;white-space:nowrap}
+.econ-cards-grid>.movement-row{width:100%;max-width:430px;box-sizing:border-box;justify-self:center}
+@media(min-width:760px){.econ-cards-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}}
+@media(max-width:600px){.econ-cards-grid{grid-template-columns:minmax(0,1fr);gap:10px}.econ-cards-grid>.econ-row{max-width:none;padding:12px}.econ-cards-grid>.econ-row .econ-footer{grid-template-columns:max-content minmax(0,1fr);gap:8px;padding-top:7px}.econ-cards-grid>.econ-row .econ-action button{font-size:14px;padding:9px 12px}}
