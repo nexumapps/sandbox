@@ -408,3 +408,13 @@ button:disabled{cursor:wait}
 @media(max-width:420px){.case-grid>.case{padding-top:14px}.case-grid>.case .case-head .card-warranty{top:10px;right:10px;width:62px;max-width:62px}.case-grid>.case .case-head h3{padding-right:68px}.case-grid>.case .case-head .card-warranty span:last-child{max-width:62px}}
 #economyBody .econ-cards-grid>.movement-row .movement-footer{margin-top:auto!important}
 #economyBody .econ-cards-grid>.movement-row{min-height:230px}
+
+/* V6.0-dev-v79: pie de ECN anclado al fondo y sello de garantía separado del título en mosaico. */
+#economyBody .econ-cards-grid>.movement-row.econ-row{display:flex;flex-direction:column;min-height:260px}
+#economyBody .econ-cards-grid>.movement-row.econ-row>.movement-footer{margin-top:auto;padding-top:10px;width:100%;border-top:1px solid var(--border-color,#354657)}
+#economyBody .econ-cards-grid>.movement-row.econ-row>.movement-footer .actions{display:flex;justify-content:flex-end;gap:8px;width:100%}
+#economyBody .econ-cards-grid>.movement-row.econ-row>.movement-footer .actions button{flex:0 0 auto}
+.case-grid>.case{position:relative;padding-top:16px}
+.case-grid>.case .case-head{width:100%;padding-right:96px;min-height:36px;box-sizing:border-box}
+.case-grid>.case .case-head h3{overflow-wrap:anywhere}
+.case-grid>.case .case-head>.card-warranty{position:absolute;top:12px;right:12px;width:82px;max-width:82px;margin:0;z-index:1}
