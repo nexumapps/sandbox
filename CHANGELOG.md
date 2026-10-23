@@ -383,3 +383,9 @@
 - Los sellos de garantía de Cola e Histórico se independizan del título y quedan anclados a la esquina superior derecha de cada tarjeta.
 - El pie de las tarjetas ECN (separador y botones) queda abajo, manteniendo la información en la parte superior.
 - Sin cambios en lógica ni datos.
+
+
+## V6.0-dev-v79 — pie de ECN y sello de garantía
+- Tarjetas ECN: la línea divisoria y los botones Editar/Borrar quedan al pie de la tarjeta, separados del contenido y sin dejar un espacio excesivo debajo de los botones.
+- Cola e Histórico en mosaico: el sello de garantía se independiza del nombre y queda anclado a la esquina superior derecha de la tarjeta.
+- Sin cambios en datos ni lógica funcional.
