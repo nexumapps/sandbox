@@ -338,3 +338,14 @@ button:disabled{cursor:wait}
 .movement-footer{border-top:1px solid var(--border-color,#354657);padding-top:9px;margin-top:2px;display:flex;justify-content:flex-end;min-width:0}
 .movement-footer .actions{display:flex;justify-content:flex-end;gap:8px;margin:0;flex-wrap:wrap}
 @media(max-width:600px){.econ-cards-grid>.movement-row{padding:12px;gap:8px}.movement-footer{padding-top:8px}.movement-footer .actions button{padding:8px 12px}}
+
+/* V6.0-dev-v76: refuerzo de tarjeta ECN para evitar que estilos generales la dejen como columnas sueltas. */
+#economyBody .econ-cards-grid>.movement-row.econ-row{display:flex!important;flex-direction:column!important;grid-template-columns:none!important;grid-template-areas:none!important;justify-self:stretch!important;align-self:stretch!important;width:100%!important;max-width:430px!important;min-width:0!important;box-sizing:border-box!important;overflow:hidden;border:1px solid var(--border-color,#354657)!important;border-radius:14px!important;background:var(--card,#1d2933)!important;padding:14px!important;gap:9px!important;margin:0 auto!important}
+#economyBody .econ-cards-grid>.movement-row .econ-ticket-id{display:block;grid-area:auto!important;width:100%;min-width:0;overflow-wrap:anywhere}
+#economyBody .econ-cards-grid>.movement-row .econ-date{display:block;grid-area:auto!important;width:100%;min-width:0}
+#economyBody .econ-cards-grid>.movement-row .movement-columns{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:12px!important;width:100%;min-width:0}
+#economyBody .econ-cards-grid>.movement-row .movement-columns>.econ-left,#economyBody .econ-cards-grid>.movement-row .movement-columns>.econ-right{display:flex;flex-direction:column;gap:10px;min-width:0;overflow-wrap:anywhere}
+#economyBody .econ-cards-grid>.movement-row .movement-notes{color:var(--text-color,inherit);white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
+#economyBody .econ-cards-grid>.movement-row .movement-footer{display:flex!important;justify-content:flex-end!important;width:100%;box-sizing:border-box;border-top:1px solid var(--border-color,#354657);padding-top:9px;margin-top:2px}
+#economyBody .econ-cards-grid>.movement-row .movement-footer .actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:0}
+@media(max-width:600px){#economyBody .econ-cards-grid>.movement-row.econ-row{max-width:none!important;padding:12px!important;gap:8px!important}#economyBody .econ-cards-grid>.movement-row .movement-columns{gap:10px!important}#economyBody .econ-cards-grid>.movement-row .movement-footer{padding-top:8px}}
