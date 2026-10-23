@@ -339,3 +339,9 @@
 - Se fija la columna de estado y técnico a la izquierda, manteniendo las pegatinas apiladas y sus tamaños actuales.
 - El botón «Examinar» ocupa la columna derecha, centrado verticalmente y sin intercalarse entre las pegatinas.
 - Solo se modifica la presentación; se conservan los datos y la acción existente del botón.
+
+
+## V6.0-dev-v73 — pie económico más discreto
+- Se mantiene estado y técnico apilados a la izquierda, evitando que la pegatina de estado salte de línea.
+- Se reduce la altura del botón «Examinar» y el espacio superior del pie para una fila más compacta.
+- Se conserva la posición del botón a la derecha y no se alteran datos ni acciones.
