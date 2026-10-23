@@ -398,3 +398,13 @@ button:disabled{cursor:wait}
 :root[data-theme="dark"] .listwrap .rowderived .badge{background:#68432c;color:#ffe2ca}
 :root[data-theme="dark"] .listwrap .rowwait .badge{background:#354554;color:#e1eaf2}
 @media(prefers-color-scheme:dark){:root[data-theme="system"] .listwrap{background:var(--card);border-color:var(--line)}:root[data-theme="system"] .listtable th{background:#263543;color:#d5e0eb}:root[data-theme="system"] .listwrap .listtable tbody tr.rowdone{background:#1d3a2b;color:#d4f0dc}:root[data-theme="system"] .listwrap .listtable tbody tr.rowreturned,:root[data-theme="system"] .listwrap .listtable tbody tr.rowcancelled{background:#402528;color:#ffd9d9}:root[data-theme="system"] .listwrap .listtable tbody tr.rowconfirm{background:#1d3447;color:#d1eaff}:root[data-theme="system"] .listwrap .listtable tbody tr.rowready{background:#40351d;color:#ffe5a0}:root[data-theme="system"] .listwrap .listtable tbody tr.rowderived{background:#422f22;color:#ffddc2}:root[data-theme="system"] .listwrap .listtable tbody tr.rowwait{background:#25313c;color:#d9e3ed}:root[data-theme="system"] .listwrap .rowdone .badge{background:#28563a;color:#d8f5df}:root[data-theme="system"] .listwrap .rowreturned .badge,:root[data-theme="system"] .listwrap .rowcancelled .badge{background:#673238;color:#ffe0e0}:root[data-theme="system"] .listwrap .rowconfirm .badge{background:#254a66;color:#d9efff}:root[data-theme="system"] .listwrap .rowready .badge{background:#66501f;color:#fff0bf}:root[data-theme="system"] .listwrap .rowderived .badge{background:#68432c;color:#ffe2ca}:root[data-theme="system"] .listwrap .rowwait .badge{background:#354554;color:#e1eaf2}}
+
+/* V6.0-dev-v79: sellos de garantía anclados a la esquina superior derecha y pie ECN al fondo. */
+.case-grid>.case{position:relative;padding-top:16px}
+.case-grid>.case .case-head{display:block;position:static;margin:0 0 7px;min-height:28px}
+.case-grid>.case .case-head h3{padding-right:78px;min-width:0;overflow-wrap:anywhere}
+.case-grid>.case .case-head .card-warranty{position:absolute;top:12px;right:12px;width:68px;max-width:68px;margin:0;z-index:1}
+.case-grid>.case .case-head .card-warranty span:last-child{max-width:68px;overflow-wrap:anywhere}
+@media(max-width:420px){.case-grid>.case{padding-top:14px}.case-grid>.case .case-head .card-warranty{top:10px;right:10px;width:62px;max-width:62px}.case-grid>.case .case-head h3{padding-right:68px}.case-grid>.case .case-head .card-warranty span:last-child{max-width:62px}}
+#economyBody .econ-cards-grid>.movement-row .movement-footer{margin-top:auto!important}
+#economyBody .econ-cards-grid>.movement-row{min-height:230px}
