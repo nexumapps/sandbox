@@ -1,5 +1,5 @@
 // V6.0-dev-v70: ficha económica con dos columnas internas independientes y pie separado para estado, técnico y acción.
-const APP_VERSION="6.0-dev-v70";
+const APP_VERSION="6.0-dev-v71";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -428,13 +428,13 @@ function economyCard(x){
   <div class="econ-columns">
    <div class="econ-left">
     <div class="econ-meta"><div class="muted">${esc(x.equipo||"Equipo sin especificar")}</div><div class="muted">${esc(x.cliente||"Cliente sin nombre")}</div></div>
+    <div class="econ-gain"><span class="econ-label">${e.gross<0?"Pérdida":"Ganancia Total"}</span><b class="${e.gross<0?"negative":"positive"}">${Math.abs(e.gross).toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${Math.abs(e.grossUSD).toFixed(2)} USD</small>`:''}</div>
+    <div class="econ-rate"><span class="econ-label">Tasa CUP/USD</span><b>${e.currency==='USD'?'—':esc(e.rate||'—')}</b></div>
    </div>
    <div class="econ-right">
     <div class="econ-investment"><span class="econ-label">Inversión</span>${moneyPair(e.inv,e.currency,e.rate)}</div>
-    <div class="econ-gain"><span class="econ-label">${e.gross<0?"Pérdida":"Ganancia Total"}</span><b class="${e.gross<0?"negative":"positive"}">${Math.abs(e.gross).toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${Math.abs(e.grossUSD).toFixed(2)} USD</small>`:''}</div>
     <div class="econ-increment"><span class="econ-label">Incremento del taller</span><b class="${incrementoClass}">${incrementoSign}${incremento.toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${incrementoSign}${usd(incremento,e.currency,e.rate).toFixed(2)} USD</small>`:''}</div>
     <div class="econ-impact"><span class="econ-label">Impacto total en el taller</span><b class="${impactoClass}">${impactoSign}${impactoTotal.toFixed(2)} ${e.currency}</b>${e.currency==='CUP'?`<small class="money-equivalent">≈ ${impactoSign}${usd(impactoTotal,e.currency,e.rate).toFixed(2)} USD</small>`:''}</div>
-    <div class="econ-rate"><span class="econ-label">Tasa CUP/USD</span><b>${e.currency==='USD'?'—':esc(e.rate||'—')}</b></div>
    </div>
   </div>
   <div class="econ-footer">
