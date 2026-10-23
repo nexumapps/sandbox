@@ -1,5 +1,5 @@
 // V6.0-dev-v71: columna izquierda equipo/cliente/ganancia/tasa; derecha inversión/incremento/impacto; pie con etiquetas compactas y botón ancho.
-const APP_VERSION="6.0-dev-v82";
+const APP_VERSION="6.0-dev-v83";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -228,31 +228,46 @@ function knownClients(){
 function attachClientAssist(prefix=""){
  const ids={cliente:prefix+"cliente",cid:prefix+"cid",contacto:prefix+"contacto"};
  const inputs=Object.entries(ids).map(([field,id])=>({field,el:document.getElementById(id)})).filter(x=>x.el);
- const listId=prefix?"editClientSuggestions":"clientSuggestions";
- let list=document.getElementById(listId);
- if(!list){list=document.createElement("datalist");list.id=listId;(prefix?document.getElementById("detailBody"):document.getElementById("caseForm"))?.appendChild(list);}
- for(const {el} of inputs)el.setAttribute("list",listId);
- const refresh=source=>{
-  const val=clientKey(source.value);
-  const clients=knownClients();
-  list.innerHTML="";
-  const vals=new Set();
-  for(const c of clients){
-   const candidate=c[source.field]||"";
-   if(candidate&&(!val||clientKey(candidate).includes(val))&&!vals.has(candidate)){vals.add(candidate);const opt=document.createElement("option");opt.value=candidate;list.appendChild(opt);}
-  }
-  if(!val)return;
-  const exact=clients.filter(c=>c[source.field]&&clientKey(c[source.field])===val);
-  const matches=exact.length?exact:clients.filter(c=>c[source.field]&&clientKey(c[source.field])===val);
-  if(matches.length===1){
-   const match=matches[0];
-   for(const {field,el} of inputs)if(field!==source.field&&match[field])el.value=match[field];
-  }
+ const panels=new Map();
+ const hideAll=()=>panels.forEach(panel=>panel.classList.remove("open"));
+ const selectClient=(client)=>{
+  for(const {field,el} of inputs)el.value=client[field]||"";
+  hideAll();
  };
- for(const item of inputs){
-  item.el.addEventListener("input",()=>refresh(item));
-  item.el.addEventListener("change",()=>refresh(item));
+ const showFor=(source)=>{
+  const panel=panels.get(source.field);if(!panel)return;
+  const query=clientKey(source.el.value);
+  const clients=knownClients();
+  const matches=clients.filter(c=>{
+   const vals=[c.cliente,c.cid,c.contacto].map(clientKey).filter(Boolean);
+   return !query||vals.some(v=>v.includes(query));
+  }).slice(0,8);
+  panel.innerHTML="";
+  if(!matches.length){panel.classList.remove("open");return;}
+  for(const client of matches){
+   const option=document.createElement("button");option.type="button";option.className="client-suggestion-option";
+   const name=document.createElement("strong");name.textContent=client.cliente||"Cliente sin nombre";option.appendChild(name);
+   const detail=document.createElement("span");detail.textContent=[client.cid?"CID: "+client.cid:"",client.contacto?"Contacto: "+client.contacto:""].filter(Boolean).join(" · ");option.appendChild(detail);
+   option.addEventListener("mousedown",e=>e.preventDefault());
+   option.addEventListener("click",()=>selectClient(client));panel.appendChild(option);
+  }
+  panel.classList.add("open");
+ };
+ for(const {field,el} of inputs){
+  const label=el.closest("label");if(!label)continue;
+  label.classList.add("client-suggestion-anchor");
+  const panel=document.createElement("div");panel.className="client-suggestion-panel";panel.setAttribute("role","listbox");
+  const head=document.createElement("div");head.className="client-suggestion-head";
+  const caption=document.createElement("span");caption.textContent="Clientes coincidentes";head.appendChild(caption);
+  const close=document.createElement("button");close.type="button";close.className="client-suggestion-close";close.textContent="Ocultar";close.setAttribute("aria-label","Ocultar sugerencias");close.addEventListener("click",()=>panel.classList.remove("open"));head.appendChild(close);panel.appendChild(head);
+  label.appendChild(panel);panels.set(field,panel);
+  el.removeAttribute("list");
+  el.addEventListener("focus",()=>showFor({field,el}));
+  el.addEventListener("input",()=>showFor({field,el}));
+  el.addEventListener("change",()=>showFor({field,el}));
+  el.addEventListener("keydown",e=>{if(e.key==="Escape")panel.classList.remove("open")});
  }
+ document.addEventListener("pointerdown",e=>{if(!e.target.closest(".client-suggestion-anchor"))hideAll()});
 }
 function refreshClientSuggestions(){
  const list=document.getElementById("clientSuggestions");if(!list)return;
