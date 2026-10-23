@@ -1,3 +1,9 @@
+## V6.0-dev-v85 — lista completa y panel único
+- Las sugerencias muestran todas las coincidencias; el panel permite desplazarse por la lista completa.
+- La altura visible se adapta a la pantalla móvil y ofrece un máximo mayor en escritorio.
+- Al activar Cliente, CID o Contacto, se cierra el panel anterior y queda abierto solo el del campo activo.
+- Se sincronizan versión visible, version.txt, estilos, caché PWA y changelog.
+
 ## V6.0-dev-v84 — corrección del panel de sugerencias
 - Se corrige el renderizado para preservar la cabecera y el botón Ocultar al actualizar los resultados.
 - Se separa el contenedor de resultados y se refuerzan la visibilidad, el apilamiento y el desplazamiento del panel en pantallas móviles.
