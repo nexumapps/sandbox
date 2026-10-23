@@ -311,6 +311,13 @@
 
 # NEXUM Taller — registro de cambios
 
+## V6.0-dev-v71 — distribución correcta de la ficha económica
+- Columna izquierda: equipo, cliente, ganancia total y tasa CUP/USD.
+- Columna derecha: inversión, incremento e impacto total del taller.
+- El pie conserva estado y técnico apilados a la izquierda y amplía el botón «Examinar» a la derecha; las pegatinas quedan más compactas.
+- Solo cambia la presentación; no se alteran cálculos, datos ni la acción de abrir el ticket.
+
+
 ## V6.0-dev-v15 — sincronización entre dispositivos
 - Los cambios remotos se aplican automáticamente cuando no hay operaciones locales pendientes para esa entidad y no hay un diálogo abierto.
 - Los conflictos y cambios que no pueden aplicarse de forma segura se conservan en una sección visible de revisión.
