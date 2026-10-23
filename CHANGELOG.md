@@ -396,3 +396,8 @@
 - El CID se conserva al editar y al crear un reingreso por garantía; forma parte del registro y del flujo de sincronización existente.
 - Se incluye CID en la exportación a Excel y se normalizan los tickets antiguos sin CID sin alterar otros datos.
 - El autocompletado y las sugerencias se implementarán en el siguiente paso con pruebas específicas.
+
+
+## V6.0-dev-v81 — CID visible en Examinar y Editar
+- Se presenta el CID como campo explícito en el detalle y el formulario de edición, además del guardado explícito al confirmar los cambios.
+- Se renueva la caché PWA para evitar que el navegador mantenga la interfaz anterior.
