@@ -1,3 +1,9 @@
+## V6.0-dev-v71 — distribución correcta de la ficha económica
+- Columna izquierda: equipo, cliente, ganancia total y tasa CUP/USD.
+- Columna derecha: inversión, incremento e impacto total del taller.
+- El pie conserva estado y técnico apilados a la izquierda y amplía el botón «Examinar» a la derecha; las pegatinas quedan más compactas.
+- Solo cambia la presentación; no se alteran cálculos, datos ni la acción de abrir el ticket.
+
 ## V6.0-dev-v70 — ficha económica con columnas independientes
 - ID y fecha ocupan líneas completas al inicio de cada ficha.
 - Equipo/cliente y datos económicos se organizan en dos contenedores internos independientes, evitando huecos artificiales entre columnas.
