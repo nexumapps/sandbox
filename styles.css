@@ -419,7 +419,7 @@ button:disabled{cursor:wait}
 .case-grid>.case .case-head h3{overflow-wrap:anywhere}
 .case-grid>.case .case-head>.card-warranty{position:absolute;top:12px;right:12px;width:82px;max-width:82px;margin:0;z-index:1}
 
-/* V6.0-dev-v83 — panel flotante de sugerencias de clientes, independiente del teclado del móvil. */
+/* V6.0-dev-v84 — panel flotante de sugerencias de clientes, independiente del teclado del móvil. */
 .client-suggestion-anchor{position:relative}
 .client-suggestion-panel{display:none;position:absolute;z-index:1000;left:0;right:0;top:calc(100% + 4px);max-height: min(240px, 32vh);overflow-y:auto;background:rgba(13,22,34,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(115,160,205,.55);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.42);color:#e8f0fa;padding:6px}
 .client-suggestion-panel.open{display:block}
@@ -430,3 +430,10 @@ button:disabled{cursor:wait}
 .client-suggestion-option:active,.client-suggestion-option:focus-visible{background:rgba(70,135,210,.3);outline:1px solid rgba(100,170,255,.65)}
 .client-suggestion-option strong{font-size:.94rem}
 .client-suggestion-option span{font-size:.78rem;color:#b8c9dc;overflow-wrap:anywhere}
+
+/* V6.0-dev-v84 — asegurar que el panel y su cabecera permanezcan visibles en móvil. */
+.client-suggestion-anchor{position:relative;overflow:visible}
+.client-suggestion-panel{z-index:9999;isolation:isolate}
+.client-suggestion-panel.open{display:block}
+.client-suggestion-results{display:flex;flex-direction:column;max-height:min(210px,28vh);overflow-y:auto;overscroll-behavior:contain}
+.client-suggestion-head{position:sticky;top:0;z-index:1;background:rgba(13,22,34,.98)}
