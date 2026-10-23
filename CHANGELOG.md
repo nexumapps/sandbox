@@ -370,3 +370,10 @@
 - Cola e Histórico agrupan las tarjetas TK en columnas cuando el ancho lo permite; en pantallas estrechas mantienen una tarjeta por fila.
 - El modo Lista conserva el formato tabular de una fila por registro y refuerza el contraste de los colores de estado para acercarlos a los del mosaico.
 - No se modifica el contenido de las tarjetas ni la lógica de filtros, orden, estados o acciones.
+
+
+## V6.0-dev-v78 — ajuste de tarjetas y colores en tema oscuro
+- Cola e Histórico: tarjetas TK con ancho máximo controlado para formar mosaico cuando haya espacio; en pantallas estrechas, una por fila.
+- Contabilidad: las tarjetas ECN ocupan el ancho disponible de cada celda y distribuyen sus datos dentro de una ficha completa, sin quedar estrechas ni centradas.
+- Modo Lista: estados con fondos oscuros y texto legible en tema oscuro, tanto en tema seleccionado como en tema del sistema.
+- Sin cambios en datos, contabilidad ni acciones.
