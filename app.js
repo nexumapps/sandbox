@@ -1,4 +1,4 @@
-// V6.0-dev-v70: ficha económica con dos columnas internas independientes y pie separado para estado, técnico y acción.
+// V6.0-dev-v71: columna izquierda equipo/cliente/ganancia/tasa; derecha inversión/incremento/impacto; pie con etiquetas compactas y botón ancho.
 const APP_VERSION="6.0-dev-v71";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
