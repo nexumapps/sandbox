@@ -364,3 +364,9 @@
 - Se refuerza el estilo de tarjeta ECN con selectores específicos para que los estilos generales no distribuyan los campos como elementos sueltos.
 - ID y fecha arriba, concepto/tasa y cantidad en columnas, acciones en un pie dentro de la tarjeta.
 - Ajuste adaptable para móvil; sin cambios contables ni en las acciones.
+
+
+## V6.0-dev-v77 — mosaico adaptable en Cola e Histórico
+- Cola e Histórico agrupan las tarjetas TK en columnas cuando el ancho lo permite; en pantallas estrechas mantienen una tarjeta por fila.
+- El modo Lista conserva el formato tabular de una fila por registro y refuerza el contraste de los colores de estado para acercarlos a los del mosaico.
+- No se modifica el contenido de las tarjetas ni la lógica de filtros, orden, estados o acciones.
