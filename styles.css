@@ -418,3 +418,15 @@ button:disabled{cursor:wait}
 .case-grid>.case .case-head{width:100%;padding-right:96px;min-height:36px;box-sizing:border-box}
 .case-grid>.case .case-head h3{overflow-wrap:anywhere}
 .case-grid>.case .case-head>.card-warranty{position:absolute;top:12px;right:12px;width:82px;max-width:82px;margin:0;z-index:1}
+
+/* V6.0-dev-v83 — panel flotante de sugerencias de clientes, independiente del teclado del móvil. */
+.client-suggestion-anchor{position:relative}
+.client-suggestion-panel{display:none;position:absolute;z-index:1000;left:0;right:0;top:calc(100% + 4px);max-height: min(240px, 32vh);overflow-y:auto;background:rgba(13,22,34,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(115,160,205,.55);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.42);color:#e8f0fa;padding:6px}
+.client-suggestion-panel.open{display:block}
+.client-suggestion-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 5px 7px;border-bottom:1px solid rgba(160,190,220,.2);font-size:.78rem;color:#a9c2dc}
+.client-suggestion-close{background:rgba(120,150,180,.18);border:1px solid rgba(160,190,220,.35);color:inherit;border-radius:7px;padding:4px 8px;font-size:.78rem;flex:0 0 auto}
+.client-suggestion-option{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:100%;padding:9px 8px;text-align:left;color:inherit;background:transparent;border:0;border-radius:8px;cursor:pointer}
+.client-suggestion-option+ .client-suggestion-option{border-top:1px solid rgba(160,190,220,.12)}
+.client-suggestion-option:active,.client-suggestion-option:focus-visible{background:rgba(70,135,210,.3);outline:1px solid rgba(100,170,255,.65)}
+.client-suggestion-option strong{font-size:.94rem}
+.client-suggestion-option span{font-size:.78rem;color:#b8c9dc;overflow-wrap:anywhere}
