@@ -349,3 +349,27 @@ button:disabled{cursor:wait}
 #economyBody .econ-cards-grid>.movement-row .movement-footer{display:flex!important;justify-content:flex-end!important;width:100%;box-sizing:border-box;border-top:1px solid var(--border-color,#354657);padding-top:9px;margin-top:2px}
 #economyBody .econ-cards-grid>.movement-row .movement-footer .actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:0}
 @media(max-width:600px){#economyBody .econ-cards-grid>.movement-row.econ-row{max-width:none!important;padding:12px!important;gap:8px!important}#economyBody .econ-cards-grid>.movement-row .movement-columns{gap:10px!important}#economyBody .econ-cards-grid>.movement-row .movement-footer{padding-top:8px}}
+
+/* V6.0-dev-v77: mosaico adaptable para Cola e Histórico; la vista Lista conserva una sola fila por registro. */
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px;align-items:stretch;min-width:0}
+.case-grid>.case{width:100%;min-width:0;margin:0;display:flex;flex-direction:column;align-items:flex-start;overflow-wrap:anywhere}
+.case-grid>.case .meta{width:100%;overflow-wrap:anywhere}
+.case-grid>.case .actions{margin-top:auto;padding-top:10px;width:100%}
+.case-grid>.case .actions button:first-child{flex:1}
+@media(min-width:1000px){.case-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px}}
+/* Lista: contraste y colores de estado coherentes con las tarjetas del mosaico. */
+.listwrap .listtable tbody tr.rowdone{background:#e7f5e8;color:#245b2a}
+.listwrap .listtable tbody tr.rowreturned,.listwrap .listtable tbody tr.rowcancelled{background:#fde8e8;color:#8f1c1c}
+.listwrap .listtable tbody tr.rowconfirm{background:#e6f3fb;color:#155e8c}
+.listwrap .listtable tbody tr.rowready{background:#fff4cf;color:#805500}
+.listwrap .listtable tbody tr.rowderived{background:#fff0e3;color:#91420a}
+.listwrap .listtable tbody tr.rowwait{background:#f4f7fa;color:#243b53}
+.listwrap .listtable tbody tr td{border-bottom-color:rgba(98,125,152,.25)}
+.listwrap .listtable .badge{font-weight:700;line-height:1.35;white-space:normal}
+.listwrap .rowdone .badge{background:#ccebd0;color:#205b27}
+.listwrap .rowreturned .badge,.listwrap .rowcancelled .badge{background:#f7caca;color:#8f1c1c}
+.listwrap .rowconfirm .badge{background:#cce8f7;color:#124e75}
+.listwrap .rowready .badge{background:#ffe7a3;color:#704900}
+.listwrap .rowderived .badge{background:#ffd9bd;color:#833b08}
+.listwrap .rowwait .badge{background:#e2e8ef;color:#334e68}
+@media(max-width:720px){.case-grid{grid-template-columns:minmax(0,1fr)}}
