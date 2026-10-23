@@ -1,3 +1,9 @@
+## V6.0-dev-v70 — ficha económica con columnas independientes
+- ID y fecha ocupan líneas completas al inicio de cada ficha.
+- Equipo/cliente y datos económicos se organizan en dos contenedores internos independientes, evitando huecos artificiales entre columnas.
+- Estado y técnico aparecen apilados en el pie izquierdo con estilo de etiqueta; el botón «Examinar» queda a la derecha y conserva la apertura de la ficha de edición.
+- Sin cambios en cálculos, datos ni lógica de edición.
+
 ## V6.0-dev-v69 — ficha económica vertical y legible
 - Se recupera una distribución vertical con ID como título y fecha como subtítulo.
 - Los datos descriptivos y los importes quedan en columnas izquierda/derecha independientes.
