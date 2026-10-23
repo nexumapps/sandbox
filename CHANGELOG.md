@@ -1,3 +1,8 @@
+## V6.0-dev-v66 — ID de ticket a todo el ancho
+- El `ticket_id` aparece como encabezado en la parte superior de cada ficha de Contabilidad y ocupa ambas columnas.
+- Los IDs largos pueden partirse en varias líneas sin desbordar la tarjeta, también en móvil.
+- Se conserva el contenido y la distribución de los datos restantes.
+
 ## V6.0-dev-v65 — técnico visible en Contabilidad
 - La lista de Contabilidad muestra el técnico responsable de cada ticket, o «Sin asignar» si no hay técnico registrado.
 - La ficha «Examinar y editar» de Economía también muestra el técnico sin modificarlo desde los controles económicos.
