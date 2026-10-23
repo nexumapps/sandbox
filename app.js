@@ -617,7 +617,7 @@ window.examine=examine;window.enableEdit=enableEdit;window.saveEdit=saveEdit;win
 
 
 /* V6.0-dev-v82 — la versión visible se lee del archivo version.txt. */
-(async function loadVisibleVersion(){try{const response=await fetch("./version.txt?ts="+Date.now(),{cache:"no-store"});if(!response.ok)return;const version=(await response.text()).trim();if(!version)return;const label=document.getElementById("appVersion");if(label)label.textContent=version.replace(/^6\.0-dev-/,"V6-dev");document.title="NEXUM — Taller · "+version;}catch(_){/* La app conserva la versión de respaldo si está sin conexión. */}})();
+(async function loadVisibleVersion(){try{const response=await fetch("./version.txt?ts="+Date.now(),{cache:"no-store"});if(!response.ok)return;const version=(await response.text()).trim();if(!version)return;const label=document.getElementById("appVersion");if(label)label.textContent=version.replace(/^6\.0-dev-v?/,"V6-dev");document.title="NEXUM — Taller · "+version;}catch(_){/* La app conserva la versión de respaldo si está sin conexión. */}})();
 
 /* V6.0 dev — estado visible sin prometer sincronización todavía.
  * Online/offline solo describe conectividad del dispositivo; no acredita un envío al servidor. */
