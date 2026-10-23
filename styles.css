@@ -303,18 +303,18 @@ button:disabled{cursor:wait}
 .econ-investment,.econ-increment,.econ-impact,.econ-gain,.econ-rate{font-size:13px;line-height:1.4;min-width:0;overflow-wrap:anywhere}
 .econ-label{display:block;font-size:11px;line-height:1.3;margin-bottom:3px}
 .econ-row .money-equivalent{display:block;font-size:11px;line-height:1.3}
-.econ-footer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;border-top:1px solid var(--border-color,#d8dee8);padding-top:10px;min-width:0}
+.econ-footer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px;align-items:center;border-top:1px solid var(--border-color,#d8dee8);padding-top:10px;min-width:0}
 .econ-status{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0}
 .econ-status .badge,.econ-technician.badge{display:inline-block;max-width:100%;white-space:normal;overflow-wrap:anywhere;font-size:12px;line-height:1.35;text-align:left}
 .econ-action{display:flex;align-items:center;justify-content:flex-end;min-width:0}
-.econ-action button{font-size:13px;padding:8px 11px;white-space:nowrap}
+.econ-action button{font-size:14px;padding:10px 14px;width:100%;white-space:nowrap}
 @media(max-width:600px){
  .econ-columns{gap:10px}
  .econ-left,.econ-right{gap:10px}
  .econ-meta,.econ-investment,.econ-increment,.econ-impact,.econ-gain,.econ-rate{font-size:12px}
  .econ-label{font-size:10px}
  .econ-row .money-equivalent{font-size:10px}
- .econ-footer{gap:8px}
+ .econ-footer{gap:8px;grid-template-columns:minmax(0,1fr) minmax(0,2fr)}
  .econ-status .badge,.econ-technician.badge{font-size:11px}
- .econ-action button{font-size:12px;padding:8px 9px}
+ .econ-action button{font-size:13px;padding:10px 8px;width:100%}
 }
