@@ -358,3 +358,9 @@
 - Los movimientos ECN adoptan la tarjeta con borde, fondo, ID y fecha arriba, datos en columnas y pie separado, como las fichas TK.
 - Se conservan los importes, moneda, tasa, notas y acciones existentes de editar y borrar.
 - Ajuste visual adaptable para móvil y pantallas amplias; sin cambios en cálculos ni persistencia.
+
+
+## V6.0-dev-v76 — corregir contenedor visual ECN
+- Se refuerza el estilo de tarjeta ECN con selectores específicos para que los estilos generales no distribuyan los campos como elementos sueltos.
+- ID y fecha arriba, concepto/tasa y cantidad en columnas, acciones en un pie dentro de la tarjeta.
+- Ajuste adaptable para móvil; sin cambios contables ni en las acciones.
