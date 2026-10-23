@@ -1,3 +1,8 @@
+## V6.0-dev-v65 — técnico visible en Contabilidad
+- La lista de Contabilidad muestra el técnico responsable de cada ticket, o «Sin asignar» si no hay técnico registrado.
+- La ficha «Examinar y editar» de Economía también muestra el técnico sin modificarlo desde los controles económicos.
+- Cambio limitado a la interfaz; no se modifica Supabase ni el cálculo económico.
+
 ## V6.0-dev-v64 — fechas comparables en el orden contable
 - La captura confirmó que las fechas de tickets y movimientos ECN no quedaban en orden global al usar «Más antiguos».
 - El comparador ahora normaliza fechas ISO (`AAAA-MM-DD`) y fechas con barras (`DD/MM/AAAA`) al mismo formato antes de ordenar tickets y movimientos en conjunto.
