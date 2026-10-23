@@ -1,3 +1,9 @@
+## V6.0-dev-v83 — panel flotante de sugerencias
+- Se sustituye el autocompletado nativo del teclado por un panel propio semitransparente junto a Cliente, CID y Contacto.
+- Los resultados muestran nombre, CID y contacto; al seleccionar uno, se rellenan los tres campos.
+- Incluye botón para ocultar, cierre con Escape y al tocar fuera. Disponible en Nuevo ingreso y Editar caso.
+- Versión visible dinámica mediante version.txt; caché PWA actualizada.
+
 ## V6.0-dev-v82 — sugerencias de clientes y versión visible dinámica
 - Se añaden sugerencias en Nuevo ingreso usando clientes ya registrados en el taller activo.
 - Al introducir un nombre, CID o contacto que coincide exactamente con un cliente único, se completan los otros campos vacíos; no se sobrescriben datos ya escritos.
