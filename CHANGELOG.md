@@ -1,3 +1,10 @@
+## V6.0-dev-v69 — ficha económica vertical y legible
+- Se recupera una distribución vertical con ID como título y fecha como subtítulo.
+- Los datos descriptivos y los importes quedan en columnas izquierda/derecha independientes.
+- Estado y zona de acciones tienen espacios separados; el técnico ya no puede tapar las etiquetas de estado.
+- Se recupera un tamaño de letra más legible, manteniendo una adaptación compacta para móvil.
+- Sin cambios en cálculos, datos ni acciones de la ficha.
+
 ## V6.0-dev-v68 — ficha económica compacta y equilibrada
 - La fecha aparece debajo del ID; equipo y cliente quedan en líneas separadas.
 - Inversión, incremento del taller e impacto total se distribuyen en tres columnas independientes a lo ancho de la ficha.
