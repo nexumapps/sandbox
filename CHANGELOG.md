@@ -1,3 +1,9 @@
+## V6.0-dev-v68 — ficha económica compacta y equilibrada
+- La fecha aparece debajo del ID; equipo y cliente quedan en líneas separadas.
+- Inversión, incremento del taller e impacto total se distribuyen en tres columnas independientes a lo ancho de la ficha.
+- El técnico se muestra abreviado como «T: Nombre» junto a «Examinar y editar».
+- Se ajustan tipografías y espacios para una ficha más compacta, especialmente en móvil; se mantienen cálculos y acciones existentes.
+
 ## V6.0-dev-v66 — ID de ticket a todo el ancho
 - El `ticket_id` aparece como encabezado en la parte superior de cada ficha de Contabilidad y ocupa ambas columnas.
 - Los IDs largos pueden partirse en varias líneas sin desbordar la tarjeta, también en móvil.
