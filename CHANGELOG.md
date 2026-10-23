@@ -389,3 +389,10 @@
 - Tarjetas ECN: la línea divisoria y los botones Editar/Borrar quedan al pie de la tarjeta, separados del contenido y sin dejar un espacio excesivo debajo de los botones.
 - Cola e Histórico en mosaico: el sello de garantía se independiza del nombre y queda anclado a la esquina superior derecha de la tarjeta.
 - Sin cambios en datos ni lógica funcional.
+
+
+## V6.0-dev-v80 — campo CID en tickets
+- Se añade CID opcional al formulario, detalle y edición de tickets.
+- El CID se conserva al editar y al crear un reingreso por garantía; forma parte del registro y del flujo de sincronización existente.
+- Se incluye CID en la exportación a Excel y se normalizan los tickets antiguos sin CID sin alterar otros datos.
+- El autocompletado y las sugerencias se implementarán en el siguiente paso con pruebas específicas.
