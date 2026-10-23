@@ -214,7 +214,7 @@ function suggestedPrice(investment){const n=Math.max(0,Number(investment)||0);co
 /** Actualiza solo placeholders; nunca reemplaza valores que el técnico ya escribió. */
 function updatePricingSuggestions(){const raw=$("inversion")?.value||"";const inv=Number(raw);if(!$('margen')||!$('precio'))return;const active=raw!==""&&Number.isFinite(inv)&&inv>0;$("margen").placeholder=active?String(suggestedMargin(inv)):"";$("precio").placeholder=active?String(suggestedPrice(inv)):"";}
 /* V6.0-dev-v82 — sugerencias y autocompletado de clientes dentro del taller activo. */
-function clientKey(v){return String(v||"").trim().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase()}
+function clientKey(v){return String(v||"").trim().normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase()}
 function knownClients(){
  const seen=new Map();
  for(const t of data){
@@ -246,7 +246,7 @@ function attachClientAssist(prefix=""){
   const matches=exact.length?exact:clients.filter(c=>c[source.field]&&clientKey(c[source.field])===val);
   if(matches.length===1){
    const match=matches[0];
-   for(const {field,el} of inputs)if(field!==source.field&&match[field]&&!el.value.trim())el.value=match[field];
+   for(const {field,el} of inputs)if(field!==source.field&&match[field])el.value=match[field];
   }
  };
  for(const item of inputs){
@@ -617,7 +617,7 @@ window.examine=examine;window.enableEdit=enableEdit;window.saveEdit=saveEdit;win
 
 
 /* V6.0-dev-v82 — la versión visible se lee del archivo version.txt. */
-(async function loadVisibleVersion(){try{const response=await fetch("./version.txt?ts="+Date.now(),{cache:"no-store"});if(!response.ok)return;const version=(await response.text()).trim();if(!version)return;const label=document.getElementById("appVersion");if(label)label.textContent=version.replace(/^6\\.0-dev-/,"V6-dev");document.title="NEXUM — Taller · "+version;}catch(_){/* La app conserva la versión de respaldo si está sin conexión. */}})();
+(async function loadVisibleVersion(){try{const response=await fetch("./version.txt?ts="+Date.now(),{cache:"no-store"});if(!response.ok)return;const version=(await response.text()).trim();if(!version)return;const label=document.getElementById("appVersion");if(label)label.textContent=version.replace(/^6\.0-dev-/,"V6-dev");document.title="NEXUM — Taller · "+version;}catch(_){/* La app conserva la versión de respaldo si está sin conexión. */}})();
 
 /* V6.0 dev — estado visible sin prometer sincronización todavía.
  * Online/offline solo describe conectividad del dispositivo; no acredita un envío al servidor. */
