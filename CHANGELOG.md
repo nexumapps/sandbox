@@ -1,3 +1,9 @@
+## V6.0.17beta — refinamiento del menú lateral
+- Se elimina el encabezado duplicado «NEXUM / Gestión del Taller» dentro del menú; la identidad permanece en la barra superior.
+- Se aumenta el tamaño del logo en la barra sin aumentar la altura de la barra.
+- Se corrige la animación del botón de menú para formar una flecha izquierda clara al abrirse.
+- Se actualizan los recursos versionados y la caché de la PWA.
+
 ## V6.0.16beta — navegación lateral inicial
 - Se sustituye la navegación horizontal por un menú lateral con Inicio, Nuevo ingreso, Revisión de sincronización, Cola, Histórico, Contabilidad, Análisis de datos y Configuración.
 - El botón de tres líneas anima hacia una flecha hacia la izquierda al abrir; el logo abre el menú y permite regresar a Inicio cuando está abierto.
