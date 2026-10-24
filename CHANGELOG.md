@@ -1,3 +1,10 @@
+## V6.0.16beta — navegación lateral inicial
+- Se sustituye la navegación horizontal por un menú lateral con Inicio, Nuevo ingreso, Revisión de sincronización, Cola, Histórico, Contabilidad, Análisis de datos y Configuración.
+- El botón de tres líneas anima hacia una flecha al abrir; el logo abre el menú y permite regresar a Inicio cuando está abierto.
+- Revisión de sincronización pasa a una vista propia y conserva la tarjeta y su contenedor actuales.
+- Se conserva la lógica de las pantallas existentes; esta etapa no añade aún ajustes nuevos de perfil ni limpieza de datos.
+- Se actualizan los recursos y la caché de la PWA.
+
 ## V6.0.15beta — Fecha de salida y estado «Listo para devolver»
 - Se añade Fecha de salida en Nuevo ingreso, inmediatamente después de Fecha de entrada.
 - Se guarda la fecha de salida introducida y se exige coherencia mutua entre fecha de salida y estado final.
