@@ -1,3 +1,7 @@
+## V6.0.20beta — tipografía de la barra superior
+- Se aumenta un 50 % el tamaño de «Gestión del Taller» y un 30 % el de la versión, con ajustes adaptados a móvil.
+- Se actualizan las referencias de recursos y la caché PWA.
+
 ## V6.0.19beta — logo proporcional a la barra
 - El logo se escala con la altura de la barra superior y mantiene márgenes verticales proporcionales, con límites para pantallas pequeñas.
 - Se actualizan las referencias de recursos y la caché PWA.
