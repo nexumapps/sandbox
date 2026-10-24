@@ -1,7 +1,7 @@
-## V6.0.37beta — corregir clave pública en cambio de contraseña
-- Define `PUBLIC_KEY` dentro del módulo del perfil; antes la petición la referenciaba sin declararla en ese ámbito, por lo que no podía completar la solicitud.
-- Mantiene la actualización directa mediante `PUT /auth/v1/user` con `apikey: PUBLIC_KEY` y el token de la sesión autenticada como autorización, sin pedir ni comprobar la contraseña actual.
-- Conserva la validación y confirmación de 8–128 caracteres; actualiza el título visible y el parámetro de caché para cargar el JavaScript corregido.
+## V6.0.38beta — corregir clave API de Supabase
+- Sustituye las tres apariciones de la antigua clave `anon` por la clave `anon` vigente publicada por el proyecto Supabase `ywcrowviufbioeqixwrq`; la clave anterior tenía un emisor JWT distinto del valor que devuelve el proyecto y provocaba `Invalid API key`.
+- Mantiene el cambio de contraseña autenticado con el token de sesión, sin verificar la contraseña actual.
+- Actualiza la versión visible, el parámetro de caché del JavaScript y el caché del service worker para evitar que el dispositivo siga usando el recurso anterior.
 
 
 ## V6.0.34beta — unificar verificación de contraseña con el inicio de sesión
