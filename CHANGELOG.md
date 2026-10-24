@@ -1,3 +1,8 @@
+## V6.0.40beta — restaurar cambio directo de contraseña
+- Restaura en el perfil los campos de nueva contraseña y confirmación, usando la sesión autenticada para actualizarla directamente en Supabase.
+- Evita enviar correos de recuperación desde el cambio de contraseña del perfil y conserva la clave pública API corregida en V6.0.38beta.
+- Actualiza la versión visible, el parámetro de caché del JavaScript y el caché del service worker.
+
 ## V6.0.39beta — cambio de contraseña por correo seguro
 - El botón del perfil ya no intenta cambiar la contraseña directamente ni pide una contraseña nueva en el dispositivo; solicita un correo de recuperación usando la sesión activa y el correo principal de la cuenta.
 - Reutiliza el flujo existente de recuperación de Supabase y muestra el estado de envío en el perfil.
