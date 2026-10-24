@@ -1,3 +1,9 @@
+## V6.0.12beta — Histórico sin sugerencias de clientes
+- Se desactiva la predicción, las sugerencias y el autocompletado de Cliente, CID y Contacto al editar registros desde Histórico.
+- Los campos del Histórico se rellenan manualmente y no alteran otros campos por coincidencias.
+- Se conserva sin cambios el autocompletado completo de Nuevo ingreso.
+- Se actualiza la versión beta visible y la caché de la PWA.
+
 ## V6.0-dev-v86 — panel único y clientes sin duplicados
 - Se fuerza el cierre global de cualquier panel abierto antes de abrir el correspondiente al campo activo.
 - Se eliminan paneles previos del campo antes de crear uno nuevo, evitando duplicación por inicializaciones repetidas.
