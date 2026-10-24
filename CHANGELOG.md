@@ -1,3 +1,7 @@
+## V6.0.34beta — unificar verificación de contraseña con el inicio de sesión
+- El cambio de contraseña verifica la clave mediante el mismo endpoint de inicio de sesión por usuario/correo que usa NEXUM.
+- Comprueba que la sesión autenticada devuelta corresponde al mismo usuario antes de actualizar la contraseña.
+
 ## V6.0.33beta — corregir selección del correo para cambiar contraseña
 - La verificación utiliza primero el correo principal cargado desde la ficha autenticada, en lugar de depender de una segunda consulta directa a Auth que puede no devolverlo en esta sesión.
 - La consulta directa queda como alternativa solo si el correo principal está vacío.
