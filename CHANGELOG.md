@@ -1,3 +1,10 @@
+## V6.0.15beta — Fecha de salida y estado «Listo para devolver»
+- Se añade Fecha de salida en Nuevo ingreso, inmediatamente después de Fecha de entrada.
+- Se guarda la fecha de salida introducida y se exige coherencia mutua entre fecha de salida y estado final.
+- Se permite cerrar directamente desde cualquier estado previo, sin obligar a recorrer estados intermedios.
+- Se añade «Listo para devolver» al grupo amarillo «Listos», junto a «Listo para recoger».
+- Se actualizan versión visible, archivo de versión y caché de la PWA.
+
 ## V6.0.14beta — CID en Examinar
 - Se revierte el cambio equivocado en las columnas de la vista Lista; Cola e Histórico conservan su presentación anterior.
 - Al pulsar «Examinar» en Histórico, el CID aparece en el detalle entre Cliente y Contacto.
