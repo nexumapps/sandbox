@@ -1,5 +1,5 @@
-## V6.0.26beta — icono de Producción monocromático
-- Se mantiene la llave inglesa, solicitando su presentación de texto para armonizarla con los iconos monocromáticos del menú.
-- Se actualizan versión, referencias de recursos y caché PWA.
+## V6.0.27beta — llave inglesa vectorial
+- Se reemplaza el carácter emoji por un icono SVG monocromático con trazo, integrado con el color y el tamaño del menú.
+- Se actualizan versión, recursos y caché PWA.
 
 [object Object]
