@@ -457,7 +457,7 @@ button:disabled{cursor:wait}
 .brand-home-button img{width:48px;height:48px;object-fit:contain;flex:0 0 auto}
 .brand-home-button span{font-size:14px;line-height:1.3;font-weight:650;white-space:nowrap}
 .brand-home-button small{font-size:11px;font-weight:500;opacity:.8}
-.menu-toggle{width:42px;height:42px;padding:9px;display:flex;flex-direction:column;justify-content:center;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.25);flex:0 0 auto}
+.menu-toggle{width:42px;height:42px;padding:9px;display:flex;flex-direction:column;justify-content:center;gap:5px;background:transparent;border:0;box-shadow:none;flex:0 0 auto}
 .menu-toggle span{display:block;width:22px;height:2px;border-radius:2px;background:#fff;transform-origin:left center;transition:transform .22s ease,opacity .16s ease,width .22s ease}
 .sidebar-open .menu-toggle span:first-child{width:14px;transform:translate(1px,0) rotate(-45deg)}
 .sidebar-open .menu-toggle span:nth-child(2){opacity:0;transform:scaleX(0)}
