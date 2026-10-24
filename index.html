@@ -4,7 +4,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102a43"><meta name="description" content="Gestión local del taller NEXUM"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NEXUM"><link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>NEXUM — Taller · V6.0.24beta</title>
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png" type="image/png"><link rel="stylesheet" href="styles.css?v=102">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png" type="image/png"><link rel="stylesheet" href="styles.css?v=103">
 </head>
 <body class="auth-locked">
 <section id="loginGate" class="auth-gate" aria-labelledby="loginGateTitle"><div class="auth-gate-brand"><img src="logo-oscuro.svg" alt="NEXUM"><h1 id="loginGateTitle">Acceso a NEXUM Taller</h1><p>Inicia sesión para continuar.</p></div><div id="loginGateContent"></div><section id="cloudRecoveryPanel" class="card hidden"><h2>Recuperar contraseña</h2><p class="muted">Escribe tu usuario NEXUM o el correo asociado a la cuenta.</p><form id="cloudRecoveryForm"><label>Usuario o correo<input id="cloudRecoveryIdentifier" autocomplete="username" required maxlength="254"></label><div class="actions"><button class="primary" id="cloudRecoveryBtn" type="submit">Enviar enlace de recuperación</button><button class="secondary" id="cloudRecoveryBack" type="button">Volver al inicio de sesión</button></div><p id="cloudRecoveryMessage" class="field-help" role="status"></p></form></section><section id="cloudPasswordResetPanel" class="card hidden"><h2>Crear nueva contraseña</h2><p class="muted">Elige una contraseña nueva para tu cuenta.</p><label>Nueva contraseña<input id="cloudResetPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></label><label>Confirmar contraseña<input id="cloudResetPasswordConfirm" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></label><button class="primary" id="cloudPasswordResetBtn" type="button">Actualizar contraseña</button><p id="cloudPasswordResetMessage" class="field-help" role="status"></p></section></section>
@@ -86,7 +86,7 @@
 <p class="muted">Selecciona el área que quieres configurar.</p>
 <button type="button" class="settings-menu-item" data-settings-open="perfil"><span class="settings-menu-icon">♙</span><span><strong>Mi perfil</strong><small>Cuenta y taller asignado</small></span><span class="settings-chevron">›</span></button>
 <button type="button" class="settings-menu-item" data-settings-open="preferencias"><span class="settings-menu-icon">◐</span><span><strong>Preferencias</strong><small>Apariencia y ajustes personales</small></span><span class="settings-chevron">›</span></button>
-<button type="button" class="settings-menu-item" data-settings-open="produccion"><span class="settings-menu-icon">🔧</span><span><strong>Producción</strong><small>Tasa de cambio y categorías</small></span><span class="settings-chevron">›</span></button>
+<button type="button" class="settings-menu-item" data-settings-open="produccion"><span class="settings-menu-icon">&#x1F527;&#xFE0E;</span><span><strong>Producción</strong><small>Tasa de cambio y categorías</small></span><span class="settings-chevron">›</span></button>
 <button type="button" class="settings-menu-item" data-settings-open="desarrolladores"><span class="settings-menu-icon">&lt;/&gt;</span><span><strong>Desarrolladores</strong><small>Administración y mantenimiento</small></span><span class="settings-chevron">›</span></button>
 </div>
 <div class="settings-group" data-settings-panel="perfil"><div class="settings-group-head"><button type="button" class="settings-back" data-settings-back>‹ Configuración</button><h3>Mi perfil</h3><p>Tu cuenta y el taller que utilizas en este dispositivo.</p></div>
@@ -119,5 +119,5 @@
 <dialog id="economyDialog"><div class="card dialogcard"><button class="close" onclick="$('economyDialog').close()">×</button><h2 id="economyDialogTitle">Economía</h2><div id="economyDialogBody"></div></div></dialog>
 <dialog id="movementDialog"><div class="card dialogcard"><button class="close" onclick="$('movementDialog').close()">×</button><h2 id="movementDialogTitle">Movimiento</h2><div id="movementDialogBody"></div></div></dialog>
 <script src="sync-core.js"></script>
-<script src="app.js?v=95"></script>
+<script src="app.js?v=96"></script>
 </body></html>
