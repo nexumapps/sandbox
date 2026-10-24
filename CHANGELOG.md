@@ -1,6 +1,7 @@
-## V6.0.36beta — corregir clave API en cambio de contraseña
-- Corrige el nombre de la variable de clave pública en la petición Auth del perfil (`KEY`, no `PUBLIC_KEY`), que provocaba `Invalid API key`.
-- Mantiene el cambio directo con el token de la sesión autenticada, sin pedir ni verificar la contraseña actual; conserva confirmación y validación de 8 a 128 caracteres.
+## V6.0.37beta — corregir clave pública en cambio de contraseña
+- Define `PUBLIC_KEY` dentro del módulo del perfil; antes la petición la referenciaba sin declararla en ese ámbito, por lo que no podía completar la solicitud.
+- Mantiene la actualización directa mediante `PUT /auth/v1/user` con `apikey: PUBLIC_KEY` y el token de la sesión autenticada como autorización, sin pedir ni comprobar la contraseña actual.
+- Conserva la validación y confirmación de 8–128 caracteres; actualiza el título visible y el parámetro de caché para cargar el JavaScript corregido.
 
 
 ## V6.0.34beta — unificar verificación de contraseña con el inicio de sesión
