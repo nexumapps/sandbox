@@ -479,3 +479,6 @@ button:disabled{cursor:wait}
 @media(max-width:420px){.brand-home-button span{max-width:112px;white-space:normal}.brand-home-button img{width:31px;height:31px}.menu-toggle{width:35px;height:35px}.topbar{gap:6px}.topbar-brand-area{gap:5px}.topbar-right-column{max-width:45%}}
 /* El menú de trabajo no debe aparecer por encima de la pantalla de acceso. */
 .auth-locked .app-sidebar,.auth-locked .sidebar-backdrop,.auth-locked .menu-toggle{visibility:hidden;pointer-events:none}
+
+/* Mantener marca y nombre en una misma fila, también con las reglas heredadas de .brand. */
+.brand-home-button{flex-direction:row;justify-content:flex-start;}
