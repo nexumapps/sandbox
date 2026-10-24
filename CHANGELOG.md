@@ -1,8 +1,8 @@
-## V6.0.13beta — CID independiente en Histórico
-- En la vista de lista del Histórico, se separan las columnas Cliente, CID y Contacto, en ese orden.
-- Los registros sin CID o sin contacto muestran «—».
-- La Cola conserva la tabla anterior; el mosaico y el formulario de Histórico no cambian.
-- Se actualizan versión visible, version.txt y caché de la PWA.
+## V6.0.14beta — CID en Examinar
+- Se revierte el cambio equivocado en las columnas de la vista Lista; Cola e Histórico conservan su presentación anterior.
+- Al pulsar «Examinar» en Histórico, el CID aparece en el detalle entre Cliente y Contacto.
+- La edición del ticket conserva su campo CID y el guardado existente.
+- Se actualizan la versión de la aplicación y la caché de la PWA.
 
 ## V6.0.12beta — Histórico sin sugerencias de clientes
 - Se desactiva la predicción, las sugerencias y el autocompletado de Cliente, CID y Contacto al editar registros desde Histórico.
