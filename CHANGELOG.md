@@ -486,3 +486,10 @@
 ## V6.0-dev-v81 — CID visible en Examinar y Editar
 - Se presenta el CID como campo explícito en el detalle y el formulario de edición, además del guardado explícito al confirmar los cambios.
 - Se renueva la caché PWA para evitar que el navegador mantenga la interfaz anterior.
+
+
+## V6.0.23beta — organización de Configuración
+- Se agrupan los controles existentes en Mi perfil, Preferencias, Producción y Desarrolladores.
+- Se conservan los identificadores y manejadores de los controles para mantener su funcionamiento actual.
+- La cuenta y el selector de taller quedan en Mi perfil; apariencia en Preferencias; tasa y categorías en Producción; administración global y copias de seguridad en Desarrolladores.
+- No se modifican permisos, sincronización, autenticación ni el formato de los datos.
