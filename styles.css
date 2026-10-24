@@ -447,3 +447,5 @@ button:disabled{cursor:wait}
 .client-suggestion-panel{max-height:min(44vh, 380px)}
 .client-suggestion-results{max-height:min(36vh, 320px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .client-suggestion-panel.open{display:block}
+
+/* V6.0.12beta — Histórico sin paneles de sugerencias; Nuevo ingreso conserva su panel actual. */
