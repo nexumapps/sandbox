@@ -1,7 +1,7 @@
 /* NEXUM Taller PWA — cache de recursos estáticos y fallback de navegación offline. */
-const CACHE = 'nexum-v89';
+const CACHE = 'nexum-v90';
 const ASSETS = [
-  './', './index.html', './styles.css', './app.js', './version.txt', './sync-core.js',
+  './', './index.html', './styles.css', './app.js?v=89', './version.txt', './sync-core.js',
   './manifest.webmanifest', './logo-claro.svg', './logo-oscuro.svg',
   './icon-192.png', './icon-512.png', './apple-touch-icon.png'
 ];
