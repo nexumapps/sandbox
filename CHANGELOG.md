@@ -1,3 +1,7 @@
+## V6.0.19beta — logo proporcional a la barra
+- El logo se escala con la altura de la barra superior y mantiene márgenes verticales proporcionales, con límites para pantallas pequeñas.
+- Se actualizan las referencias de recursos y la caché PWA.
+
 ## V6.0.18beta — botón de menú integrado en la barra
 - Se elimina el borde visible del botón hamburguesa para integrarlo mejor en la barra superior.
 - Se actualizan la versión y la caché de la PWA.
