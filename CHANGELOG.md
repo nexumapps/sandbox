@@ -1,3 +1,9 @@
+## V6.0.21beta — ajustes de cabecera y menú
+- Se hace el logo más ancho en proporción al espacio de la barra, manteniendo un límite de altura para no ensancharla.
+- Se reduce ligeramente la tipografía de «Gestión del Taller» y de la versión.
+- Se baja el inicio del menú lateral para separar la primera opción del borde superior.
+- Se actualizan las referencias de recursos y la caché PWA.
+
 ## V6.0.20beta — tipografía de la barra superior
 - Se aumenta un 50 % el tamaño de «Gestión del Taller» y un 30 % el de la versión, con ajustes adaptados a móvil.
 - Se actualizan las referencias de recursos y la caché PWA.
