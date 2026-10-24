@@ -1193,10 +1193,11 @@ const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6
   if(file.size>15*1024*1024)throw Error("La foto original supera 15 MB. Elige una más pequeña.");
   let bitmap;try{bitmap=await createImageBitmap(file)}catch{throw Error("No se pudo leer la imagen. Prueba con JPG, PNG o WebP.")}
   let w=bitmap.width,h=bitmap.height;const scale=Math.min(1,512/Math.max(w,h));w=Math.max(1,Math.round(w*scale));h=Math.max(1,Math.round(h*scale));
-  const canvas=document.createElement("canvas");canvas.width=w;canvas.height=h;const ctx=canvas.getContext("2d",{alpha:false});ctx.fillStyle="#fff";ctx.fillRect(0,0,w,h);ctx.drawImage(bitmap,0,0,w,h);bitmap.close?.();
-  const encode=q=>new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error("No se pudo comprimir la foto.")),"image/webp",q));
-  let blob;for(const q of [.82,.74,.66,.58,.5,.42,.35,.28]){blob=await encode(q);if(blob.size<=500*1024)break;if(blob.size>1024*1024){canvas.width=Math.max(1,Math.round(canvas.width*.8));canvas.height=Math.max(1,Math.round(canvas.height*.8));ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(await createImageBitmap(file),0,0,canvas.width,canvas.height)}}
-  if(!blob||blob.size>1024*1024)throw Error("No se pudo reducir la foto por debajo de 1 MB. Prueba con otra imagen.");return blob;
+  const canvas=document.createElement("canvas");canvas.width=w;canvas.height=h;const ctx=canvas.getContext("2d",{alpha:false});
+  const draw=()=>{ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height)};
+  draw();const encode=q=>new Promise((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(Error("No se pudo comprimir la foto.")),"image/webp",q));
+  let blob;for(let pass=0;pass<9;pass++){blob=await encode([.82,.74,.66,.58,.5,.42,.35,.3,.25][pass]);if(blob.size<=500*1024)break;if(pass>=2&&Math.max(canvas.width,canvas.height)>192){canvas.width=Math.max(1,Math.round(canvas.width*.8));canvas.height=Math.max(1,Math.round(canvas.height*.8));draw()}}
+  bitmap.close?.();if(!blob||blob.size>1024*1024)throw Error("No se pudo reducir la foto por debajo de 1 MB. Prueba con otra imagen.");return blob;
  }
  async function uploadAvatar(file){
   const s=getSession();if(!s?.access_token||!s?.user?.id)throw Error("Inicia sesión antes de subir la foto.");
