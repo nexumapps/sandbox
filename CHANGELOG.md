@@ -1,5 +1,5 @@
-## V6.0.25beta — icono de Producción
-- Se sustituye el engranaje por una llave inglesa en la opción Producción del menú de Configuración.
-- Se actualizan la versión visible, las referencias de recursos y la caché de la PWA.
+## V6.0.26beta — icono de Producción monocromático
+- Se mantiene la llave inglesa, solicitando su presentación de texto para armonizarla con los iconos monocromáticos del menú.
+- Se actualizan versión, referencias de recursos y caché PWA.
 
 [object Object]
