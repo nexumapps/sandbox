@@ -1180,7 +1180,7 @@ const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6
 
 /* V6.0.34beta — verificar contraseña con el correo de autenticación de la sesión. */
 (function initProfessionalProfile(){
- const URL="https://ywcrowviufbioeqixwrq.supabase.co",KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ5d2Nyb3d2aXdmaW9lcWl4d3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNjIwMzAsImV4cCI6MjEwNjgzODAzMH0.Mh9BHpigCVQ8Q624_M1o495A5JwTRL0M7q7yF5g5RQE",K="nexum_v6_auth_session",el=id=>document.getElementById(id);
+ const URL="https://ywcrowviufbioeqixwrq.supabase.co",KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ5d2Nyb3d2aXdmaW9lcWl4d3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNjIwMzAsImV4cCI6MjEwNjgzODAzMH0.Mh9BHpigCVQ8Q624_M1o495A5JwTRL0M7q7yF5g5RQE",PUBLIC_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ5d2Nyb3d2aXdmaW9lcWl4d3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNjIwMzAsImV4cCI6MjEwNjgzODAzMH0.Mh9BHpigCVQ8Q624_M1o495A5JwTRL0M7q7yF5g5RQE",K="nexum_v6_auth_session",el=id=>document.getElementById(id);
  const form=el("professionalProfileForm");if(!form)return;
  const getSession=()=>window.NexumAuthSession?.get()||(()=>{try{return JSON.parse(sessionStorage.getItem(K)||localStorage.getItem(K)||"null")}catch{return null}})();
  let savedAvatarUrl="";
