@@ -485,3 +485,6 @@ button:disabled{cursor:wait}
 
 /* Mantener marca y nombre en una misma fila, también con las reglas heredadas de .brand. */
 .brand-home-button{flex-direction:row;justify-content:flex-start;}
+
+/* V6.0.23beta — grupos de configuración */
+.settings-group{margin:0 0 22px}.settings-group-head{margin:18px 2px 10px;padding-bottom:9px;border-bottom:1px solid var(--line)}.settings-group-head h3{margin:0 0 4px;font-size:17px}.settings-group-head p{margin:0;color:var(--muted);font-size:13px}.settings-group>.card{margin-bottom:12px}
