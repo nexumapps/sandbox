@@ -1,6 +1,6 @@
 ## V6.0.16beta — navegación lateral inicial
 - Se sustituye la navegación horizontal por un menú lateral con Inicio, Nuevo ingreso, Revisión de sincronización, Cola, Histórico, Contabilidad, Análisis de datos y Configuración.
-- El botón de tres líneas anima hacia una flecha al abrir; el logo abre el menú y permite regresar a Inicio cuando está abierto.
+- El botón de tres líneas anima hacia una flecha hacia la izquierda al abrir; el logo abre el menú y permite regresar a Inicio cuando está abierto.
 - Revisión de sincronización pasa a una vista propia y conserva la tarjeta y su contenedor actuales.
 - Se conserva la lógica de las pantallas existentes; esta etapa no añade aún ajustes nuevos de perfil ni limpieza de datos.
 - Se actualizan los recursos y la caché de la PWA.
