@@ -1,5 +1,5 @@
 // V6.0-dev-v71: columna izquierda equipo/cliente/ganancia/tasa; derecha inversión/incremento/impacto; pie con etiquetas compactas y botón ancho.
-const APP_VERSION="6.0.23beta";
+const APP_VERSION="6.0.24beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -203,6 +203,12 @@ window.addEventListener("resize",()=>{const backdrop=$("sidebarBackdrop");if(bac
 if(window.matchMedia("(min-width: 901px)").matches)setSidebarOpen(true);
 function applyTheme(){const mode=appSettings.theme||"system";document.documentElement.dataset.theme=mode;const dark=mode==="dark"||(mode==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);const logo=$("brandLogo");if(logo&&logo.getAttribute("src")!=="logo-oscuro.svg")logo.src="logo-oscuro.svg";const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?"#101820":"#102a43";if($("themeMode"))$("themeMode").value=mode}
 function renderCategoryManager(){const host=$("categoryManager");if(!host)return;host.innerHTML=categories.map((c,i)=>`<div class="category-row"><span>${esc(c)}</span>${c==="Sin definir"?'<small class="muted">Obligatoria</small>':`<button class="secondary" onclick="removeCategory(${i})">Quitar</button>`}</div>`).join("")}
+
+// Navegación interna de Configuración: menú principal y paneles independientes.
+function openSettingsPanel(name){const menu=$("settingsMenu");if(!menu)return;menu.classList.add("hidden");document.querySelectorAll("[data-settings-panel]").forEach(p=>p.classList.toggle("settings-panel-active",p.dataset.settingsPanel===name));}
+function closeSettingsPanel(){const menu=$("settingsMenu");if(!menu)return;document.querySelectorAll("[data-settings-panel]").forEach(p=>p.classList.remove("settings-panel-active"));menu.classList.remove("hidden");}
+document.querySelectorAll("[data-settings-open]").forEach(b=>b.addEventListener("click",()=>openSettingsPanel(b.dataset.settingsOpen)));
+document.querySelectorAll("[data-settings-back]").forEach(b=>b.addEventListener("click",closeSettingsPanel));
 function renderSettings(){if($("themeMode"))$("themeMode").value=appSettings.theme||"system";if($("settingRate"))$("settingRate").value=rememberedRate()||currentRate();renderCategoryManager()}
 function removeCategory(i){const c=categories[i];if(!c||c==="Sin definir")return;if(data.some(x=>x.categoria===c)&&!confirm(`Hay tickets que usan «${c}». Se quitará de las opciones nuevas, pero los tickets existentes conservarán el dato. ¿Continuar?`))return;categories=categories.filter((_,n)=>n!==i);contextStorage.setItem(CATEGORIES_KEY,JSON.stringify(categories));fillSelects();renderCategoryManager()}
 $("themeMode").onchange=()=>{appSettings.theme=$("themeMode").value;contextStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings));applyTheme()};
