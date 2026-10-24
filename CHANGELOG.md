@@ -1,3 +1,7 @@
+## V6.0.18beta — botón de menú integrado en la barra
+- Se elimina el borde visible del botón hamburguesa para integrarlo mejor en la barra superior.
+- Se actualizan la versión y la caché de la PWA.
+
 ## V6.0.17beta — refinamiento del menú lateral
 - Se elimina el encabezado duplicado «NEXUM / Gestión del Taller» dentro del menú; la identidad permanece en la barra superior.
 - Se aumenta el tamaño del logo en la barra sin aumentar la altura de la barra.
