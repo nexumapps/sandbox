@@ -1,3 +1,8 @@
+## V6.0.35beta — simplificar cambio de contraseña en el perfil
+- Elimina la comprobación de la contraseña actual y actualiza la nueva directamente usando el token de la sesión autenticada.
+- Utiliza `PUBLIC_KEY` en la petición de Auth, evitando la clave antigua que provocaba `Invalid API key`.
+- Conserva la confirmación y la validación de 8 a 128 caracteres.
+
 ## V6.0.34beta — unificar verificación de contraseña con el inicio de sesión
 - El cambio de contraseña verifica la clave mediante el mismo endpoint de inicio de sesión por usuario/correo que usa NEXUM.
 - Comprueba que la sesión autenticada devuelta corresponde al mismo usuario antes de actualizar la contraseña.
