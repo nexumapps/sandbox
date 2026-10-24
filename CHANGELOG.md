@@ -6,3 +6,8 @@
 - Se añade el formulario de cambio de contraseña dentro de Mi perfil.
 - Antes de actualizar, verifica la contraseña actual contra la cuenta autenticada y comprueba que corresponde al mismo usuario.
 - La nueva contraseña se valida entre 8 y 128 caracteres y requiere confirmación.
+
+
+## V6.0.32beta — corregir verificación de contraseña del perfil
+- Se obtiene el correo real de la cuenta mediante `/auth/v1/user` con el token de la sesión activa, incluso si el acceso se inició con nombre de usuario.
+- Se conserva la comprobación de contraseña actual y la validación de que la cuenta autenticada sea la misma antes de actualizarla.
