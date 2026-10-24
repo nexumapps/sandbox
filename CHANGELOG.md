@@ -493,3 +493,10 @@
 - Se conservan los identificadores y manejadores de los controles para mantener su funcionamiento actual.
 - La cuenta y el selector de taller quedan en Mi perfil; apariencia en Preferencias; tasa y categorías en Producción; administración global y copias de seguridad en Desarrolladores.
 - No se modifican permisos, sincronización, autenticación ni el formato de los datos.
+
+
+## V6.0.24beta — menú navegable de Configuración
+- Configuración abre un menú con cuatro opciones independientes: Mi perfil, Preferencias, Producción y Desarrolladores.
+- Cada opción abre solo su panel y ofrece un botón para volver al menú de Configuración.
+- Se conservan los controles, identificadores, eventos y permisos existentes.
+- Se actualizan la versión visible, las referencias de recursos y la caché PWA.
