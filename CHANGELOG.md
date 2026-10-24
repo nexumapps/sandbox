@@ -1,3 +1,7 @@
+## V6.0.33beta — corregir selección del correo para cambiar contraseña
+- La verificación utiliza primero el correo principal cargado desde la ficha autenticada, en lugar de depender de una segunda consulta directa a Auth que puede no devolverlo en esta sesión.
+- La consulta directa queda como alternativa solo si el correo principal está vacío.
+
 ## V6.0.30beta — corregir carga de datos de perfil
 - La ficha utiliza el gestor de sesión de NEXUM, compatible con sesiones guardadas en sessionStorage o localStorage.
 - Se recarga al iniciar/cambiar sesión y al abrir Mi perfil, evitando que la pantalla quede vacía tras cargar antes del inicio de sesión.
