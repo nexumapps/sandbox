@@ -1,3 +1,8 @@
+## V6.0.22beta — animación menú a flecha
+- Se adapta el patrón CSS de botón animado de CodyHouse para transformar las tres líneas en una flecha hacia la izquierda, sin añadir dependencias externas.
+- Se conserva el botón y su lógica actual de abrir/cerrar el menú.
+- Se actualizan las referencias de estilos y la caché PWA.
+
 ## V6.0.21beta — ajustes de cabecera y menú
 - Se hace el logo más ancho en proporción al espacio de la barra, manteniendo un límite de altura para no ensancharla.
 - Se reduce ligeramente la tipografía de «Gestión del Taller» y de la versión.
