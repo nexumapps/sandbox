@@ -1,3 +1,9 @@
+## V6.0.39beta — cambio de contraseña por correo seguro
+- El botón del perfil ya no intenta cambiar la contraseña directamente ni pide una contraseña nueva en el dispositivo; solicita un correo de recuperación usando la sesión activa y el correo principal de la cuenta.
+- Reutiliza el flujo existente de recuperación de Supabase y muestra el estado de envío en el perfil.
+- El enlace de recuperación vuelve a Sandbox cuando la solicitud se origina en Sandbox; las solicitudes habituales de recuperación mantienen el destino principal.
+- Actualiza la versión visible, el parámetro de caché del JavaScript y el caché del service worker.
+
 ## V6.0.38beta — corregir clave API de Supabase
 - Sustituye las tres apariciones de la antigua clave `anon` por la clave `anon` vigente publicada por el proyecto Supabase `ywcrowviufbioeqixwrq`; la clave anterior tenía un emisor JWT distinto del valor que devuelve el proyecto y provocaba `Invalid API key`.
 - Mantiene el cambio de contraseña autenticado con el token de sesión, sin verificar la contraseña actual.
