@@ -494,3 +494,31 @@ button:disabled{cursor:wait}
 
 /* V6.0.28beta — ficha profesional */
 .profile-avatar-preview{width:88px;height:88px;border-radius:50%;overflow:hidden;display:grid;place-items:center;margin:12px auto 18px;background:var(--soft);border:1px solid var(--line);color:var(--text);font-size:27px;font-weight:700}.profile-avatar-preview img{width:100%;height:100%;object-fit:cover}.profile-account-meta{margin-top:18px;padding-top:10px;border-top:1px solid var(--line)}.profile-account-meta p{margin:7px 0;font-size:13px;color:var(--muted)}.profile-account-meta strong{color:var(--text)}
+
+
+/* V6.0.41beta — preferencias visuales por cuenta. Los colores semánticos de estados no se alteran. */
+:root{--accent:#1f6feb}
+.primary{background:var(--accent)}
+.sidebar-link.active{box-shadow:inset 3px 0 var(--accent)}
+.settings-menu-icon{color:var(--accent)}
+:root[data-palette="violet"] .sidebar-link.active{background:#34285b}
+:root[data-palette="teal"] .sidebar-link.active{background:#17443f}
+:root[data-palette="amber"] .sidebar-link.active{background:#4a3820}
+:root[data-palette="coral"] .sidebar-link.active{background:#4a2930}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:var(--accent)}
+:root[data-font-size="small"]{--font-scale:.9;font-size:14px}
+:root[data-font-size="medium"]{--font-scale:1;font-size:16px}
+:root[data-font-size="large"]{--font-scale:1.1;font-size:18px}
+body{font-size:calc(16px * var(--font-scale,1))}
+p{font-size:calc(14px * var(--font-scale,1))}
+label,button,input,select,textarea{font-size:calc(13px * var(--font-scale,1))}
+small,.muted,.field-help,.meta,.sortlabel,.chartlabel,.chartvalue,.econ-label{font-size:calc(12px * var(--font-scale,1))}
+:root[data-icon-size="small"] .sidebar-symbol{font-size:16px}
+:root[data-icon-size="medium"] .sidebar-symbol{font-size:19px}
+:root[data-icon-size="large"] .sidebar-symbol{font-size:23px}
+:root[data-icon-size="small"] .settings-menu-icon{flex-basis:36px;height:36px;font-size:16px}
+:root[data-icon-size="large"] .settings-menu-icon{flex-basis:48px;height:48px;font-size:25px}
+:root[data-icon-size="small"] .staticon{width:25px;height:25px;font-size:14px}
+:root[data-icon-size="large"] .staticon{width:36px;height:36px;font-size:21px}
+:root[data-icon-size="small"] .sync-status-icon,:root[data-icon-size="small"] .icon-action svg{width:18px;height:18px}
+:root[data-icon-size="large"] .sync-status-icon,:root[data-icon-size="large"] .icon-action svg{width:26px;height:26px}
