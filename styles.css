@@ -522,3 +522,17 @@ small,.muted,.field-help,.meta,.sortlabel,.chartlabel,.chartvalue,.econ-label{fo
 :root[data-icon-size="large"] .staticon{width:36px;height:36px;font-size:21px}
 :root[data-icon-size="small"] .sync-status-icon,:root[data-icon-size="small"] .icon-action svg{width:18px;height:18px}
 :root[data-icon-size="large"] .sync-status-icon,:root[data-icon-size="large"] .icon-action svg{width:26px;height:26px}
+
+/* V6.0.42beta: paletas completas de interfaz. Los colores semánticos de estados se conservan. */
+:root{--surface:#e7eef8;--field:#fff;--nav:#102a43;--selected:#edf4ff;--accent:#2374e1}
+body{background:var(--bg);color:var(--text)}
+.card,.stat,.modal,.panel,.settings-card,.ticket-card,.ecn-card{background:var(--card);color:var(--text);border-color:var(--line)}
+.topbar{background:var(--nav);color:var(--text)}
+.tabs{background:var(--card);border-color:var(--line)}
+.tabs button{color:var(--muted)}
+.tabs button.active,.sidebar-link.active{background:var(--selected);color:var(--text)}
+input,select,textarea{background:var(--field);color:var(--text);border-color:var(--line)}
+p,.muted,.field-help,.meta{color:var(--muted)}
+.secondary{background:var(--surface);color:var(--text);border-color:var(--line)}
+.primary{background:var(--accent);color:#fff}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
