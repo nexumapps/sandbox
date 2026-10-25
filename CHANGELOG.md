@@ -1,3 +1,9 @@
+## V6.0.42beta — paletas completas y correo público
+- Las seis paletas modifican fondos, superficies, contraste y acentos en modo claro y oscuro; se mantienen los colores semánticos de los estados.
+- La ficha distingue el correo público de contacto del correo principal de la cuenta y del correo secundario de recuperación existente.
+- Se añadió el campo independiente `profiles.public_email` y se amplió la API de perfil para leerlo y guardarlo.
+- Se actualizó la versión visible, las referencias de recursos y la caché PWA.
+
 ## V6.0.41beta — preferencias visuales por cuenta
 - Añade paletas de acento, tres tamaños de letra y tres tamaños de iconos, además del tema claro/oscuro/sistema.
 - Guarda las preferencias en el dispositivo vinculadas al ID de la cuenta; al cambiar de cuenta, carga sus propias preferencias y evita compartir la personalización entre usuarios.
