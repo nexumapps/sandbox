@@ -559,6 +559,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
  .brand-home-button img{width:clamp(72px,19vw,100px);max-height:48px;}
  .brand-home-button .brand-version{font-size:11px;}
  .account-identity-name{max-width:100px;}
- .app-sidebar{padding-top:220px;}
- .sidebar-nav{padding-top:8px;}
+ /* El panel comienza justo debajo de la cabecera de la aplicación; no añade un gran hueco interior. */
+ .app-sidebar{top:164px;padding-top:12px;}
+ .sidebar-nav{padding-top:0;}
+ .sidebar-backdrop{inset:164px 0 0;}
 }
+
+
+/* V6.0.51beta — menú lateral móvil situado justo debajo de la cabecera, sin espacio vertical excesivo. */
