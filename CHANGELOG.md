@@ -1,3 +1,8 @@
+## V6.0.44beta — control de entrada a Desarrolladores
+- La entrada al módulo consulta primero al servidor y solo se abre si la sesión pertenece a un administrador global activo.
+- Si la validación falla, el módulo no se abre y se muestra el motivo de denegación.
+- La API de administración continúa verificando el permiso en cada petición; el acceso directo a las tablas administrativas sigue bloqueado por RLS y privilegios.
+
 ## V6.0.43beta — preferencias visuales sincronizadas por usuario
 - Guarda en el perfil de Supabase el modo, la paleta, el tamaño de texto y el tamaño de iconos.
 - Al iniciar sesión, recupera las preferencias de la nube; conserva una copia local para uso sin conexión y actualiza la nube al cambiar ajustes.
