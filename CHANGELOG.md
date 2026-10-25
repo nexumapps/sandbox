@@ -1,3 +1,9 @@
+## V6.0.48beta — acceso local sin sesión
+- Añade una opción explícita para abrir el taller en modo local cuando no hay conexión, no hay sesión y existe un taller configurado previamente en el dispositivo.
+- El modo local no crea credenciales ni concede permisos administrativos; al volver la conexión se vuelve a pedir autenticación antes de sincronizar.
+- La elección dura solo en la pestaña y se limpia al iniciar sesión o cerrar sesión. Los datos y la cola local se conservan.
+- No se modificó Supabase ni el repositorio principal.
+
 ## V6.0.47beta — sincronización automática prudente
 - Consulta cambios remotos cada 30 segundos mientras la aplicación está visible y conectada; la consulta periódica ejecuta únicamente la recepción incremental.
 - Los cambios locales encolados activan un envío automático tras una pausa breve para agrupar operaciones, sin ventanas emergentes.
