@@ -1,5 +1,5 @@
-// V6.0.44beta: acceso a Desarrolladores bloqueado hasta validar administración global en servidor.
-const APP_VERSION="6.0.45beta";
+// V6.0.46beta: mover la tarjeta de taller asignado desde Perfil a Producción sin cambiar su lógica.
+const APP_VERSION="6.0.46beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
