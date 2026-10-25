@@ -1,3 +1,10 @@
+## V6.0.47beta — sincronización automática prudente
+- Consulta cambios remotos cada 30 segundos mientras la aplicación está visible y conectada; la consulta periódica ejecuta únicamente la recepción incremental.
+- Los cambios locales encolados activan un envío automático tras una pausa breve para agrupar operaciones, sin ventanas emergentes.
+- La sincronización manual conserva su comportamiento y sus mensajes; se mantiene la protección contra ciclos simultáneos, conflictos y cambios dudosos.
+- La sincronización se pausa al quedar sin conexión o en segundo plano y se reanuda al volver a la aplicación.
+- Actualiza la versión visible y la caché PWA. No se modificó el esquema ni las funciones de Supabase.
+
 ## V6.0.46beta — tarjeta de taller asignado en Producción
 - Se mueve la tarjeta «Taller asignado» desde Perfil al panel Producción.
 - Se conservan sus identificadores, selector, mensajes y lógica de membresías para no alterar el cambio de taller por dispositivo.
