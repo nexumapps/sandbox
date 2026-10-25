@@ -544,3 +544,21 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 .settings-menu-item.settings-verifying strong{color:var(--accent,var(--primary));}
 .settings-menu-item:disabled{cursor:progress;}
 @keyframes nexum-admin-verify-spin{to{transform:rotate(360deg);}}
+
+
+/* V6.0.50beta — cabecera compacta y navegación móvil con espacio superior suficiente. */
+.brand-home-button{flex-wrap:wrap;justify-content:center;gap:2px 8px;}
+.brand-home-button img{width:clamp(78px,20vw,116px);max-height:52px;}
+.brand-home-button .brand-version{display:block;flex:0 0 100%;text-align:center;font-size:12px;line-height:1.1;font-weight:500;color:#dbe7f1;white-space:nowrap;opacity:.9;}
+.sidebar-footer{display:flex;flex-direction:column;gap:8px;}
+.sidebar-app-name{display:block;font-size:14px;color:#dbe7f1;letter-spacing:.02em;}
+@media(max-width:600px){
+ .topbar{gap:7px;padding:10px 9px;}
+ .topbar-brand-area{gap:5px;}
+ .brand-home-button{gap:2px 5px;}
+ .brand-home-button img{width:clamp(72px,19vw,100px);max-height:48px;}
+ .brand-home-button .brand-version{font-size:11px;}
+ .account-identity-name{max-width:100px;}
+ .app-sidebar{padding-top:220px;}
+ .sidebar-nav{padding-top:8px;}
+}
