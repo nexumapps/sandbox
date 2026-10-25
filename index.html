@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102a43"><meta name="description" content="Gestión local del taller NEXUM"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NEXUM"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>NEXUM — Taller · V6.0.40beta</title>
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png" type="image/png"><link rel="stylesheet" href="styles.css?v=105">
+<title>NEXUM — Taller · V6.0.41beta</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png" type="image/png"><link rel="stylesheet" href="styles.css?v=106">
 </head>
 <body class="auth-locked">
 <section id="loginGate" class="auth-gate" aria-labelledby="loginGateTitle"><div class="auth-gate-brand"><img src="logo-oscuro.svg" alt="NEXUM"><h1 id="loginGateTitle">Acceso a NEXUM Taller</h1><p>Inicia sesión para continuar.</p></div><div id="loginGateContent"></div><section id="cloudRecoveryPanel" class="card hidden"><h2>Recuperar contraseña</h2><p class="muted">Escribe tu usuario NEXUM o el correo asociado a la cuenta.</p><form id="cloudRecoveryForm"><label>Usuario o correo<input id="cloudRecoveryIdentifier" autocomplete="username" required maxlength="254"></label><div class="actions"><button class="primary" id="cloudRecoveryBtn" type="submit">Enviar enlace de recuperación</button><button class="secondary" id="cloudRecoveryBack" type="button">Volver al inicio de sesión</button></div><p id="cloudRecoveryMessage" class="field-help" role="status"></p></form></section><section id="cloudPasswordResetPanel" class="card hidden"><h2>Crear nueva contraseña</h2><p class="muted">Elige una contraseña nueva para tu cuenta.</p><label>Nueva contraseña<input id="cloudResetPassword" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></label><label>Confirmar contraseña<input id="cloudResetPasswordConfirm" type="password" minlength="8" maxlength="128" autocomplete="new-password" required></label><button class="primary" id="cloudPasswordResetBtn" type="button">Actualizar contraseña</button><p id="cloudPasswordResetMessage" class="field-help" role="status"></p></section></section>
@@ -95,8 +95,12 @@
 <div class="card" id="syncConfigCard"><h3>Taller asignado</h3><p class="muted">El taller se determina según tus membresías activas. Si tienes acceso a varios talleres, puedes elegir cuál usar en este dispositivo; los datos de cada taller permanecen separados.</p><p id="syncWorkshopName" class="field-help" role="status">Consultando la asignación del taller…</p><div id="memberWorkshopSwitcher" class="hidden"><label>Usar este taller en el dispositivo<select id="memberWorkshopSelect"><option value="">Seleccionar taller</option></select></label><div class="actions"><button id="memberWorkshopUseBtn" class="primary" type="button" disabled>Usar en este dispositivo</button></div><p class="field-help">El cambio no borra ni mezcla datos. Si hay una sincronización en curso, espera a que termine antes de cambiar.</p></div><p class="field-help" id="syncConfigInfo">Sin configuración.</p></div>
 </div>
 <div class="settings-group" data-settings-panel="preferencias"><div class="settings-group-head"><button type="button" class="settings-back" data-settings-back>‹ Configuración</button><h3>Preferencias</h3><p>Aspecto de la aplicación y ajustes personales del dispositivo.</p></div>
-<div class="card"><h3>Apariencia</h3><p class="muted">Personaliza la presentación de NEXUM Taller en este dispositivo.</p>
+<div class="card"><h3>Apariencia</h3><p class="muted">Personaliza la presentación de NEXUM Taller. Estas preferencias se guardan por cuenta y se aplican al instante.</p>
 <label>Modo de apariencia<select id="themeMode"><option value="system">Igual al sistema</option><option value="light">Claro</option><option value="dark">Oscuro</option></select></label>
+<label>Paleta de colores<select id="colorPalette"><option value="blue">Azul NEXUM</option><option value="violet">Violeta</option><option value="teal">Turquesa</option><option value="amber">Ámbar</option><option value="coral">Coral</option></select><small class="field-help">Solo cambia los acentos de la interfaz; los colores que identifican los estados se mantienen.</small></label>
+<label>Tamaño de letra<select id="fontSize"><option value="small">Pequeño</option><option value="medium">Mediano</option><option value="large">Grande</option></select></label>
+<label>Tamaño de iconos<select id="iconSize"><option value="small">Pequeño</option><option value="medium">Mediano</option><option value="large">Grande</option></select></label>
+<div class="actions"><button type="button" class="secondary" id="resetPreferencesBtn">Restablecer valores predeterminados</button></div>
 </div>
 </div>
 <div class="settings-group" data-settings-panel="produccion"><div class="settings-group-head"><button type="button" class="settings-back" data-settings-back>‹ Configuración</button><h3>Producción</h3><p>Opciones que influyen en el trabajo diario del taller.</p></div>
@@ -120,5 +124,5 @@
 <dialog id="economyDialog"><div class="card dialogcard"><button class="close" onclick="$('economyDialog').close()">×</button><h2 id="economyDialogTitle">Economía</h2><div id="economyDialogBody"></div></div></dialog>
 <dialog id="movementDialog"><div class="card dialogcard"><button class="close" onclick="$('movementDialog').close()">×</button><h2 id="movementDialogTitle">Movimiento</h2><div id="movementDialogBody"></div></div></dialog>
 <script src="sync-core.js"></script>
-<script src="app.js?v=115"></script>
+<script src="app.js?v=116"></script>
 </body></html>
