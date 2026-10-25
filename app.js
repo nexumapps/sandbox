@@ -1,5 +1,5 @@
 // V6.0.41beta: preferencias visuales guardadas por cuenta, con tema, paleta, tipografía e iconos ajustables.
-const APP_VERSION="6.0.41beta";
+const APP_VERSION="6.0.42beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -73,7 +73,7 @@ const ACCOUNT_SETTINGS_PREFIX="nexum_account_preferences_v1__";
 function loadSettings(){try{return JSON.parse(contextStorage.getItem(SETTINGS_KEY)||"{}")||{}}catch(e){return {}}}
 let appSettings=loadSettings();
 let activePreferenceUserId="";
-function preferenceDefaults(){return {theme:"system",palette:"blue",fontSize:"medium",iconSize:"medium"}}
+function preferenceDefaults(){return {theme:"system",palette:"nexum",fontSize:"medium",iconSize:"medium"}}
 function persistPreferences(){
  const uid=window.NexumAuthSession?.get()?.user?.id||"";
  try{if(uid)localStorage.setItem(ACCOUNT_SETTINGS_PREFIX+uid,JSON.stringify({...preferenceDefaults(),...appSettings}));else contextStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings));}
@@ -223,14 +223,23 @@ window.addEventListener("resize",()=>{const backdrop=$("sidebarBackdrop");if(bac
 if(window.matchMedia("(min-width: 901px)").matches)setSidebarOpen(true);
 function applyTheme(){
  const root=document.documentElement,mode=["system","light","dark"].includes(appSettings.theme)?appSettings.theme:"system";
- const palettes={blue:"#1f6feb",violet:"#7957d5",teal:"#11998e",amber:"#c78318",coral:"#d95763"};
- root.dataset.theme=mode;root.dataset.palette=palettes[appSettings.palette]?appSettings.palette:"blue";
+ const palettes={
+  nexum:{accent:"#2374e1",light:["#f2f6fc","#ffffff","#e7eef8","#172b45","#64758c","#d4dfed","#ffffff","#edf4ff"],dark:["#0b1422","#131f30","#1b2a3e","#edf4ff","#a6b6cb","#2b3d54","#101c2b","#203754"]},
+  midnight:{accent:"#8b7cf6",light:["#f4f2ff","#ffffff","#ebe8ff","#29204f","#716a91","#ded8fa","#ffffff","#eeeaff"],dark:["#100d20","#1b1730","#27213f","#f4f0ff","#b9b0d8","#3a3158","#19142a","#352b57"]},
+  graphite:{accent:"#8b9aaa",light:["#f1f3f5","#ffffff","#e5e8eb","#222a32","#68737e","#d5dbe0","#ffffff","#e9edf0"],dark:["#171b20","#222830","#2d343d","#edf1f4","#aeb8c2","#404953","#1c2229","#353e48"]},
+  light:{accent:"#187c9c",light:["#ffffff","#ffffff","#f0f8fa","#163b49","#617d87","#d4e5e9","#ffffff","#e3f4f7"],dark:["#0e2027","#172f38","#21404b","#eafaff","#a8c6cf","#35545e","#12272f","#244954"]},
+  ocean:{accent:"#08a6c2",light:["#edf8fb","#ffffff","#ddf2f7","#124453","#5e8390","#c8e3eb","#ffffff","#dff4f8"],dark:["#091b24","#102a36","#183946","#e8faff","#9dc2ce","#2a4b59","#0e232d","#1c4554"]},
+  forest:{accent:"#2c9b72",light:["#f0f8f3","#ffffff","#e2f2e8","#173d2b","#63816e","#d1e4d7","#ffffff","#e3f4e8"],dark:["#0c1d16","#142b20","#1e3b2c","#eaf8ef","#a5c7b1","#31513f","#10241a","#204b36"]}
+ };
+ const palette=palettes[appSettings.palette]?appSettings.palette:"nexum",dark=mode==="dark"||(mode==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches),p=palettes[palette],v=dark?p.dark:p.light;
+ root.dataset.theme=mode;root.dataset.palette=palette;
  root.dataset.fontSize=["small","medium","large"].includes(appSettings.fontSize)?appSettings.fontSize:"medium";
- root.dataset.iconSize=["small","medium","large"].includes(appSettings.iconSize)?appSettings.iconSize:"medium";root.style.setProperty("--accent",palettes[root.dataset.palette]);
- const dark=mode==="dark"||(mode==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);
+ root.dataset.iconSize=["small","medium","large"].includes(appSettings.iconSize)?appSettings.iconSize:"medium";
+ ["--bg","--card","--surface","--text","--muted","--line","--field","--nav","--selected"].forEach((k,i)=>root.style.setProperty(k,v[i]));
+ root.style.setProperty("--accent",p.accent);
  const logo=$("brandLogo");if(logo&&logo.getAttribute("src")!=="logo-oscuro.svg")logo.src="logo-oscuro.svg";
- const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?"#101820":"#102a43";
- if($("themeMode"))$("themeMode").value=mode;if($("colorPalette"))$("colorPalette").value=root.dataset.palette;if($("fontSize"))$("fontSize").value=root.dataset.fontSize;if($("iconSize"))$("iconSize").value=root.dataset.iconSize;
+ const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=v[0];
+ if($("themeMode"))$("themeMode").value=mode;if($("colorPalette"))$("colorPalette").value=palette;if($("fontSize"))$("fontSize").value=root.dataset.fontSize;if($("iconSize"))$("iconSize").value=root.dataset.iconSize;
 }
 function renderCategoryManager(){const host=$("categoryManager");if(!host)return;host.innerHTML=categories.map((c,i)=>`<div class="category-row"><span>${esc(c)}</span>${c==="Sin definir"?'<small class="muted">Obligatoria</small>':`<button class="secondary" onclick="removeCategory(${i})">Quitar</button>`}</div>`).join("")}
 
@@ -1248,8 +1257,8 @@ const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6
   const path=decodeURIComponent(url.slice(prefix.length));if(!path.startsWith(s.user.id+"/"))return;
   await fetch(URL+"/storage/v1/object/profile-avatars/"+path,{method:"DELETE",headers:{"apikey":KEY,"Authorization":"Bearer "+s.access_token}}).catch(()=>{});
  }
- async function load(){const s=getSession();form.querySelectorAll("input,textarea,button").forEach(x=>{if(x.id!=="profileReloadBtn")x.disabled=!s?.access_token});if(!s?.access_token){message("Inicia sesión para cargar tu ficha.");["profileDisplayName","profilePhone","profileSpecialty","profileBio","profileAvatarUrl","profilePrimaryEmail","profileRecoveryEmail"].forEach(id=>el(id).value="");paintAvatar("","NX");return}message("Cargando perfil…");try{const o=await request("profile_get"),p=o.profile||{};el("profileDisplayName").value=p.display_name||"";el("profilePhone").value=p.phone||"";el("profileSpecialty").value=p.specialty||"";el("profileBio").value=p.professional_bio||"";el("profileAvatarUrl").value=p.avatar_url||"";savedAvatarUrl=p.avatar_url||"";el("profileAvatarFile").value="";el("profileAvatarFileName").textContent=p.avatar_url?"Foto guardada en el almacenamiento.":"Todavía no hay foto guardada.";el("profilePrimaryEmail").value=p.email||p.email_snapshot||"";el("profileRecoveryEmail").value=p.recovery_email||"";el("profileUsername").textContent=p.username||"—";el("profileRole").textContent=({admin:"Administrador",admin_backup:"Administrador secundario",technician:"Técnico",customer:"Usuario"})[p.role]||p.role||"—";el("profileStatus").textContent=p.is_active?"Activa":"Inactiva";el("profileCreatedAt").textContent=p.created_at?new Date(p.created_at).toLocaleDateString():"—";paintAvatar(p.avatar_url,p.display_name||p.username);message("Perfil cargado.");form.querySelectorAll("input,textarea,button").forEach(x=>x.disabled=false);el("profilePrimaryEmail").disabled=true}catch(e){message(e.message,true)}}
- form.addEventListener("submit",async e=>{e.preventDefault();saveBtn.disabled=true;message("Guardando perfil…");try{const o=await request("profile_update",{display_name:el("profileDisplayName").value,phone:el("profilePhone").value,specialty:el("profileSpecialty").value,professional_bio:el("profileBio").value,avatar_url:el("profileAvatarUrl").value,recovery_email:el("profileRecoveryEmail").value});const p=o.profile||{};paintAvatar(p.avatar_url,p.display_name||p.username);const oldAvatar=savedAvatarUrl;savedAvatarUrl=p.avatar_url||"";if(oldAvatar&&oldAvatar!==savedAvatarUrl)await deleteOldAvatar(oldAvatar);message("Perfil guardado correctamente.");}catch(e){message(e.message,true)}finally{saveBtn.disabled=false}});
+ async function load(){const s=getSession();form.querySelectorAll("input,textarea,button").forEach(x=>{if(x.id!=="profileReloadBtn")x.disabled=!s?.access_token});if(!s?.access_token){message("Inicia sesión para cargar tu ficha.");["profileDisplayName","profilePhone","profileSpecialty","profileBio","profileAvatarUrl","profilePrimaryEmail","profilePublicEmail"].forEach(id=>el(id).value="");paintAvatar("","NX");return}message("Cargando perfil…");try{const o=await request("profile_get"),p=o.profile||{};el("profileDisplayName").value=p.display_name||"";el("profilePhone").value=p.phone||"";el("profileSpecialty").value=p.specialty||"";el("profileBio").value=p.professional_bio||"";el("profileAvatarUrl").value=p.avatar_url||"";savedAvatarUrl=p.avatar_url||"";el("profileAvatarFile").value="";el("profileAvatarFileName").textContent=p.avatar_url?"Foto guardada en el almacenamiento.":"Todavía no hay foto guardada.";el("profilePrimaryEmail").value=p.email||p.email_snapshot||"";el("profilePublicEmail").value=p.public_email||"";el("profileUsername").textContent=p.username||"—";el("profileRole").textContent=({admin:"Administrador",admin_backup:"Administrador secundario",technician:"Técnico",customer:"Usuario"})[p.role]||p.role||"—";el("profileStatus").textContent=p.is_active?"Activa":"Inactiva";el("profileCreatedAt").textContent=p.created_at?new Date(p.created_at).toLocaleDateString():"—";paintAvatar(p.avatar_url,p.display_name||p.username);message("Perfil cargado.");form.querySelectorAll("input,textarea,button").forEach(x=>x.disabled=false);el("profilePrimaryEmail").disabled=true}catch(e){message(e.message,true)}}
+ form.addEventListener("submit",async e=>{e.preventDefault();saveBtn.disabled=true;message("Guardando perfil…");try{const o=await request("profile_update",{display_name:el("profileDisplayName").value,phone:el("profilePhone").value,specialty:el("profileSpecialty").value,professional_bio:el("profileBio").value,avatar_url:el("profileAvatarUrl").value,public_email:el("profilePublicEmail").value});const p=o.profile||{};paintAvatar(p.avatar_url,p.display_name||p.username);const oldAvatar=savedAvatarUrl;savedAvatarUrl=p.avatar_url||"";if(oldAvatar&&oldAvatar!==savedAvatarUrl)await deleteOldAvatar(oldAvatar);message("Perfil guardado correctamente.");}catch(e){message(e.message,true)}finally{saveBtn.disabled=false}});
  el("profileAvatarFile")?.addEventListener("change",async()=>{const file=el("profileAvatarFile").files?.[0];if(!file)return;const pick=el("profileAvatarPickBtn");pick.disabled=true;el("profileAvatarFileName").textContent="Comprimiendo y subiendo foto…";message("Procesando foto…");try{const url=await uploadAvatar(file);el("profileAvatarUrl").value=url;paintAvatar(url,el("profileDisplayName").value);el("profileAvatarFileName").textContent="Foto optimizada y subida. Pulsa «Guardar perfil» para asociarla a tu ficha.";message("Foto subida. Guarda el perfil para aplicar el cambio.");}catch(err){el("profileAvatarFileName").textContent="No se pudo subir la foto.";message(err.message,true)}finally{pick.disabled=false}});
  el("profileReloadBtn")?.addEventListener("click",load);el("profileAvatarUrl")?.addEventListener("change",()=>paintAvatar(el("profileAvatarUrl").value,el("profileDisplayName").value));
  const passwordForm=el("profilePasswordForm"),passwordBtn=el("profilePasswordSaveBtn"),passwordMsg=el("profilePasswordMessage");
