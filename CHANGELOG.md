@@ -1,3 +1,10 @@
+## V6.0.49beta — decisión explícita online/local
+- Al recuperar la conexión, pregunta si se desea pasar al modo online o continuar localmente.
+- Si se continúa en local, pausa la sincronización automática aunque haya internet; el botón Sincronizar exige iniciar sesión antes de enviar o recibir datos.
+- Recuerda localmente el identificador del último usuario autenticado (sin guardar credenciales) y muestra usuario recordado y taller configurado en el indicador de modo local.
+- La elección local se mantiene durante la pestaña; al elegir online se solicita autenticación y se valida el taller antes de sincronizar.
+- Actualiza la versión visible, el recurso JavaScript y la caché PWA. No se modificó Supabase ni el repositorio principal.
+
 ## V6.0.48beta — acceso local sin sesión
 - Añade una opción explícita para abrir el taller en modo local cuando no hay conexión, no hay sesión y existe un taller configurado previamente en el dispositivo.
 - El modo local no crea credenciales ni concede permisos administrativos; al volver la conexión se vuelve a pedir autenticación antes de sincronizar.
