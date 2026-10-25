@@ -1,3 +1,10 @@
+## V6.0.50beta — sincronización explícita y cabecera compacta
+- En modo local, el botón Sincronizar ofrece pasar al modo online o continuar localmente; cancelar conserva el modo local y no inicia sincronización.
+- Al elegir online, se muestra el acceso a la cuenta; la sincronización requiere autenticación y validación del taller.
+- Se retira «Gestión del Taller» de la cabecera, se conserva logo y versión, y se incorpora el nombre de la aplicación al pie del menú lateral.
+- Se da más espacio superior al menú lateral en móvil para que «Inicio» no quede pegado ni parcialmente oculto.
+- Actualiza versión, recursos y caché PWA. No se modificó Supabase ni el repositorio principal.
+
 ## V6.0.49beta — decisión explícita online/local
 - Al recuperar la conexión, pregunta si se desea pasar al modo online o continuar localmente.
 - Si se continúa en local, pausa la sincronización automática aunque haya internet; el botón Sincronizar exige iniciar sesión antes de enviar o recibir datos.
