@@ -217,7 +217,7 @@ function getOrCreateEquipment(ticket){
  return e;
 }
 // La cola queda persistida localmente, pero esta versión no transmite ni importa datos remotos.
-function queueLocalOperation(entityType,record,action="upsert",legacyId){try{const core=window.NexumSyncCore;if(!core||!record?.syncId)return;const queue=JSON.parse(contextStorage.getItem(SYNC_OUTBOX_KEY)||"[]");const op=core.makeOperation({entityType,record,action,baseVersion:Number(record.remoteVersion||0),payload:action==="delete"?null:syncPayload(record),legacyId});contextStorage.setItem(SYNC_OUTBOX_KEY,JSON.stringify(core.enqueue(queue,op)));record.syncStatus="pending";}catch(err){console.warn("No se pudo preparar la operación local de sincronización",err)}}
+function queueLocalOperation(entityType,record,action="upsert",legacyId){try{const core=window.NexumSyncCore;if(!core||!record?.syncId)return;const queue=JSON.parse(contextStorage.getItem(SYNC_OUTBOX_KEY)||"[]");const op=core.makeOperation({entityType,record,action,baseVersion:Number(record.remoteVersion||0),payload:action==="delete"?null:syncPayload(record),legacyId});contextStorage.setItem(SYNC_OUTBOX_KEY,JSON.stringify(core.enqueue(queue,op)));record.syncStatus="pending";window.dispatchEvent(new Event("nexum-sync-local-pending"));}catch(err){console.warn("No se pudo preparar la operación local de sincronización",err)}}
 function queueLocalDelete(entityType,record,legacyId){try{if(!record?.syncId)return;const q=JSON.parse(contextStorage.getItem(SYNC_OUTBOX_KEY)||"[]"),hasLocalOperation=q.some(op=>op.entityType===entityType&&op.entityId===record.syncId);if(Number(record.remoteVersion||0)>0||hasLocalOperation)queueLocalOperation(entityType,record,"delete",legacyId)}catch(err){console.warn("No se pudo preparar el borrado para sincronización",err)}}
 // Persiste la migración de nombre/campos al arrancar, sin encolar ni transmitir el histórico.
 try{contextStorage.setItem(KEY,JSON.stringify(data));contextStorage.setItem("taller_electronica_v5_movements",JSON.stringify(movements));contextStorage.setItem(EQUIPMENT_STORE_KEY,JSON.stringify(equipmentRecords));}catch(err){console.warn("No se pudo persistir la migración de identidad local",err)}
@@ -1093,7 +1093,8 @@ const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6
   cursor=Number(r.next_cursor||cursor);contextStorage.setItem(CURSOR_KEY,String(cursor));if(!r.has_more)break;
  }
  contextStorage.setItem("nexum_sync_inbox_v1",JSON.stringify(inbox.slice(-2000)));renderInbox();return {received,applied,review};}
- async function run(){
+ async function run(options={}){
+  const quiet=options?.quiet===true;
   if(window.NexumSyncBusy)throw Error("Ya hay una sincronización en curso.");
   if(navigator.onLine===false)throw Error("No hay conexión. El taller sigue disponible localmente y las operaciones pendientes se conservaron.");
   await window.NexumAuthSession?.refresh?.();
@@ -1124,14 +1125,64 @@ const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6
    const finalTitle=conflicts||review?"Revisión necesaria":remaining?"Cambios pendientes":"Sincronización completada";
    const summary=`Enviadas: ${sent}; conflictos: ${conflicts}; pendientes: ${remaining}; cambios recibidos: ${received}; aplicados: ${applied}; para revisar: ${review}.`;
    status(finalTitle,summary);
-   alert(`${conflicts||review?"❌ ERROR / REVISIÓN":"✅ TODO CORRECTO"}\nSincronización terminada.\n${summary}\nCiclos completados: ${cycles}${conflicts||review?"\n❌ Hay cambios que requieren revisión; no se sobrescribieron automáticamente.":""}`);
+   if(!quiet)alert(`${conflicts||review?"❌ ERROR / REVISIÓN":"✅ TODO CORRECTO"}\nSincronización terminada.\n${summary}\nCiclos completados: ${cycles}${conflicts||review?"\n❌ Hay cambios que requieren revisión; no se sobrescribieron automáticamente.":""}`);
   }catch(e){
    status("Sincronización pendiente",e.message+" Los datos locales se conservaron.");
-   alert("❌ ERROR: No se completó la sincronización: "+e.message+"\n\n✅ Los datos locales siguen guardados y las operaciones se pueden reintentar.");
+   if(!quiet)alert("❌ ERROR: No se completó la sincronización: "+e.message+"\n\n✅ Los datos locales siguen guardados y las operaciones se pueden reintentar.");
   }finally{window.NexumSyncBusy=false;restoreSyncButton();render();window.dispatchEvent(new Event("nexum-sync-idle"));}
  }
- const syncBtn=$("syncNowBtn");if(syncBtn)syncBtn.onclick=run;
- window.addEventListener("storage",e=>{if([SESSION_KEY,CFG_KEY,OUTBOX].includes(e.key)){render();if(e.key===SESSION_KEY)refreshWorkshopAssignment(true);}});window.addEventListener("nexum-sync-config-changed",render);window.addEventListener("nexum-sync-auth-changed",()=>refreshWorkshopAssignment(true));window.addEventListener("focus",()=>refreshWorkshopAssignment(true));window.addEventListener("nexum-sync-idle",()=>{if(assignmentError)refreshWorkshopAssignment(true);});render();refreshWorkshopAssignment(true);
+ const syncBtn=$("syncNowBtn");if(syncBtn)syncBtn.onclick=()=>run();
+ // V6.0.47beta: sincronización automática prudente. La consulta remota solo ejecuta pull;
+ // las operaciones locales disparan una sincronización completa con espera corta para agrupar ediciones.
+ const AUTO_PULL_INTERVAL=30000,AUTO_PUSH_DEBOUNCE=1400;
+ let autoPullTimer=null,autoPushTimer=null,autoPullBusy=false;
+ function autoSyncReady(){return document.visibilityState!=="hidden"&&navigator.onLine!==false&&!!session()&&!!cfg()?.workshopId;}
+ async function pollRemoteChanges(){
+  if(!autoSyncReady()||window.NexumSyncBusy||autoPullBusy)return;
+  const s=session(),c=cfg();if(!s||!c?.workshopId)return;
+  autoPullBusy=true;window.NexumSyncBusy=true;
+  try{
+   await window.NexumAuthSession?.refresh?.();
+   if(!autoSyncReady())return;
+   const fresh=session();if(!fresh)return;
+   const result=await pull(fresh,c);
+   if(result.received||result.review){
+    status(result.review?"Novedades recibidas · revisión pendiente":"Novedades recibidas",`Nuevos cambios: ${result.received}; aplicados: ${result.applied}; para revisar: ${result.review}. Los cambios dudosos no se sobrescribieron.`);
+   }
+  }catch(e){
+   // Fallos temporales no bloquean la aplicación ni borran los datos locales.
+   console.warn("Consulta automática de novedades pendiente:",e?.message||e);
+  }finally{
+   autoPullBusy=false;window.NexumSyncBusy=false;render();
+   window.dispatchEvent(new Event("nexum-sync-idle"));
+  }
+ }
+ function scheduleAutoPull(delay=0){
+  if(autoPullTimer)clearTimeout(autoPullTimer);
+  autoPullTimer=setTimeout(async()=>{
+   autoPullTimer=null;
+   if(autoSyncReady())await pollRemoteChanges();
+   if(autoSyncReady())scheduleAutoPull(AUTO_PULL_INTERVAL);
+  },delay);
+ }
+ function scheduleAutoPush(){
+  if(autoPushTimer)clearTimeout(autoPushTimer);
+  if(!autoSyncReady())return;
+  autoPushTimer=setTimeout(()=>{
+   autoPushTimer=null;
+   if(autoSyncReady()&&!window.NexumSyncBusy)run({quiet:true}).catch(e=>console.warn("Envío automático pendiente:",e?.message||e));
+  },AUTO_PUSH_DEBOUNCE);
+ }
+ window.addEventListener("nexum-sync-local-pending",scheduleAutoPush);
+ window.addEventListener("online",()=>{scheduleAutoPull(0);scheduleAutoPush();});
+ window.addEventListener("offline",()=>{if(autoPullTimer)clearTimeout(autoPullTimer);autoPullTimer=null;if(autoPushTimer)clearTimeout(autoPushTimer);autoPushTimer=null;});
+ document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"){if(autoPullTimer)clearTimeout(autoPullTimer);autoPullTimer=null;}else{scheduleAutoPull(0);scheduleAutoPush();}});
+ window.addEventListener("focus",()=>{refreshWorkshopAssignment(true);scheduleAutoPull(0);scheduleAutoPush();});
+ window.addEventListener("nexum-sync-config-changed",()=>{render();scheduleAutoPull(0);scheduleAutoPush();});
+ window.addEventListener("nexum-sync-auth-changed",()=>{refreshWorkshopAssignment(true);scheduleAutoPull(0);scheduleAutoPush();});
+ window.addEventListener("nexum-sync-idle",()=>{if(assignmentError)refreshWorkshopAssignment(true);if(autoSyncReady())scheduleAutoPull(AUTO_PULL_INTERVAL);});
+ window.addEventListener("storage",e=>{if([SESSION_KEY,CFG_KEY,OUTBOX].includes(e.key)){render();if(e.key===SESSION_KEY)refreshWorkshopAssignment(true);if(e.key===OUTBOX)scheduleAutoPush();}});
+ render();refreshWorkshopAssignment(true);scheduleAutoPull(0);scheduleAutoPush();
 })();
 
 /* V6.0-dev-v41 — ojo clásico dentro del campo, con SVG abierto/cerrado y sin botón lateral. */
