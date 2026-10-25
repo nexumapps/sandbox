@@ -1,3 +1,8 @@
+## V6.0.51beta — posición del menú lateral móvil
+- El menú lateral empieza justo debajo de la cabecera de la aplicación; se elimina el hueco vertical excesivo.
+- El fondo oscurecido queda limitado al área situada bajo la cabecera.
+- No se modificó Supabase ni el repositorio principal.
+
 ## V6.0.50beta — sincronización explícita y cabecera compacta
 - En modo local, el botón Sincronizar ofrece pasar al modo online o continuar localmente; cancelar conserva el modo local y no inicia sincronización.
 - Al elegir online, se muestra el acceso a la cuenta; la sincronización requiere autenticación y validación del taller.
