@@ -1,3 +1,9 @@
+## V6.0.41beta — preferencias visuales por cuenta
+- Añade paletas de acento, tres tamaños de letra y tres tamaños de iconos, además del tema claro/oscuro/sistema.
+- Guarda las preferencias en el dispositivo vinculadas al ID de la cuenta; al cambiar de cuenta, carga sus propias preferencias y evita compartir la personalización entre usuarios.
+- Añade restablecimiento de valores predeterminados; conserva los colores semánticos de estados de tickets.
+- Actualiza versión visible, recursos con caché versionada y service worker.
+
 ## V6.0.40beta — restaurar cambio directo de contraseña
 - Restaura en el perfil los campos de nueva contraseña y confirmación, usando la sesión autenticada para actualizarla directamente en Supabase.
 - Evita enviar correos de recuperación desde el cambio de contraseña del perfil y conserva la clave pública API corregida en V6.0.38beta.
