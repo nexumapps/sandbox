@@ -1,3 +1,7 @@
+## V6.0.45beta — indicador de verificación de Desarrolladores
+- El acceso muestra «Verificando acceso…» y «Comprobando permisos con el servidor» mientras espera la respuesta.
+- Se anima el icono y se deshabilita temporalmente el botón para evitar clics repetidos; después se restaura el texto original.
+
 ## V6.0.44beta — control de entrada a Desarrolladores
 - La entrada al módulo consulta primero al servidor y solo se abre si la sesión pertenece a un administrador global activo.
 - Si la validación falla, el módulo no se abre y se muestra el motivo de denegación.
