@@ -1,3 +1,8 @@
+## V6.0.43beta — preferencias visuales sincronizadas por usuario
+- Guarda en el perfil de Supabase el modo, la paleta, el tamaño de texto y el tamaño de iconos.
+- Al iniciar sesión, recupera las preferencias de la nube; conserva una copia local para uso sin conexión y actualiza la nube al cambiar ajustes.
+- Preferencias personales separadas de la configuración y datos del taller.
+
 ## V6.0.42beta — paletas completas y correo público
 - Las seis paletas modifican fondos, superficies, contraste y acentos en modo claro y oscuro; se mantienen los colores semánticos de los estados.
 - La ficha distingue el correo público de contacto del correo principal de la cuenta y del correo secundario de recuperación existente.
