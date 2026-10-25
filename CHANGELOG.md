@@ -1,3 +1,8 @@
+## V6.0.46beta — tarjeta de taller asignado en Producción
+- Se mueve la tarjeta «Taller asignado» desde Perfil al panel Producción.
+- Se conservan sus identificadores, selector, mensajes y lógica de membresías para no alterar el cambio de taller por dispositivo.
+- No se modifican datos, membresías, permisos ni servicios de backend.
+
 ## V6.0.45beta — indicador de verificación de Desarrolladores
 - El acceso muestra «Verificando acceso…» y «Comprobando permisos con el servidor» mientras espera la respuesta.
 - Se anima el icono y se deshabilita temporalmente el botón para evitar clics repetidos; después se restaura el texto original.
