@@ -536,3 +536,11 @@ p,.muted,.field-help,.meta{color:var(--muted)}
 .secondary{background:var(--surface);color:var(--text);border-color:var(--line)}
 .primary{background:var(--accent);color:#fff}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+
+/* V6.0.45beta: feedback visible mientras se verifica el acceso a Desarrolladores. */
+.settings-menu-item.settings-verifying{cursor:progress;opacity:.88;}
+.settings-menu-item.settings-verifying .settings-menu-icon{animation:nexum-admin-verify-spin 1.1s linear infinite;}
+.settings-menu-item.settings-verifying strong{color:var(--accent,var(--primary));}
+.settings-menu-item:disabled{cursor:progress;}
+@keyframes nexum-admin-verify-spin{to{transform:rotate(360deg);}}
