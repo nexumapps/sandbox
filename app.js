@@ -1,5 +1,5 @@
 // V6.0.41beta: preferencias visuales guardadas por cuenta, con tema, paleta, tipografía e iconos ajustables.
-const APP_VERSION="6.0.42beta";
+const APP_VERSION="6.0.43beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -74,23 +74,35 @@ function loadSettings(){try{return JSON.parse(contextStorage.getItem(SETTINGS_KE
 let appSettings=loadSettings();
 let activePreferenceUserId="";
 function preferenceDefaults(){return {theme:"system",palette:"nexum",fontSize:"medium",iconSize:"medium"}}
-function persistPreferences(){
- const uid=window.NexumAuthSession?.get()?.user?.id||"";
- try{if(uid)localStorage.setItem(ACCOUNT_SETTINGS_PREFIX+uid,JSON.stringify({...preferenceDefaults(),...appSettings}));else contextStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings));}
- catch(e){console.warn("No se pudieron guardar las preferencias",e)}
+let preferenceSaveChain=Promise.resolve(),preferenceLoadToken=0;
+async function cloudPreferenceRequest(action,preferences){
+ const s=window.NexumAuthSession?.get();if(!s?.access_token)throw Error("No hay sesión autenticada");
+ const r=await fetch("https://ywcrowviufbioeqixwrq.supabase.co/functions/v1/login-with-username",{method:"POST",headers:{"Content-Type":"application/json","apikey":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl3Y3Jvd3ZpdWZiaW9lcWl4d3JxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNjIwMzAsImV4cCI6MjEwNjgzODAzMH0.Mh9BHpigCVQ8Q624_M1o495A5JwTRL0M7q7yF5g5RQE","Authorization":"Bearer "+s.access_token},body:JSON.stringify({action,preferences})});
+ const o=await r.json().catch(()=>({}));if(!r.ok)throw Error(o.error||"No se pudieron sincronizar las preferencias");return o;
 }
-function loadPreferencesForAccount(){
- const session=window.NexumAuthSession?.get(),uid=session?.user?.id||"";
+function persistPreferences(){
+ const uid=window.NexumAuthSession?.get()?.user?.id||"",settings={...preferenceDefaults(),...appSettings};
+ try{if(uid)localStorage.setItem(ACCOUNT_SETTINGS_PREFIX+uid,JSON.stringify(settings));else contextStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings));}
+ catch(e){console.warn("No se pudieron guardar las preferencias",e)}
+ if(uid){preferenceSaveChain=preferenceSaveChain.then(()=>cloudPreferenceRequest("preferences_update",settings)).catch(e=>console.warn("Preferencias guardadas localmente; nube pendiente:",e));}
+}
+async function loadPreferencesForAccount(){
+ const session=window.NexumAuthSession?.get(),uid=session?.user?.id||"",token=++preferenceLoadToken;
  if(uid===activePreferenceUserId)return;
- const previous={...appSettings};activePreferenceUserId=uid;
+ activePreferenceUserId=uid;
  if(!uid){appSettings=preferenceDefaults();return;}
- try{const raw=localStorage.getItem(ACCOUNT_SETTINGS_PREFIX+uid);if(raw){appSettings={...preferenceDefaults(),...JSON.parse(raw)};return;}}
- catch(e){console.warn("No se pudieron leer las preferencias de la cuenta",e)}
- appSettings=preferenceDefaults();
- // Migra el tema previo solo si la configuración del taller local pertenece a esta cuenta.
- try{const cfg=JSON.parse(contextStorage.getItem("nexum_sync_config_v1")||"null");if(cfg?.userId===uid&&["system","light","dark"].includes(previous.theme))appSettings.theme=previous.theme;}catch{}
+ let local=null;try{const raw=localStorage.getItem(ACCOUNT_SETTINGS_PREFIX+uid);if(raw)local=JSON.parse(raw)}catch(e){console.warn("No se pudieron leer las preferencias locales",e)}
+ appSettings={...preferenceDefaults(),...(local||{})};
+ try{
+  const result=await cloudPreferenceRequest("preferences_get");
+  if(token!==preferenceLoadToken||window.NexumAuthSession?.get()?.user?.id!==uid)return;
+  const cloud=result.preferences||{};
+  if(Object.keys(cloud).length){appSettings={...preferenceDefaults(),...cloud};try{localStorage.setItem(ACCOUNT_SETTINGS_PREFIX+uid,JSON.stringify(appSettings))}catch{};applyTheme();renderSettings();}
+  else await cloudPreferenceRequest("preferences_update",appSettings);
+ }catch(e){console.warn("Se usarán las preferencias locales hasta recuperar conexión:",e)}
 }
 window.addEventListener("nexum-auth-session-changed",()=>{loadPreferencesForAccount();applyTheme();renderSettings()});
+loadPreferencesForAccount();
 const statuses=["En espera de diagnóstico","En diagnóstico","En espera de reparación","En reparación","En espera de confirmación","En espera de piezas","Listo para recoger","Listo para devolver","Entregado / Conforme","Cancelado","Devuelto","Derivado"];
 const finals=["Entregado / Conforme","Cancelado","Devuelto","Derivado"];
 const queueStates=["En espera de diagnóstico","En diagnóstico","En espera de reparación","En reparación"];
