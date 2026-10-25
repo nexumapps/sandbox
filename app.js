@@ -1,5 +1,5 @@
-// V6.0.36beta: corregir la clave pública usada al actualizar directamente la contraseña desde la sesión autenticada.
-const APP_VERSION="6.0.37beta";
+// V6.0.41beta: preferencias visuales guardadas por cuenta, con tema, paleta, tipografía e iconos ajustables.
+const APP_VERSION="6.0.41beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -69,8 +69,28 @@ function legacyUnassignedSummary(){
 
 let categories=loadCategories();
 function loadCategories(){try{const a=JSON.parse(contextStorage.getItem(CATEGORIES_KEY)||"null");if(Array.isArray(a)&&a.includes("Sin definir"))return [...new Set(a.map(x=>String(x).trim()).filter(Boolean))]}catch(e){}return [...DEFAULT_CATEGORIES]}
+const ACCOUNT_SETTINGS_PREFIX="nexum_account_preferences_v1__";
 function loadSettings(){try{return JSON.parse(contextStorage.getItem(SETTINGS_KEY)||"{}")||{}}catch(e){return {}}}
 let appSettings=loadSettings();
+let activePreferenceUserId="";
+function preferenceDefaults(){return {theme:"system",palette:"blue",fontSize:"medium",iconSize:"medium"}}
+function persistPreferences(){
+ const uid=window.NexumAuthSession?.get()?.user?.id||"";
+ try{if(uid)localStorage.setItem(ACCOUNT_SETTINGS_PREFIX+uid,JSON.stringify({...preferenceDefaults(),...appSettings}));else contextStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings));}
+ catch(e){console.warn("No se pudieron guardar las preferencias",e)}
+}
+function loadPreferencesForAccount(){
+ const session=window.NexumAuthSession?.get(),uid=session?.user?.id||"";
+ if(uid===activePreferenceUserId)return;
+ const previous={...appSettings};activePreferenceUserId=uid;
+ if(!uid){appSettings=preferenceDefaults();return;}
+ try{const raw=localStorage.getItem(ACCOUNT_SETTINGS_PREFIX+uid);if(raw){appSettings={...preferenceDefaults(),...JSON.parse(raw)};return;}}
+ catch(e){console.warn("No se pudieron leer las preferencias de la cuenta",e)}
+ appSettings=preferenceDefaults();
+ // Migra el tema previo solo si la configuración del taller local pertenece a esta cuenta.
+ try{const cfg=JSON.parse(contextStorage.getItem("nexum_sync_config_v1")||"null");if(cfg?.userId===uid&&["system","light","dark"].includes(previous.theme))appSettings.theme=previous.theme;}catch{}
+}
+window.addEventListener("nexum-auth-session-changed",()=>{loadPreferencesForAccount();applyTheme();renderSettings()});
 const statuses=["En espera de diagnóstico","En diagnóstico","En espera de reparación","En reparación","En espera de confirmación","En espera de piezas","Listo para recoger","Listo para devolver","Entregado / Conforme","Cancelado","Devuelto","Derivado"];
 const finals=["Entregado / Conforme","Cancelado","Devuelto","Derivado"];
 const queueStates=["En espera de diagnóstico","En diagnóstico","En espera de reparación","En reparación"];
@@ -201,7 +221,17 @@ function setSidebarOpen(open){const toggle=$("menuToggleBtn"),backdrop=$("sideba
 const menuToggle=$("menuToggleBtn"),brandMenu=$("brandMenuBtn"),backdrop=$("sidebarBackdrop");if(menuToggle)menuToggle.addEventListener("click",()=>setSidebarOpen(!document.body.classList.contains("sidebar-open")));if(brandMenu)brandMenu.addEventListener("click",()=>{if(document.body.classList.contains("sidebar-open")){show("inicio");setSidebarOpen(false)}else setSidebarOpen(true)});if(backdrop)backdrop.addEventListener("click",()=>setSidebarOpen(false));document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.body.classList.contains("sidebar-open"))setSidebarOpen(false)});
 window.addEventListener("resize",()=>{const backdrop=$("sidebarBackdrop");if(backdrop)backdrop.hidden=!document.body.classList.contains("sidebar-open")||!window.matchMedia("(max-width: 900px)").matches});
 if(window.matchMedia("(min-width: 901px)").matches)setSidebarOpen(true);
-function applyTheme(){const mode=appSettings.theme||"system";document.documentElement.dataset.theme=mode;const dark=mode==="dark"||(mode==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);const logo=$("brandLogo");if(logo&&logo.getAttribute("src")!=="logo-oscuro.svg")logo.src="logo-oscuro.svg";const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?"#101820":"#102a43";if($("themeMode"))$("themeMode").value=mode}
+function applyTheme(){
+ const root=document.documentElement,mode=["system","light","dark"].includes(appSettings.theme)?appSettings.theme:"system";
+ const palettes={blue:"#1f6feb",violet:"#7957d5",teal:"#11998e",amber:"#c78318",coral:"#d95763"};
+ root.dataset.theme=mode;root.dataset.palette=palettes[appSettings.palette]?appSettings.palette:"blue";
+ root.dataset.fontSize=["small","medium","large"].includes(appSettings.fontSize)?appSettings.fontSize:"medium";
+ root.dataset.iconSize=["small","medium","large"].includes(appSettings.iconSize)?appSettings.iconSize:"medium";root.style.setProperty("--accent",palettes[root.dataset.palette]);
+ const dark=mode==="dark"||(mode==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);
+ const logo=$("brandLogo");if(logo&&logo.getAttribute("src")!=="logo-oscuro.svg")logo.src="logo-oscuro.svg";
+ const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?"#101820":"#102a43";
+ if($("themeMode"))$("themeMode").value=mode;if($("colorPalette"))$("colorPalette").value=root.dataset.palette;if($("fontSize"))$("fontSize").value=root.dataset.fontSize;if($("iconSize"))$("iconSize").value=root.dataset.iconSize;
+}
 function renderCategoryManager(){const host=$("categoryManager");if(!host)return;host.innerHTML=categories.map((c,i)=>`<div class="category-row"><span>${esc(c)}</span>${c==="Sin definir"?'<small class="muted">Obligatoria</small>':`<button class="secondary" onclick="removeCategory(${i})">Quitar</button>`}</div>`).join("")}
 
 // Navegación interna de Configuración: menú principal y paneles independientes.
@@ -209,9 +239,14 @@ function openSettingsPanel(name){const menu=$("settingsMenu");if(!menu)return;me
 function closeSettingsPanel(){const menu=$("settingsMenu");if(!menu)return;document.querySelectorAll("[data-settings-panel]").forEach(p=>p.classList.remove("settings-panel-active"));menu.classList.remove("hidden");}
 document.querySelectorAll("[data-settings-open]").forEach(b=>b.addEventListener("click",()=>openSettingsPanel(b.dataset.settingsOpen)));
 document.querySelectorAll("[data-settings-back]").forEach(b=>b.addEventListener("click",closeSettingsPanel));
-function renderSettings(){if($("themeMode"))$("themeMode").value=appSettings.theme||"system";if($("settingRate"))$("settingRate").value=rememberedRate()||currentRate();renderCategoryManager()}
+function renderSettings(){if($("themeMode"))$("themeMode").value=appSettings.theme||"system";if($("colorPalette"))$("colorPalette").value=appSettings.palette||"blue";if($("fontSize"))$("fontSize").value=appSettings.fontSize||"medium";if($("iconSize"))$("iconSize").value=appSettings.iconSize||"medium";if($("settingRate"))$("settingRate").value=rememberedRate()||currentRate();renderCategoryManager()}
 function removeCategory(i){const c=categories[i];if(!c||c==="Sin definir")return;if(data.some(x=>x.categoria===c)&&!confirm(`Hay tickets que usan «${c}». Se quitará de las opciones nuevas, pero los tickets existentes conservarán el dato. ¿Continuar?`))return;categories=categories.filter((_,n)=>n!==i);contextStorage.setItem(CATEGORIES_KEY,JSON.stringify(categories));fillSelects();renderCategoryManager()}
-$("themeMode").onchange=()=>{appSettings.theme=$("themeMode").value;contextStorage.setItem(SETTINGS_KEY,JSON.stringify(appSettings));applyTheme()};
+function updatePreference(key,value){appSettings={...preferenceDefaults(),...appSettings,[key]:value};persistPreferences();applyTheme()}
+$("themeMode").onchange=()=>updatePreference("theme",$("themeMode").value);
+$("colorPalette").onchange=()=>updatePreference("palette",$("colorPalette").value);
+$("fontSize").onchange=()=>updatePreference("fontSize",$("fontSize").value);
+$("iconSize").onchange=()=>updatePreference("iconSize",$("iconSize").value);
+$("resetPreferencesBtn").onclick=()=>{appSettings=preferenceDefaults();persistPreferences();applyTheme();renderSettings()};
 $("saveRateBtn").onclick=()=>{const r=Number($("settingRate").value);if(!(r>0)){alert("La tasa debe ser mayor que cero.");return}rememberRate(r);economyConfig={...economyConfig,rate:r,date:today()};saveEconomyConfig();queueSharedRate(r);alert("Tasa guardada y puesta en cola para sincronizar con el taller. Pulsa Sincronizar en los dispositivos.");};
 $("addCategoryBtn").onclick=()=>{const v=$("newCategory").value.trim();if(!v){alert("Escribe un nombre para la categoría.");return}if(categories.some(c=>c.toLocaleLowerCase()===v.toLocaleLowerCase())){alert("Esa categoría ya existe.");return}categories.push(v);contextStorage.setItem(CATEGORIES_KEY,JSON.stringify(categories));$("newCategory").value="";fillSelects();renderCategoryManager()};
 if(window.matchMedia){window.matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change",()=>{if((appSettings.theme||"system")==="system")applyTheme()})}
