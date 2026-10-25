@@ -1,7 +1,8 @@
+// V6.0.50beta: sincronización local con elección online/local; cabecera compacta y menú móvil mejor espaciado.
 // V6.0.49beta: decisión explícita al recuperar conexión, identidad local visible y sincronización pausada en modo local.
 // V6.0.48beta: acceso local explícito sin sesión para trabajar sin conexión en el taller previamente configurado.
 // V6.0.47beta: consulta remota incremental cada 30 s y envío automático silencioso de cambios locales.
-const APP_VERSION="6.0.49beta";
+const APP_VERSION="6.0.50beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -1133,7 +1134,17 @@ const KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6
    if(!quiet)alert("❌ ERROR: No se completó la sincronización: "+e.message+"\n\n✅ Los datos locales siguen guardados y las operaciones se pueden reintentar.");
   }finally{window.NexumSyncBusy=false;restoreSyncButton();render();window.dispatchEvent(new Event("nexum-sync-idle"));}
  }
- const syncBtn=$("syncNowBtn");if(syncBtn)syncBtn.onclick=()=>{if(window.NexumOfflineLocalMode&&!session()){alert("Estás en modo local. Para pasar al modo online y sincronizar, debes iniciar sesión. Tus datos locales se conservarán.");offlineLocalMode=false;window.NexumOfflineLocalMode=false;sessionStorage.removeItem(OFFLINE_LOCAL_MODE_KEY);paint();return;}if(!session()){alert("Para sincronizar debes iniciar sesión y validar el taller asignado.");return;}run();};
+ const syncBtn=$("syncNowBtn");if(syncBtn)syncBtn.onclick=()=>{
+  if(window.NexumOfflineLocalMode&&!session()){
+   const goOnline=confirm("Estás trabajando en modo local.\n\nTus cambios locales se conservarán. Para sincronizar, debes pasar al modo online e iniciar sesión.\n\nAceptar: pasar al modo online.\nCancelar: seguir trabajando en modo local.");
+   if(!goOnline)return;
+   offlineLocalMode=false;window.NexumOfflineLocalMode=false;sessionStorage.removeItem(OFFLINE_LOCAL_MODE_KEY);paint();
+   const loginField=$("cloudIdentifier");if(loginField)loginField.focus();
+   return;
+  }
+  if(!session()){alert("Para sincronizar debes iniciar sesión y validar el taller asignado.");return;}
+  run();
+ };
  // V6.0.47beta: sincronización automática prudente. La consulta remota solo ejecuta pull;
  // las operaciones locales disparan una sincronización completa con espera corta para agrupar ediciones.
  const AUTO_PULL_INTERVAL=30000,AUTO_PUSH_DEBOUNCE=1400;
