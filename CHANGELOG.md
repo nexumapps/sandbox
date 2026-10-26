@@ -1,3 +1,10 @@
+## V6.0.60beta — edición segura con validación previa
+- La edición del Histórico trabaja sobre una copia temporal del ticket.
+- Si falla la validación de fecha de salida, técnico, moneda o garantía, el registro original permanece intacto y no se actualiza la tasa guardada.
+- El registro solo se sustituye y sincroniza después de superar todas las validaciones.
+- Actualiza versión visible, referencia del JavaScript y caché PWA.
+- Solo Sandbox; Main y Supabase sin cambios.
+
 ## V6.0.59beta — clave pública vigente para recuperación
 - Las peticiones de envío y aplicación de recuperación usan la clave pública `sb_publishable` activa del proyecto, en vez de la clave heredada que devolvía «Invalid API key» al actualizar la contraseña.
 - Se conserva el destino explícito de Sandbox y el diagnóstico detallado de errores.
