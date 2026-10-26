@@ -1,3 +1,8 @@
+## V6.0.54beta — posición exacta del menú lateral
+- Calcula la posición superior usando el borde inferior real de la barra superior y resta 1 píxel CSS, en lugar de depender de una altura fija que no coincide con la cabecera móvil.
+- Mantiene alineado el fondo oscuro con el panel lateral y recalcula al cambiar el tamaño u orientación de pantalla.
+- No se modificó Supabase ni el repositorio principal.
+
 ## V6.0.53beta — menú unido a la barra superior
 - Se elimina el padding superior interior del menú móvil para que el panel quede unido a la cabecera y «Inicio» aparezca desde el principio.
 - No se modificó Supabase ni el repositorio principal.
