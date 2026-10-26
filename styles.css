@@ -560,9 +560,9 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
  .brand-home-button .brand-version{font-size:11px;}
  .account-identity-name{max-width:100px;}
  /* El panel comienza justo debajo de la cabecera de la aplicación; no añade un gran hueco interior. */
-   .app-sidebar{top:94px;padding-top:0;}
+    .app-sidebar{top:var(--nexum-sidebar-top, 67px);padding-top:0;}
  .sidebar-nav{padding-top:0;}
-  .sidebar-backdrop{inset:94px 0 0;}
+   .sidebar-backdrop{inset:var(--nexum-sidebar-top, 67px) 0 0;}
 }
 
 
