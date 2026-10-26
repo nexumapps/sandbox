@@ -1,3 +1,7 @@
+## V6.0.52beta — corrección de escala del menú móvil
+- Reduce el desplazamiento superior del panel y del fondo oscuro de 164 a 94 CSS px para alinearlos con la cabecera visible en móvil.
+- No se modificó Supabase ni el repositorio principal.
+
 ## V6.0.51beta — posición del menú lateral móvil
 - El menú lateral empieza justo debajo de la cabecera de la aplicación; se elimina el hueco vertical excesivo.
 - El fondo oscurecido queda limitado al área situada bajo la cabecera.
