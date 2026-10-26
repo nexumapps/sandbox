@@ -1,3 +1,9 @@
+## V6.0.56beta — corregir recuperación de contraseña y versión de la app
+- Corrige los identificadores duplicados de los botones de recuperación: el botón de inicio abre el panel y el botón del panel envía la solicitud.
+- Alinea la constante interna, la versión de respaldo visible y `version.txt` en V6.0.56beta.
+- Invalida la caché anterior del JavaScript y del service worker para que el navegador reciba la corrección.
+- Solo Sandbox; no se modificó Supabase ni el repositorio principal.
+
 ## V6.0.55beta — ajuste fino del menú lateral
 - Baja el menú lateral 2 píxeles CSS respecto a V6.0.54beta, manteniendo el cálculo dinámico según el borde real de la barra superior.
 - No se modificó Supabase ni el repositorio principal.
