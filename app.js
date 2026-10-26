@@ -1,4 +1,4 @@
-// V6.0.54beta: posición del menú calculada a partir de la altura real de la barra superior.\n// V6.0.50beta: sincronización local con elección online/local; cabecera compacta y menú móvil mejor espaciado.
+// V6.0.55beta: posición del menú calculada a partir de la altura real de la barra superior.\n// V6.0.50beta: sincronización local con elección online/local; cabecera compacta y menú móvil mejor espaciado.
 // V6.0.49beta: decisión explícita al recuperar conexión, identidad local visible y sincronización pausada en modo local.
 // V6.0.48beta: acceso local explícito sin sesión para trabajar sin conexión en el taller previamente configurado.
 // V6.0.47beta: consulta remota incremental cada 30 s y envío automático silencioso de cambios locales.
@@ -233,7 +233,7 @@ function nextMovementId(){let id;do{id=uniqueVisibleId("ECN-X")}while(movements.
 function show(view){const target=$(view);if(!target)return;document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));target.classList.add("active");document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x.dataset.view===view));if(view==="cola")renderQueue();if(view==="historico")renderHistory();if(view==="estadisticas")renderStatistics();if(view==="economia")renderEconomy();if(view==="configuracion"){closeSettingsPanel();renderSettings();}if(window.matchMedia("(max-width: 900px)").matches)setSidebarOpen(false)}
 document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>show(b.dataset.view));document.querySelectorAll("[data-view-target]").forEach(b=>b.onclick=()=>show(b.dataset.viewTarget));
 // V6.0.54beta: alinear el borde superior del menú exactamente 1 CSS px por encima del final real de la barra.
-function syncSidebarTop(){const bar=document.querySelector(".topbar");if(!bar)return;const bottom=bar.getBoundingClientRect().bottom;document.documentElement.style.setProperty("--nexum-sidebar-top",Math.max(0,bottom-1)+"px")}
+function syncSidebarTop(){const bar=document.querySelector(".topbar");if(!bar)return;const bottom=bar.getBoundingClientRect().bottom;document.documentElement.style.setProperty("--nexum-sidebar-top",Math.max(0,bottom+1)+"px")}
 syncSidebarTop();window.addEventListener("resize",syncSidebarTop,{passive:true});window.addEventListener("orientationchange",syncSidebarTop,{passive:true});
 if(typeof ResizeObserver!=="undefined"){const topbarForSidebar=document.querySelector(".topbar");if(topbarForSidebar)new ResizeObserver(syncSidebarTop).observe(topbarForSidebar)}
 function setSidebarOpen(open){const toggle=$("menuToggleBtn"),backdrop=$("sidebarBackdrop");if(!$("appSidebar")||!toggle||!backdrop)return;document.body.classList.toggle("sidebar-open",!!open);toggle.setAttribute("aria-expanded",String(!!open));toggle.setAttribute("aria-label",open?"Cerrar menú":"Abrir menú");toggle.title=open?"Cerrar menú":"Abrir menú";backdrop.hidden=!open||!window.matchMedia("(max-width: 900px)").matches}
