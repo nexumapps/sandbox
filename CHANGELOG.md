@@ -1,3 +1,7 @@
+## V6.0.53beta — menú unido a la barra superior
+- Se elimina el padding superior interior del menú móvil para que el panel quede unido a la cabecera y «Inicio» aparezca desde el principio.
+- No se modificó Supabase ni el repositorio principal.
+
 ## V6.0.52beta — corrección de escala del menú móvil
 - Reduce el desplazamiento superior del panel y del fondo oscuro de 164 a 94 CSS px para alinearlos con la cabecera visible en móvil.
 - No se modificó Supabase ni el repositorio principal.
