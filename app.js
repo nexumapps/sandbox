@@ -2,7 +2,7 @@
 // V6.0.49beta: decisión explícita al recuperar conexión, identidad local visible y sincronización pausada en modo local.
 // V6.0.48beta: acceso local explícito sin sesión para trabajar sin conexión en el taller previamente configurado.
 // V6.0.47beta: consulta remota incremental cada 30 s y envío automático silencioso de cambios locales.
-const APP_VERSION="6.0.59beta";
+const APP_VERSION="6.0.60beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -417,9 +417,53 @@ function examine(ticketId,edit=false){const x=data.find(a=>a.ticketId===ticketId
 function detailView(x){const fields=["ticketId","equipoId","fechaEntrada","fechaSalida","cliente","cid","contacto","equipo","modelo","categoria","origen","referido","problema","diagnostico","tecnico","estado","inversion","precio","accesorios","notas"];let actions=`<div class="actions" style="margin-top:14px"><button class="primary" onclick="enableEdit('${escAttr(x.ticketId)}')">Habilitar edición</button><button class="danger" onclick="deleteCase('${escAttr(x.ticketId)}')">Borrar</button>`;if(x.estado==="Entregado / Conforme")actions+=`<button class="secondary" onclick="newWarranty('${escAttr(x.ticketId)}')">↩ Reabrir por garantía</button>`;actions+=`<button class="secondary" onclick="openEconomyTicket('${escAttr(x.ticketId)}')">$ Economía</button></div>`;return `<div class="detailgrid">${fields.map(k=>`<div class="detailitem"><small>${pretty(k)}</small><div class="detail-notes">${k.includes("fecha")?esc(displayDate(x[k])):esc(x[k]??"—")||"—"}</div></div>`).join("")}</div>${x.garantia?`<div class="card innercard"><b>Garantía:</b> ingreso presentado como posible garantía de un trabajo anterior.${x.ticketGarantiaOrigen?`<p>Ticket original: <b>${esc(x.ticketGarantiaOrigen)}</b></p>`:""}${x.ticketGarantiaOrigen?`<p>${esc(warrantySummary(data.find(a=>a.ticketId===x.ticketGarantiaOrigen)||{}))}</p>`:""}</div>`:""}<div class="card innercard"><h3>Garantía concedida al cliente</h3>${warrantyDetails(x)}</div><div class="card innercard"><h3>Fotos del equipo</h3><div id="detailPhotos" class="photo-preview"></div></div>${actions}`}
 function editForm(x){let fields=["fechaEntrada","fechaSalida","cliente","contacto","equipo","modelo","origen","referido","problema","diagnostico","tecnico","inversion","margen","precio","accesorios","notas"];let html=`<div class="edit-form"><label class="checkline"><input id="ed_garantia" type="checkbox" ${x.garantia?"checked":""}> Garantía — este ingreso puede corresponder a un trabajo anterior de NEXUM</label><div class="two"><label>Categoría<select id="ed_categoria">${categories.map((c,i)=>`<option value="${escAttr(c)}" ${x.categoria===c?"selected":(!x.categoria&&i===0?"selected":"")}>${esc(c)}</option>`).join("")}</select></label><label>Estado<select id="ed_estado">${statuses.map(s=>`<option ${x.estado===s?"selected":""}>${esc(s)}</option>`).join("")}</select></label></div>`;for(const k of fields){let type=["inversion","margen","precio"].includes(k)?"number":k.includes("fecha")?"date":k==="diagnostico"||k==="problema"||k==="notas"?"textarea":"text";let val=esc(x[k]??"");let hasInvestment=x.inversion!==""&&Number.isFinite(Number(x.inversion))&&Number(x.inversion)>0;let ph=k==="margen"&&val===""&&hasInvestment?suggestedMargin(x.inversion):k==="precio"&&val===""&&hasInvestment?suggestedPrice(x.inversion):k==="inversion"?"Costo real del trabajo":"";html+=`<label>${pretty(k)}${type==="textarea"?`<textarea id="ed_${k}">${val}</textarea>`:`<input id="ed_${k}" type="${type}" value="${val}" placeholder="${escAttr(ph)}">`}</label>`}html+=`<label>CID<input id="ed_cid" type="text" value="${esc(x.cid||"")}" autocomplete="off" placeholder="Carné de identidad (opcional)"></label><div class="card innercard warranty-config"><h3>Garantía concedida al cliente</h3><label class="checkline"><input id="ed_garantiaConcedida" type="checkbox" ${x.garantiaConcedida?"checked":""}> Conceder garantía al entregar</label><div class="warranty-duration-row"><label>Duración<input id="ed_garantiaDuracion" type="number" min="1" step="1" inputmode="numeric" value="${escAttr(x.garantiaDuracion||"30")}"></label><label>Unidad<select id="ed_garantiaUnidad">${["días","semanas","meses","año"].map(u=>`<option ${((x.garantiaUnidad||"días")===u)?"selected":""}>${u}</option>`).join("")}</select></label></div><small class="field-help">La garantía comienza automáticamente en la fecha de salida/entrega. El vencimiento se calcula al guardar. Esta garantía concedida es distinta de la casilla de posible reclamación.</small></div>`;return html+`<div class="two"><label>Moneda<select id="ed_moneda" onchange="$('ed_tasa').disabled=this.value==='USD';if(this.value!=='USD'&&!$('ed_tasa').value)$('ed_tasa').value=rememberedRate()"><option ${x.moneda!=="USD"?"selected":""}>CUP</option><option ${x.moneda==="USD"?"selected":""}>USD</option></select></label><label>Cambio monetario actual<input id="ed_tasa" type="number" min="0" step="0.01" value="${escAttr(x.tasa||rememberedRate())}" ${x.moneda==="USD"?"disabled":""}></label></div><small class="field-help">Si cambias la tasa, se guarda como nueva tasa actual y esta operación conserva la tasa que acabas de establecer.</small><div class="actions"><button class="primary" onclick="saveEdit('${escAttr(x.ticketId)}')">Guardar cambios</button><button class="secondary" onclick="examine('${escAttr(x.ticketId)}')">Volver a examinar</button></div></div>`}
 function enableEdit(ticketId){examine(ticketId,true)}
-function saveEdit(ticketId){let x=data.find(a=>a.ticketId===ticketId);if(!x)return;if(!confirm("¿Confirmas guardar los cambios de este caso?"))return;const oldState=x.estado;const fields=["fechaEntrada","fechaSalida","cliente","contacto","equipo","modelo","origen","referido","problema","diagnostico","tecnico","accesorios","notas"];for(const k of fields)x[k]=$("ed_"+k).value;x.cid=$("ed_cid").value.trim();x.categoria=$("ed_categoria").value;x.estado=$("ed_estado").value;x.garantia=$("ed_garantia").checked; const invRaw=$("ed_inversion").value,marginRaw=$("ed_margen").value,priceRaw=$("ed_precio").value; x.inversion=invRaw===""?"":Number(invRaw); x.margen=marginRaw===""?"":Number(marginRaw); x.precio=priceRaw===""?"":Number(priceRaw); if(x.inversion!==""&&x.precio!==""){const editGross=x.precio-x.inversion;if(editGross<0&&x.margen!=="")x.margen=0;else if(x.margen!==""&&x.margen>editGross)x.margen=Math.max(0,editGross);}let cur=$("ed_moneda").value,rate=cur==="USD"?1:Number($("ed_tasa").value||0);if(cur!=="USD"&&!(rate>0)){alert("Para CUP debes indicar el cambio monetario.");return}x.moneda=cur;x.tasa=rate;if(cur!=="USD")rememberRate(rate);
-const grant=$("ed_garantiaConcedida").checked;const duration=Number($("ed_garantiaDuracion").value||0);const unit=$("ed_garantiaUnidad").value;if(grant&&x.estado!=="Entregado / Conforme"){alert("Para conceder una garantía, cambia el estado a Entregado / Conforme.");return}if(grant&&(!Number.isFinite(duration)||duration<1)){alert("Indica una duración válida para la garantía.");return}if(grant){if(!x.fechaSalida)x.fechaSalida=today();const startDate=x.fechaSalida;x.garantiaConcedida=true;x.garantiaDuracion=duration;x.garantiaUnidad=unit;x.garantiaInicio=startDate;x.garantiaVencimiento=addWarrantyDuration(startDate,duration,unit);}else{x.garantiaConcedida=false;x.garantiaDuracion="";x.garantiaUnidad="meses";x.garantiaInicio="";x.garantiaVencimiento="";}
-if(!validateFinal(x))return;save();$("detailDialog").close();if(oldState!==x.estado&&x.estado==="Entregado / Conforme"&&!x.garantiaConcedida)alert("Ticket entregado. Si corresponde, vuelve a editarlo para registrar una garantía concedida al cliente.");}
+// V6.0.60beta: editar sobre una copia temporal y confirmar el registro solo tras superar todas las validaciones.
+function saveEdit(ticketId){
+ let x=data.find(a=>a.ticketId===ticketId);
+ if(!x)return;
+ if(!confirm("¿Confirmas guardar los cambios de este caso?"))return;
+ const oldState=x.estado;
+ const draft={...x};
+ const fields=["fechaEntrada","fechaSalida","cliente","contacto","equipo","modelo","origen","referido","problema","diagnostico","tecnico","accesorios","notas"];
+ for(const k of fields)draft[k]=$("ed_"+k).value;
+ draft.cid=$("ed_cid").value.trim();
+ draft.categoria=$("ed_categoria").value;
+ draft.estado=$("ed_estado").value;
+ draft.garantia=$("ed_garantia").checked;
+ const invRaw=$("ed_inversion").value,marginRaw=$("ed_margen").value,priceRaw=$("ed_precio").value;
+ draft.inversion=invRaw===""?"":Number(invRaw);
+ draft.margen=marginRaw===""?"":Number(marginRaw);
+ draft.precio=priceRaw===""?"":Number(priceRaw);
+ if(draft.inversion!==""&&draft.precio!==""){
+  const editGross=draft.precio-draft.inversion;
+  if(editGross<0&&draft.margen!=="")draft.margen=0;
+  else if(draft.margen!==""&&draft.margen>editGross)draft.margen=Math.max(0,editGross);
+ }
+ const cur=$("ed_moneda").value,rate=cur==="USD"?1:Number($("ed_tasa").value||0);
+ if(cur!=="USD"&&!(rate>0)){alert("Para CUP debes indicar el cambio monetario.");return}
+ draft.moneda=cur;draft.tasa=rate;
+ const grant=$("ed_garantiaConcedida").checked;
+ const duration=Number($("ed_garantiaDuracion").value||0);
+ const unit=$("ed_garantiaUnidad").value;
+ if(grant&&draft.estado!=="Entregado / Conforme"){alert("Para conceder una garantía, cambia el estado a Entregado / Conforme.");return}
+ if(grant&&(!Number.isFinite(duration)||duration<1)){alert("Indica una duración válida para la garantía.");return}
+ if(grant){
+  if(!draft.fechaSalida)draft.fechaSalida=today();
+  const startDate=draft.fechaSalida;
+  draft.garantiaConcedida=true;draft.garantiaDuracion=duration;draft.garantiaUnidad=unit;
+  draft.garantiaInicio=startDate;draft.garantiaVencimiento=addWarrantyDuration(startDate,duration,unit);
+ }else{
+  draft.garantiaConcedida=false;draft.garantiaDuracion="";draft.garantiaUnidad="meses";
+  draft.garantiaInicio="";draft.garantiaVencimiento="";
+ }
+ if(!validateFinal(draft))return;
+ // Confirmación atómica: el registro original no cambia hasta completar todas las validaciones.
+ Object.assign(x,draft);
+ if(cur!=="USD")rememberRate(rate);
+ save();
+ $("detailDialog").close();
+ if(oldState!==x.estado&&x.estado==="Entregado / Conforme"&&!x.garantiaConcedida)alert("Ticket entregado. Si corresponde, vuelve a editarlo para registrar una garantía concedida al cliente.");
+}
 
 function deleteCase(ticketId){if(!confirm("ATENCIÓN: ¿Seguro que quieres borrar este registro? Esta acción no se puede deshacer."))return;const target=data.find(x=>x.ticketId===ticketId);if(target)queueLocalDelete("ticket",target,ticketId);data=data.filter(x=>x.ticketId!==ticketId);save();if($("detailDialog").open)$("detailDialog").close()}
 function newWarranty(ticketId){let old=data.find(x=>x.ticketId===ticketId);if(!old)return;if(!confirm(`¿Reabrir el ticket ${old.ticketId}?\n\nAceptar = Sí, reabrir.\nCancelar = No, mantenerlo cerrado.`))return;const isWarranty=confirm(`¿El nuevo ingreso es por garantía?\n\nAceptar = Sí, vincular con ${old.ticketId}.\nCancelar = No, crear un ingreso normal.`);loadWarrantyForm(old,isWarranty)}
