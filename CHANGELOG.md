@@ -1,3 +1,9 @@
+## V6.0.58beta — corregir destino y diagnóstico de recuperación
+- La solicitud de recuperación indica la URL de Sandbox como destino, evitando que el enlace nuevo vuelva por defecto a Main.
+- Si Supabase rechaza el cambio de contraseña, la interfaz muestra el detalle disponible del error en vez de ocultarlo con un mensaje genérico.
+- Se renuevan la versión y la caché de la PWA.
+- Solo Sandbox; no se modificó Main ni la configuración de Supabase.
+
 ## V6.0.57beta — pantalla exclusiva para recuperación de contraseña
 - Cuando el enlace de recuperación se reconoce, se ocultan el encabezado de inicio de sesión y su contenido; queda visible el formulario de nueva contraseña.
 - El estado visual depende de la detección existente del enlace de recuperación; no se modificó la lógica de autenticación ni Supabase.
