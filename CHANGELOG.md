@@ -1,3 +1,9 @@
+## V6.0.61beta — garantía predeterminada de una semana
+- En la edición de tickets, una garantía nueva o aún no concedida propone 1 semana en lugar de 30 meses.
+- Se conserva la duración y unidad existentes cuando el ticket ya tiene una garantía concedida.
+- Se actualizan versión visible, referencia del JavaScript y caché PWA.
+- Solo Sandbox; Main y Supabase sin cambios.
+
 ## V6.0.60beta — edición segura con validación previa
 - La edición del Histórico trabaja sobre una copia temporal del ticket.
 - Si falla la validación de fecha de salida, técnico, moneda o garantía, el registro original permanece intacto y no se actualiza la tasa guardada.
