@@ -1,3 +1,9 @@
+## V6.0.57beta — pantalla exclusiva para recuperación de contraseña
+- Cuando el enlace de recuperación se reconoce, se ocultan el encabezado de inicio de sesión y su contenido; queda visible el formulario de nueva contraseña.
+- El estado visual depende de la detección existente del enlace de recuperación; no se modificó la lógica de autenticación ni Supabase.
+- Se renuevan las referencias de caché de la PWA.
+- Solo Sandbox; Main y Supabase sin cambios.
+
 ## V6.0.56beta — corregir recuperación de contraseña y versión de la app
 - Corrige los identificadores duplicados de los botones de recuperación: el botón de inicio abre el panel y el botón del panel envía la solicitud.
 - Alinea la constante interna, la versión de respaldo visible y `version.txt` en V6.0.56beta.
