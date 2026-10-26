@@ -1,3 +1,9 @@
+## V6.0.59beta — clave pública vigente para recuperación
+- Las peticiones de envío y aplicación de recuperación usan la clave pública `sb_publishable` activa del proyecto, en vez de la clave heredada que devolvía «Invalid API key» al actualizar la contraseña.
+- Se conserva el destino explícito de Sandbox y el diagnóstico detallado de errores.
+- Se actualizan versión visible, referencia del JavaScript y caché PWA.
+- Solo Sandbox; no se modificó Main ni se cambiaron datos o funciones de Supabase.
+
 ## V6.0.58beta — corregir destino y diagnóstico de recuperación
 - La solicitud de recuperación indica la URL de Sandbox como destino, evitando que el enlace nuevo vuelva por defecto a Main.
 - Si Supabase rechaza el cambio de contraseña, la interfaz muestra el detalle disponible del error en vez de ocultarlo con un mensaje genérico.
