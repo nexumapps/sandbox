@@ -1,3 +1,8 @@
+## V6.0.62beta — corregir el contador de días de garantía
+- Calcula los días restantes comparando fechas de calendario, evitando el día adicional que podía aparecer al contar hasta las 23:59:59.
+- El día de vencimiento sigue considerándose vigente y se muestra como «Vence hoy»; la garantía solo se marca vencida a partir del día siguiente.
+- Actualiza la versión de la aplicación, el recurso JavaScript y la caché del service worker para que los dispositivos reciban la corrección.
+
 ## V6.0.61beta — garantía predeterminada de una semana
 - En la edición de tickets, una garantía nueva o aún no concedida propone 1 semana en lugar de 30 meses.
 - Se conserva la duración y unidad existentes cuando el ticket ya tiene una garantía concedida.
