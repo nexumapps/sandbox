@@ -2,7 +2,7 @@
 // V6.0.49beta: decisión explícita al recuperar conexión, identidad local visible y sincronización pausada en modo local.
 // V6.0.48beta: acceso local explícito sin sesión para trabajar sin conexión en el taller previamente configurado.
 // V6.0.47beta: consulta remota incremental cada 30 s y envío automático silencioso de cambios locales.
-// V6.0.61beta: garantía concedida con valor inicial de 1 semana; conserva unidades ya registradas.\nconst APP_VERSION="6.0.61beta";
+// V6.0.61beta: garantía concedida con valor inicial de 1 semana; conserva unidades ya registradas.\nconst APP_VERSION="6.0.62beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -367,8 +367,11 @@ function warrantyStatus(x){
  const now=new Date();
  const localToday=[now.getFullYear(),String(now.getMonth()+1).padStart(2,"0"),String(now.getDate()).padStart(2,"0")].join("-");
  if(localToday<x.garantiaInicio)return {kind:"pending",left:null,label:`Inicia ${displayDate(x.garantiaInicio)}`};
- const left=Math.ceil((new Date(x.garantiaVencimiento+"T23:59:59")-now)/86400000);
+ // Compara fechas de calendario, no horas: contar hasta las 23:59 añadía un día extra.
+ const toDayNumber=s=>{const [y,m,d]=String(s).split("-").map(Number);return Date.UTC(y,m-1,d)/86400000;};
+ const left=toDayNumber(x.garantiaVencimiento)-toDayNumber(localToday);
  if(left<0)return {kind:"expired",left,label:"Garantía vencida"};
+ if(left===0)return {kind:"active",left,label:"Vence hoy"};
  return {kind:"active",left,label:`${left} ${left===1?"día":"días"} restantes`};
 }
 function warrantySummary(x){if(!x?.garantiaConcedida||!x.garantiaVencimiento)return "El ticket original no tiene una garantía registrada.";const status=warrantyStatus(x);const state=status?.kind==="pending"?`comienza el ${displayDate(x.garantiaInicio)}`:status?.kind==="expired"?`vencida hace ${Math.abs(status.left)} día(s)`:status?.kind==="unknown"?"sin fechas completas":`restan ${status.left} día(s)`;return `Garantía original: ${x.garantiaDuracion} ${x.garantiaUnidad}; vence ${displayDate(x.garantiaVencimiento)}; ${state}.`}
