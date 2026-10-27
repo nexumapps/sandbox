@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#102a43"><meta name="description" content="Gestión local del taller NEXUM"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="NEXUM"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-<title>NEXUM — Taller · V6.0.62beta</title>
+<title>NEXUM — Taller · V6.0.63beta</title>
 <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png" type="image/png"><link rel="stylesheet" href="styles.css?v=115">
 </head>
 <body class="auth-locked">
@@ -42,7 +42,7 @@
 <section id="nuevo" class="view"><div class="card"><h2>Nuevo equipo</h2><p class="muted">Solo Cliente, Contacto y Equipo son obligatorios para crear el registro.</p>
 <form id="caseForm">
 <div class="two"><label>ID equipo<input id="id" placeholder="Ej.: EQ-0001"></label><label>Ticket<input id="ticketId" readonly></label></div>
-<div class="two"><label>Fecha de entrada<input id="fechaEntrada" type="date"></label><label>Fecha de salida<input id="fechaSalida" type="date"></label></div>
+<div class="two"><label>Fecha de entrada<input id="fechaEntrada" type="date"></label><label>Fecha de salida<div class="date-clear-row"><input id="fechaSalida" type="date"><button type="button" class="secondary" onclick="$('fechaSalida').value=''">Borrar fecha</button></div></label></div>
 <label>Cliente*<input id="cliente" required autocomplete="off" list="clientSuggestions"></label>
 <label>CID<input id="cid" autocomplete="off" list="clientSuggestions" placeholder="Carné de identidad (opcional)"></label>
 <label>Contacto*<input id="contacto" required autocomplete="off" list="clientSuggestions"></label>
@@ -125,5 +125,5 @@
 <dialog id="economyDialog"><div class="card dialogcard"><button class="close" onclick="$('economyDialog').close()">×</button><h2 id="economyDialogTitle">Economía</h2><div id="economyDialogBody"></div></div></dialog>
 <dialog id="movementDialog"><div class="card dialogcard"><button class="close" onclick="$('movementDialog').close()">×</button><h2 id="movementDialogTitle">Movimiento</h2><div id="movementDialogBody"></div></div></dialog>
 <script src="sync-core.js"></script>
-<script src="app.js?v=134"></script>
+<script src="app.js?v=135"></script>
 </body></html>
