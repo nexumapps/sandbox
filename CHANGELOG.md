@@ -1,3 +1,8 @@
+## V6.0.63beta — permitir borrar la fecha de salida
+- Añade un control explícito «Borrar fecha» en el ingreso y en la edición de tickets, útil también en móviles donde el selector de fecha no ofrece una opción clara para vaciar el campo.
+- Mantiene intactas las validaciones existentes: un estado final requiere fecha de salida y una fecha de salida requiere estado final; borrar el campo no desactiva ni modifica esas reglas.
+- Actualiza las referencias de versión, JavaScript y caché para cargar el cambio.
+
 ## V6.0.62beta — corregir el contador de días de garantía
 - Calcula los días restantes comparando fechas de calendario, evitando el día adicional que podía aparecer al contar hasta las 23:59:59.
 - El día de vencimiento sigue considerándose vigente y se muestra como «Vence hoy»; la garantía solo se marca vencida a partir del día siguiente.
