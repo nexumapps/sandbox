@@ -1,3 +1,9 @@
+## V6.0.68beta — cancelar edición de tickets
+- Añade el botón «Cancelar» junto a «Guardar cambios» en la edición del Histórico.
+- Cancelar descarta los cambios temporales y vuelve a «Examinar» con el registro original intacto; la X superior sigue cerrando el diálogo.
+- No cambia las validaciones ni la lógica de guardado. Actualiza versión visible, referencia de JavaScript y caché PWA.
+- Solo Sandbox; Main y Supabase sin cambios.
+
 ## V6.0.67beta — vincular todos los reingresos con su ticket anterior
 - Guarda `ticketReingresoOrigen` para reingresos normales y por garantía, manteniendo el Equipo ID y creando un Ticket ID nuevo.
 - En «Examinar» muestra el ticket anterior cuando el ingreso es un reingreso.
