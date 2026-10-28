@@ -1,3 +1,9 @@
+## V6.0.67beta — vincular todos los reingresos con su ticket anterior
+- Guarda `ticketReingresoOrigen` para reingresos normales y por garantía, manteniendo el Equipo ID y creando un Ticket ID nuevo.
+- En «Examinar» muestra el ticket anterior cuando el ingreso es un reingreso.
+- `ticketGarantiaOrigen` sigue reservado para reingresos por garantía; no se alteran los registros anteriores ni la lógica de concesión de garantías.
+- Actualiza la versión visible, la referencia de JavaScript y la caché PWA.
+
 ## V6.0.65beta — corregir vencimientos al final de mes
 - Al sumar meses o años a una fecha de garantía, el día se limita al último día válido del mes destino (por ejemplo, 31 de enero + 1 mes = 28/29 de febrero según el año).
 - Los cálculos en días y semanas y la regla de incluir el propio día de vencimiento se mantienen.
