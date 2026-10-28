@@ -1,3 +1,9 @@
+## V6.0.64beta — evitar cambios de tasa si falla el ingreso
+- La validación de fecha de salida, técnico y estado final ocurre antes de actualizar la tasa de cambio recordada.
+- Si el formulario de ingreso no supera la validación, no se añade el ticket ni se modifica la tasa recordada.
+- Se mantiene la lógica de validación existente y la edición atómica introducida en V6.0.60beta.
+- Actualiza versión visible, referencia de JavaScript y caché PWA.
+
 ## V6.0.63beta — permitir borrar la fecha de salida
 - Añade un control explícito «Borrar fecha» en el ingreso y en la edición de tickets, útil también en móviles donde el selector de fecha no ofrece una opción clara para vaciar el campo.
 - Mantiene intactas las validaciones existentes: un estado final requiere fecha de salida y una fecha de salida requiere estado final; borrar el campo no desactiva ni modifica esas reglas.
