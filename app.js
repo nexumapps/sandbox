@@ -3,7 +3,8 @@
 // V6.0.48beta: acceso local explícito sin sesión para trabajar sin conexión en el taller previamente configurado.
 // V6.0.47beta: consulta remota incremental cada 30 s y envío automático silencioso de cambios locales.
 // V6.0.61beta: garantía concedida con valor inicial de 1 semana; conserva unidades ya registradas.\n// V6.0.64beta: no actualizar la tasa recordada si falla la validación del ingreso.
-const APP_VERSION="6.0.64beta";
+// V6.0.65beta: limitar el día al último del mes al sumar meses o años de garantía.
+const APP_VERSION="6.0.65beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
@@ -355,7 +356,7 @@ function refreshClientSuggestions(){
 }
 function clearForm(){warrantyEditId=null;$("caseForm").reset();refreshClientSuggestions();$("id").readOnly=false;$("id").value=nextId();$("ticketId").value=nextTicketId();$("ticketId").readOnly=true;$("fechaEntrada").value=today();$("estado").value="En espera de diagnóstico";$("categoria").value="";$("moneda").value="CUP";$("tasa").value=rememberedRate();$("tasa").disabled=false;updatePricingSuggestions()}
 function loadWarrantyForm(old,isWarranty){warrantyEditId=old.ticketId;$("id").readOnly=false;$("id").value=old.equipoId||nextId();$("ticketId").value=nextTicketId();$("ticketId").readOnly=true;$("fechaEntrada").value=today();$("cliente").value=old.cliente||"";$("cid").value=old.cid||"";$("contacto").value=old.contacto||"";$("equipo").value=old.equipo||"";$("modelo").value=old.modelo||"";$("categoria").value=old.categoria||"Sin definir";$("origen").value=old.origen||"Particular";$("referido").value=old.referido||"";$("problema").value="";$("diagnostico").value="";$("tecnico").value=old.tecnico||"";$("estado").value="En espera de diagnóstico";$("inversion").value="";$("margen").value="";$("precio").value="";$("garantia").checked=!!isWarranty;updatePricingSuggestions();$("accesorios").value=old.accesorios||"";$("notas").value=isWarranty?`Reingreso por garantía del ticket ${old.ticketId}`:"Reingreso normal del equipo";$("moneda").value=old.moneda||"CUP";$("tasa").value=old.tasa||rememberedRate();$("tasa").disabled=$("moneda").value==="USD";$("detailDialog").open&&$("detailDialog").close();show("nuevo");if(isWarranty)alert(`Reingreso por garantía. Ticket original: ${old.ticketId}. ${warrantySummary(old)}`);}
-function addWarrantyDuration(date,amount,unit){const d=new Date((date||today())+"T12:00:00");const n=Math.max(0,Number(amount)||0);if(unit==="días")d.setDate(d.getDate()+n);else if(unit==="semanas")d.setDate(d.getDate()+7*n);else if(unit==="meses")d.setMonth(d.getMonth()+n);else if(unit==="año")d.setFullYear(d.getFullYear()+n);return d.toISOString().slice(0,10)}
+function addWarrantyDuration(date,amount,unit){const d=new Date((date||today())+"T12:00:00");const n=Math.max(0,Number(amount)||0);if(unit==="días")d.setDate(d.getDate()+n);else if(unit==="semanas")d.setDate(d.getDate()+7*n);else if(unit==="meses"||unit==="año"){const day=d.getDate();if(unit==="meses")d.setDate(1),d.setMonth(d.getMonth()+n);else d.setDate(1),d.setFullYear(d.getFullYear()+n);const lastDay=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();d.setDate(Math.min(day,lastDay));}return d.toISOString().slice(0,10)}
 /**
  * Estado único de la garantía concedida al cliente.
  * Centraliza el cálculo para que la tarjeta, el detalle y el resumen de reingreso
