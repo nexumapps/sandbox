@@ -1,3 +1,8 @@
+## V6.0.65beta — corregir vencimientos al final de mes
+- Al sumar meses o años a una fecha de garantía, el día se limita al último día válido del mes destino (por ejemplo, 31 de enero + 1 mes = 28/29 de febrero según el año).
+- Los cálculos en días y semanas y la regla de incluir el propio día de vencimiento se mantienen.
+- Actualiza versión visible, referencia de JavaScript y caché PWA.
+
 ## V6.0.64beta — evitar cambios de tasa si falla el ingreso
 - La validación de fecha de salida, técnico y estado final ocurre antes de actualizar la tasa de cambio recordada.
 - Si el formulario de ingreso no supera la validación, no se añade el ticket ni se modifica la tasa recordada.
