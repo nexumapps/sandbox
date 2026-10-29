@@ -1,0 +1,36 @@
+name: Sandbox backup identity guard
+
+on:
+  push:
+    paths:
+      - 'app.js'
+      - 'index.html'
+      - 'sw.js'
+      - 'version.txt'
+      - 'CHANGELOG.md'
+      - 'tests/backup-identity-contract.test.cjs'
+      - '.github/workflows/backup-identity-guard.yml'
+  pull_request:
+    paths:
+      - 'app.js'
+      - 'index.html'
+      - 'sw.js'
+      - 'version.txt'
+      - 'CHANGELOG.md'
+      - 'tests/backup-identity-contract.test.cjs'
+      - '.github/workflows/backup-identity-guard.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup-identity-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check backup identity contract
+        run: node tests/backup-identity-contract.test.cjs
