@@ -27,6 +27,7 @@ const restoreHandler = app.slice(restoreStart);
 assert.match(restoreHandler, /p\.workshop\.id==="__unassigned__"/, 'Restauración debe rechazar backups sin identidad verificable');
 assert.match(restoreHandler, /p\.workshop\.id!==ACTIVE_WORKSHOP_CONTEXT/, 'Restauración debe rechazar otro taller');
 assert.match(html, /NEXUM — Taller · V6\.0\.70beta/);
+assert.match(html, /id="appVersion" class="brand-version">V6\.0\.70beta<\/small>/, 'La versión de respaldo sin conexión debe coincidir con version.txt');
 assert.match(html, /app\.js\?v=141/);
 assert.match(sw, /nexum-v151/);
 assert.match(sw, /app\.js\?v=141/);
