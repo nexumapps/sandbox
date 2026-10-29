@@ -1,0 +1,42 @@
+name: Backup smoke tests
+
+on:
+  push:
+    branches: [backup-validation]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  operational-backup-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout sandbox test branch
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Serve sandbox app locally
+        run: |
+          python3 -m http.server 4173 --directory . > /tmp/nexum-http.log 2>&1 &
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:4173/index.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/nexum-http.log
+          exit 1
+
+      - name: Test operational backup and restore
+        run: node tests/backup-smoke.test.cjs
