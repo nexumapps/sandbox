@@ -7,7 +7,8 @@
 // V6.0.66beta: distinguir el aviso de reingreso normal del reingreso por garantía.
 // V6.0.68beta: añadir Cancelar a la edición para descartar cambios y volver a Examinar.
 // V6.0.67beta: guardar y mostrar el ticket de origen de cualquier tipo de reingreso.
-const APP_VERSION="6.0.68beta";
+// V6.0.69beta: identificar el taller en las copias y bloquear restauraciones entre talleres.
+const APP_VERSION="6.0.69beta";
 // V6.0-dev-v69: ficha compacta con fecha y equipo/cliente separados, métricas financieras repartidas a todo el ancho y técnico abreviado junto a la acción.
 // V6.0-dev-v66: el ticket ID ocupa toda la fila superior de la tarjeta económica y admite saltos de línea en IDs largos.
 // V6.0-dev-v65: mostrar el técnico responsable en la lista de Contabilidad y en su ficha económica sin alterar los datos económicos.
