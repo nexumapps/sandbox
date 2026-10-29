@@ -1,3 +1,10 @@
+## V6.0.70beta — impedir copias sin identidad de taller
+- El botón «Crear copia» bloquea la exportación si el dispositivo no tiene un taller asignado de forma verificable.
+- Evita generar archivos con `workshop.id = "__unassigned__"`, que luego no podrían restaurarse con seguridad.
+- Se conserva la regla existente que bloquea restaurar una copia en un taller distinto.
+- Actualiza versión, referencia del JavaScript y caché PWA.
+- Solo Sandbox; Main y Supabase sin cambios.
+
 ## V6.0.68beta — cancelar edición de tickets
 - Añade el botón «Cancelar» junto a «Guardar cambios» en la edición del Histórico.
 - Cancelar descarta los cambios temporales y vuelve a «Examinar» con el registro original intacto; la X superior sigue cerrando el diálogo.
