@@ -90,7 +90,9 @@ const { chromium } = require("playwright");
     console.log("PASS: photo export uses the expected independent format");
 
     await page.locator("#importPhotosFile").setInputFiles(photosPath);
-    await page.waitForFunction(() => document.querySelector("#importPhotosFile").value === "", null, { timeout: 10000 });
+    for (let i = 0; i < 40 && !alerts.includes("Repositorio de fotos importado correctamente."); i++) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
     assert.ok(alerts.includes("Repositorio de fotos importado correctamente."), "photo import success alert not observed");
     console.log("PASS: photo export can be re-imported");
 
