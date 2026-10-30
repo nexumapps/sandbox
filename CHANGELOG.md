@@ -1,3 +1,10 @@
+## V6.0.71beta — mostrar correctamente el rol de Administrador Global
+- La ficha de perfil comprueba la autorización en el endpoint administrativo protegido y muestra «Administrador Global» cuando el usuario tiene un registro global activo.
+- Mantiene separado el rol operativo de `profiles.role`; no cambia el valor `customer` ni modifica permisos, usuarios o datos de Supabase.
+- Si la comprobación administrativa no está disponible o el usuario no es administrador global, conserva la etiqueta del rol operativo.
+- Actualiza versión, referencia del JavaScript y caché PWA.
+- Solo Sandbox; Main y Supabase sin cambios.
+
 ## V6.0.70beta — impedir copias sin identidad de taller
 - El botón «Crear copia» bloquea la exportación si el dispositivo no tiene un taller asignado de forma verificable.
 - Evita generar archivos con `workshop.id = "__unassigned__"`, que luego no podrían restaurarse con seguridad.
