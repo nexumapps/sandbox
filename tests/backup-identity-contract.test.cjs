@@ -35,7 +35,7 @@ assert.match(changelog, /V6\.0\.71beta — mostrar correctamente el rol de Admin
 
 console.log('PASS: versión, exportación con taller asignado, bloqueo de restauración cruzada y caché PWA.');
 
-assert.match(app, /functions\\/v1\\/nexum-global-admin/);
+assert.ok(app.includes('functions/v1/nexum-global-admin'));
 assert.match(app, /action:"list_global_admins"/);
 assert.match(app, /globalAdmin\?"Administrador Global"/);
 assert.match(changelog, /V6\.0\.71beta — mostrar correctamente el rol de Administrador Global/);
