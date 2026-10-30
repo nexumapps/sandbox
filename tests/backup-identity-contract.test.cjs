@@ -28,9 +28,9 @@ assert.match(restoreHandler, /p\.workshop\.id==="__unassigned__"/, 'Restauració
 assert.match(restoreHandler, /p\.workshop\.id!==ACTIVE_WORKSHOP_CONTEXT/, 'Restauración debe rechazar otro taller');
 assert.match(html, /NEXUM — Taller · V6\.0\.71beta/);
 assert.match(html, /id="appVersion" class="brand-version">V6\.0\.71beta<\/small>/, 'La versión de respaldo sin conexión debe coincidir con version.txt');
-assert.match(html, /app\.js\?v=141/);
+assert.match(html, /app\.js\?v=142/);
 assert.match(sw, /nexum-v152/);
-assert.match(sw, /app\.js\?v=141/);
+assert.match(sw, /app\.js\?v=142/);
 assert.match(changelog, /V6\.0\.71beta — mostrar correctamente el rol de Administrador Global/);
 
 console.log('PASS: versión, exportación con taller asignado, bloqueo de restauración cruzada y caché PWA.');
